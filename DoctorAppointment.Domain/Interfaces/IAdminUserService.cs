@@ -9,6 +9,6 @@ namespace DoctorAppointment.Domain.Interfaces
 {
     public interface IAdminUserService
     {
-        public Guid AddAdminUser(AdminUser adminUser);
+        public Guid AddAdminUser(Admin adminUser);
     }
 }

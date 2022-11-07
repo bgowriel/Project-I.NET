@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace DoctorAppointment.Domain.Models.Request
 {
-    public class AdminUser
+    public class Admin
     {
         public string Name { get; set; }
         public string? Phone { get; set; }

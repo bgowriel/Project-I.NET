@@ -11,5 +11,7 @@
 
         public User Patient { get; private set; }
 
+        public ServiceProvided ServiceProvided {get; set;}
+
     }
 }

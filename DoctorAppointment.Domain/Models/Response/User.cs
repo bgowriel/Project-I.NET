@@ -13,10 +13,9 @@ namespace DoctorAppointment.Domain.Models.Response
         public string? Email { get; set; }
         public string? Phone { get; set; }
         public string? Address { get; set; }
-
-        // TO DO: 
-        // add history etc.
-
+        public List<Appointment>? Appointments { get; set; }
+        public string? Role { get; set; }
+        public List<MedicalVisit>? MedicalVisits { get; set; }
 
     }
 }
