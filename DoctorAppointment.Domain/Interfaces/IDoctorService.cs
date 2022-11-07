@@ -9,6 +9,6 @@ namespace DoctorAppointment.Domain.Interfaces
 {
     public interface IDoctorService
     {
-        public Guid AddDoctor(Doctor doctor);
+        public Guid AddDoctor(DoctorRequest doctor);
     }
 }

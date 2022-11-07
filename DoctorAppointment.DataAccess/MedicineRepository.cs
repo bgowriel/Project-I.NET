@@ -5,7 +5,7 @@ namespace DoctorAppointment.DataAccess
 {
     public class MedicineRepository : IMedicineRepository
     {
-        public Guid AddMedicine(Medicine medicine)
+        public Guid AddMedicine(MedicineRequest medicine)
         {
             return new Guid();
         }

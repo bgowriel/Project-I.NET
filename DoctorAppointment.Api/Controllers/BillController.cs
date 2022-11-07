@@ -13,7 +13,7 @@ namespace DoctorAppointment.Api.Controllers
         }
 
         [HttpPost("bill")]
-        public ActionResult AddBill(Bill bill)
+        public ActionResult AddBill(BillRequest bill)
         {
             var result = _billService.AddBill(bill);
             return Ok(result);

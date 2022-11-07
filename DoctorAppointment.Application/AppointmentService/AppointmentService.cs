@@ -11,7 +11,7 @@ namespace DoctorAppointment.Application.AppointmentService
         {
             this.appointmentRepository = appointmentRepository;
         }
-        public Guid AddApointment(Appointment appointment)
+        public Guid AddApointment(AppointmentRequest appointment)
         {
             throw new NotImplementedException();
         }

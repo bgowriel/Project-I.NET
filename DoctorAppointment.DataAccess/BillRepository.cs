@@ -5,7 +5,7 @@ namespace DoctorAppointment.DataAccess
 {
     public class BillRepository : IBillRepository
     {
-        public Guid AddBill(Bill bill)
+        public Guid AddBill(BillRequest bill)
         {
             return new Guid();
         }

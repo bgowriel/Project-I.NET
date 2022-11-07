@@ -10,7 +10,7 @@ namespace DoctorAppointment.DataAccess
 {
     public class AdminUserRepository : IAdminUserRepository
     {
-        public Guid AddAdminUser(Admin adminUser)
+        public Guid AddAdminUser(AdminRequest adminUser)
         {
             return new Guid();
         }

@@ -12,7 +12,7 @@ namespace DoctorAppointment.Application.MedicalVisitService
             _medicalVisitRepository = medicalVisitRepository;
         }
 
-        public Guid AddMedicalVisit(MedicalVisit medicalVisit)
+        public Guid AddMedicalVisit(MedicalVisitRequest medicalVisit)
         {
             return _medicalVisitRepository.AddMedicalVisit(medicalVisit);
         }

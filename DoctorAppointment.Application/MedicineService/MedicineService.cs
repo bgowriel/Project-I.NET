@@ -10,7 +10,7 @@ namespace DoctorAppointment.Application.MedicineService
         {
             _medicineRepository = medicineRepository;
         }
-        public Guid AddMedicine(Medicine medicine)
+        public Guid AddMedicine(MedicineRequest medicine)
         {
             return _medicineRepository.AddMedicine(medicine);
         }

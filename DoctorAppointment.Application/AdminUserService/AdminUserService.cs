@@ -17,7 +17,7 @@ namespace DoctorAppointment.Application.AdminUserService
             _adminUserRepository = adminUserRepository;
         }
 
-        public Guid AddAdminUser(Admin adminUser)
+        public Guid AddAdminUser(AdminRequest adminUser)
         {
             return _adminUserRepository.AddAdminUser(adminUser);
         }

@@ -15,7 +15,7 @@ namespace DoctorAppointment.Api.Controllers
         }
 
         [HttpPost("appointment")]
-        public ActionResult AddAppointment(Appointment appointment)
+        public ActionResult AddAppointment(AppointmentRequest appointment)
         {
             var result = appointmentService.AddApointment(appointment);
             return Ok(result);

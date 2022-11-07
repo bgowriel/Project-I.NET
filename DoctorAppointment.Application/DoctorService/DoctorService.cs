@@ -17,7 +17,7 @@ namespace DoctorAppointment.Application.DoctorService
             _doctorRepository = doctorRepository;
         }
 
-        public Guid AddDoctor(Doctor doctor)
+        public Guid AddDoctor(DoctorRequest doctor)
         {
             return _doctorRepository.AddDoctor(doctor);
         }

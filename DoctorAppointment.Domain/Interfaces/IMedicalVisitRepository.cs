@@ -4,6 +4,6 @@ namespace DoctorAppointment.Domain.Interfaces
 {
     public interface IMedicalVisitRepository
     {
-        public Guid AddMedicalVisit(MedicalVisit medicalVisit);
+        public Guid AddMedicalVisit(MedicalVisitRequest medicalVisit);
     }
 }

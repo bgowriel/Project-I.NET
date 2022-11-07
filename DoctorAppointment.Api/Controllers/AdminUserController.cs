@@ -14,7 +14,7 @@ namespace DoctorAppointment.Api.Controllers
         }
 
         [HttpPost("admin")]
-        public ActionResult AddAdminUser(Admin adminUser)
+        public ActionResult AddAdminUser(AdminRequest adminUser)
         {
             var result = _adminUserService.AddAdminUser(adminUser);
 

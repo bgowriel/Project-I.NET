@@ -4,6 +4,6 @@ namespace DoctorAppointment.Domain.Interfaces
 {
     public interface IBillRepository
     {
-        public Guid AddBill(Bill bill);
+        public Guid AddBill(BillRequest bill);
     }
 }

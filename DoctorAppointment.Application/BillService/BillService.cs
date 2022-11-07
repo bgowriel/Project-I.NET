@@ -12,7 +12,7 @@ namespace DoctorAppointment.Application.BillService
             _billRepository = billRepository;
         }
 
-        public Guid AddBill(Bill bill)
+        public Guid AddBill(BillRequest bill)
         {
             return _billRepository.AddBill(bill);
         }

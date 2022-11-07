@@ -12,7 +12,7 @@ namespace DoctorAppointment.Application.UserService
             _userRepository = userRepository;
         }
 
-        public Guid AddUser(User user)
+        public Guid AddUser(UserRequest user)
         {
             return _userRepository.AddUser(user);
         }

@@ -5,7 +5,7 @@ namespace DoctorAppointment.DataAccess
 {
     public class UserRepository : IUserRepository
     {
-        public Guid AddUser(User user)
+        public Guid AddUser(UserRequest user)
         {
             return new Guid();
         }
