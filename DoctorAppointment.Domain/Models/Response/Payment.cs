@@ -1,6 +1,6 @@
 ﻿using DoctorAppointment.Domain.Models.Request;
 
-namespace DoctorAppointment.Domain.Models
+namespace DoctorAppointment.Domain.Models.Response
 {
     public class Payment
     {

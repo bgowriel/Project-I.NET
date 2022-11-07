@@ -20,6 +20,6 @@ namespace DoctorAppointment.Domain.Models.Request
         private string? BankAccount { get; set; }
         public string? Status { get; set; } //Working, Not Working, On Vacation etc.
         public List<User>? Patients { get; set; }
-        //public List<Appointment>? Appointments { get; set; }
+        public List<Appointment>? Appointments { get; set; }
     }
 }
