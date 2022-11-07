@@ -1,3 +1,5 @@
+using DoctorAppointment.Application.AppointmentService;
+using DoctorAppointment.Application.MedicalVisitService;
 using DoctorAppointment.Application.UserService;
 using DoctorAppointment.DataAccess;
 using DoctorAppointment.Domain.Interfaces;
@@ -11,6 +13,10 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+builder.Services.AddScoped<IMedicalVisitRepository, MedicalVisitRepository>();
+builder.Services.AddScoped<IMedicalVisitService, MedicalVisitService>();
+builder.Services.AddScoped<IAppointmentRepository, AppointmentRepository>();
+builder.Services.AddScoped<IAppointmentService, AppointmentService>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IUserService, UserService>();
 
