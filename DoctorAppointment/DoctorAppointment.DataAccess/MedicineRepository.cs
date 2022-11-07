@@ -3,9 +3,9 @@ using DoctorAppointment.Domain.Models.Request;
 
 namespace DoctorAppointment.DataAccess
 {
-    public class UserRepository : IUserRepository
+    public class MedicineRepository : IMedicineRepository
     {
-        public Guid AddUser(User user)
+        public Guid AddMedicine(Medicine medicine)
         {
             return new Guid();
         }
