@@ -3,13 +3,20 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.2.32519.379
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DoctorAppointment.Application", "DoctorAppointment.Application\DoctorAppointment.Application.csproj", "{B5540726-2BDD-4DA8-ACE8-4A435BC2642C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DoctorAppointment.Application", "DoctorAppointment.Application\DoctorAppointment.Application.csproj", "{B5540726-2BDD-4DA8-ACE8-4A435BC2642C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DoctorAppointment.Domain", "DoctorAppointment.Domain\DoctorAppointment.Domain.csproj", "{A35BA1D7-F671-4657-850A-A684178E9D7C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DoctorAppointment.Domain", "DoctorAppointment.Domain\DoctorAppointment.Domain.csproj", "{A35BA1D7-F671-4657-850A-A684178E9D7C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DoctorAppointment.DataAccess", "DoctorAppointment.DataAccess\DoctorAppointment.DataAccess.csproj", "{501C00B5-7F6A-48EB-9A06-F68E5E717CFC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DoctorAppointment.DataAccess", "DoctorAppointment.DataAccess\DoctorAppointment.DataAccess.csproj", "{501C00B5-7F6A-48EB-9A06-F68E5E717CFC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DoctorAppointment.Api", "DoctorAppointment.Api\DoctorAppointment.Api.csproj", "{74C89403-6822-4B54-8D1B-6F3ED5067CAD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DoctorAppointment.Api", "DoctorAppointment.Api\DoctorAppointment.Api.csproj", "{74C89403-6822-4B54-8D1B-6F3ED5067CAD}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "source", "source", "{9D619AFE-47C2-4E43-AB12-B32E74876302}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{FBCF696F-A64C-48F4-8659-750B1A6C0BA9}"
+	ProjectSection(SolutionItems) = preProject
+		test.txt = test.txt
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -36,6 +43,12 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{B5540726-2BDD-4DA8-ACE8-4A435BC2642C} = {9D619AFE-47C2-4E43-AB12-B32E74876302}
+		{A35BA1D7-F671-4657-850A-A684178E9D7C} = {9D619AFE-47C2-4E43-AB12-B32E74876302}
+		{501C00B5-7F6A-48EB-9A06-F68E5E717CFC} = {9D619AFE-47C2-4E43-AB12-B32E74876302}
+		{74C89403-6822-4B54-8D1B-6F3ED5067CAD} = {9D619AFE-47C2-4E43-AB12-B32E74876302}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {EB2B8671-8969-4FB8-8420-14592DB0D6F8}
