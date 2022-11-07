@@ -2,8 +2,8 @@
 
 namespace DoctorAppointment.Domain.Interfaces
 {
-    public interface IMedicineService
+    public interface IUserRepository
     {
-        public Guid AddMedicine(Medicine medicine);
+        public Guid AddUser(User user);
     }
 }
