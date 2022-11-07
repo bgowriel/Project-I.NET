@@ -11,7 +11,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DoctorAppointment.DataAcces
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DoctorAppointment.Api", "DoctorAppointment.Api\DoctorAppointment.Api.csproj", "{74C89403-6822-4B54-8D1B-6F3ED5067CAD}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "source", "source", "{9D619AFE-47C2-4E43-AB12-B32E74876302}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "sources", "sources", "{9D619AFE-47C2-4E43-AB12-B32E74876302}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{FBCF696F-A64C-48F4-8659-750B1A6C0BA9}"
 	ProjectSection(SolutionItems) = preProject
