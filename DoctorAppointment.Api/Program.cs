@@ -1,3 +1,5 @@
+using DoctorAppointment.Application.AdminUserService;
+using DoctorAppointment.Application.DoctorService;
 using DoctorAppointment.Application.UserService;
 using DoctorAppointment.DataAccess;
 using DoctorAppointment.Domain.Interfaces;
@@ -13,6 +15,10 @@ builder.Services.AddSwaggerGen();
 
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IUserService, UserService>();
+builder.Services.AddScoped<IDoctorRepository, DoctorRepository>();
+builder.Services.AddScoped<IDoctorService, DoctorService>();
+builder.Services.AddScoped<IAdminUserRepository, AdminUserRepository>();
+builder.Services.AddScoped<IAdminUserService, AdminUserService>();
 
 var app = builder.Build();
 
