@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using DoctorAppointment.Domain.Models.Response;
 
 namespace DoctorAppointment.Domain.Models.Request
 {
@@ -29,9 +25,9 @@ namespace DoctorAppointment.Domain.Models.Request
         private string? BankAccount { get; set; }
         
         public string? Status { get; set; } //Working, Not Working, On Vacation etc.
+
+        public List<ServiceProvidedResponse>? Services { get; set; }
         
-        public List<UserRequest>? Patients { get; set; }
-        
-        public List<AppointmentRequest>? Appointments { get; set; }
+        public List<AppointmentResponse>? Appointments { get; set; }
     }
 }

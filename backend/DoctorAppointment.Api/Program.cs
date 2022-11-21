@@ -2,8 +2,6 @@ using DoctorAppointment.Application.AdminUserService;
 using DoctorAppointment.Application.AppointmentService;
 using DoctorAppointment.Application.BillService;
 using DoctorAppointment.Application.DoctorService;
-using DoctorAppointment.Application.MedicalVisitService;
-using DoctorAppointment.Application.MedicineService;
 using DoctorAppointment.Application.UserService;
 using DoctorAppointment.DataAccess;
 using DoctorAppointment.Domain.Interfaces;
@@ -17,21 +15,24 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+//builder.Services.AddScoped<IDatabaseContext, DatabaseContext>();
+
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IUserService, UserService>();
+
 builder.Services.AddScoped<IAdminUserRepository, AdminUserRepository>();
 builder.Services.AddScoped<IAdminUserService, AdminUserService>();
+
 builder.Services.AddScoped<IAppointmentRepository, AppointmentRepository>();
 builder.Services.AddScoped<IAppointmentService, AppointmentService>();
+
 builder.Services.AddScoped<IBillRepository, BillRepository>();
 builder.Services.AddScoped<IBillService, BillService>();
+
 builder.Services.AddScoped<IDoctorRepository, DoctorRepository>();
 builder.Services.AddScoped<IDoctorService, DoctorService>();
-builder.Services.AddScoped<IMedicineRepository, MedicineRepository>();
-builder.Services.AddScoped<IMedicineService, MedicineService>();
-builder.Services.AddScoped<IMedicalVisitRepository, MedicalVisitRepository>();
-builder.Services.AddScoped<IMedicalVisitService, MedicalVisitService>();
 
+builder.Services.AddDbContext<DatabaseContext>();
 
 var app = builder.Build();
 

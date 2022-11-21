@@ -1,14 +1,17 @@
 ﻿using DoctorAppointment.Domain.Models.Request;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using DoctorAppointment.Domain.Models.Response;
 
 namespace DoctorAppointment.Domain.Interfaces
 {
     public interface IAdminUserService
     {
         public Guid AddAdminUser(AdminRequest adminUser);
+
+        public AdminResponse GetAdminUser(Guid id);
+        
+        public AdminResponse UpdateAdminUser(Guid guid, AdminRequest adminUser);
+
+        public bool DeleteAdminUser(Guid adminUserId);
+
     }
 }

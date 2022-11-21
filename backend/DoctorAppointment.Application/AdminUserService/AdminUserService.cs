@@ -1,10 +1,6 @@
 ﻿using DoctorAppointment.Domain.Interfaces;
 using DoctorAppointment.Domain.Models.Request;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using DoctorAppointment.Domain.Models.Response;
 
 namespace DoctorAppointment.Application.AdminUserService
 {
@@ -20,6 +16,22 @@ namespace DoctorAppointment.Application.AdminUserService
         public Guid AddAdminUser(AdminRequest adminUser)
         {
             return _adminUserRepository.AddAdminUser(adminUser);
+        }
+
+
+        public AdminResponse GetAdminUser(Guid guid)
+        {
+            return _adminUserRepository.GetAdminUser(guid);
+        }
+
+        public AdminResponse UpdateAdminUser(Guid guid, AdminRequest adminUser)
+        {
+            return _adminUserRepository.UpdateAdminUser(guid, adminUser);
+        }
+        
+        public bool DeleteAdminUser(Guid guid)
+        {
+            return _adminUserRepository.DeleteAdminUser(guid);
         }
     }
 }

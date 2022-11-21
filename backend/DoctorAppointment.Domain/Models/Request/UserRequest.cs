@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using DoctorAppointment.Domain.Models.Response;
 
 namespace DoctorAppointment.Domain.Models.Request
 {
@@ -18,8 +14,8 @@ namespace DoctorAppointment.Domain.Models.Request
 
         public string? Role { get; set; } //client or doctor
 
-        public List<AppointmentRequest>? Appointments { get; set; }
-        
-        public List<MedicalVisitRequest>? MedicalVisits { get; set; }        
+        public List<AppointmentResponse>? Appointments { get; set; }
+
+        public List<BillResponse> Bills { get; set; }
     }
 }

@@ -4,11 +4,9 @@ namespace DoctorAppointment.Domain.Models.Response
 {
     public class BillResponse
     {
-        public int Id { get; private set; }
+        public Guid Id { get; private set; }
 
         public string? Code { get; private set; }
-
-        public DoctorRequest? Doctor { get; private set; }
 
         public float? Total { get; private set; }
 
@@ -18,8 +16,6 @@ namespace DoctorAppointment.Domain.Models.Response
 
         public Guid UserId { get; private set; }
 
-        List<ServiceProvidedRequest> ServicesProvided { get; set; }
-
-        public Guid? PaymentId { get; set; }
+        public UserResponse? User { get; private set; }
     }
 }

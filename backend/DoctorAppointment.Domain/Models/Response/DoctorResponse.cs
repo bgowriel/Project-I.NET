@@ -1,14 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace DoctorAppointment.Domain.Models.Response
+﻿namespace DoctorAppointment.Domain.Models.Response
 {
     public class DoctorResponse
     {
-        public int Id { get; set; }
+        public Guid Id { get; set; }
 
         public string? Name { get; set; }
 
@@ -32,8 +26,8 @@ namespace DoctorAppointment.Domain.Models.Response
 
         public string? Status { get; set; } //Working, Not Working, On Vacation etc.
 
-        public List<UserResponse>? Patients { get; set; }
-        
+        public List<ServiceProvidedResponse>? Services { get; set; }
+
         public List<AppointmentResponse>? Appointments { get; set; }
     }
 }
