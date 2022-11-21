@@ -19,6 +19,11 @@ namespace DoctorAppointment.Api.Controllers
             var result = _userService.AddUser(user);
             return Ok(result);
         }
+
+        public ActionResult AddDoctorUser()
+        {
+            return Ok();
+        }
         
     }
 }

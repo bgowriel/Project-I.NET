@@ -1,5 +1,7 @@
-﻿using DoctorAppointment.Domain.Interfaces;
+﻿using DoctorAppointment.Domain.Helpers;
+using DoctorAppointment.Domain.Interfaces;
 using DoctorAppointment.Domain.Models.Request;
+using DoctorAppointment.Domain.Models.Response;
 
 namespace DoctorAppointment.Application.AppointmentService
 {
@@ -11,9 +13,25 @@ namespace DoctorAppointment.Application.AppointmentService
         {
             this.appointmentRepository = appointmentRepository;
         }
-        public Guid AddApointment(AppointmentRequest appointment)
+
+        public Result<AppointmentResponse> AddApointment(AppointmentResponse appointment)
         {
-            throw new NotImplementedException();
+            if (appointment == null)
+                return Result<AppointmentResponse>.Failure("Appointment can't be NULL");
+
+            if(appointment.Name.Length < 4)
+                return Result<AppointmentResponse>.Failure("Appointment name length should be greater than 3");
+
+            appointmentRepository.AddApointment(appointment);
+            appointmentRepository.Save();
+
+            return Result<AppointmentResponse>.Success(appointment);
+            
+        }
+
+        public List<AppointmentResponse> GetAll()
+        {
+            return appointmentRepository.GetAll();
         }
     }
 }

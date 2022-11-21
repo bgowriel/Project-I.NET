@@ -1,18 +1,31 @@
 ﻿using DoctorAppointment.Domain.Interfaces;
 using DoctorAppointment.Domain.Models.Request;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using DoctorAppointment.Domain.Models.Response;
+using Microsoft.EntityFrameworkCore;
 
 namespace DoctorAppointment.DataAccess
 {
     public class AppointmentRepository:IAppointmentRepository
     {
-        public Guid AddApointment(AppointmentRequest appointment)
+        private readonly IDatabaseContext context;
+
+        public AppointmentRepository(IDatabaseContext context)
         {
-            return new Guid();
+            this.context = context;
+        }
+        public void AddApointment(AppointmentResponse appointment)
+        {
+            context.Appointments.Add(appointment);
+        }
+
+        public List<AppointmentResponse> GetAll()
+        {
+            return context.Appointments.ToList();
+        }
+
+        public void Save()
+        {
+            context.Save();
         }
     }
 }

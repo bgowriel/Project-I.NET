@@ -1,13 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace DoctorAppointment.Domain.Models.Request
+﻿namespace DoctorAppointment.Domain.Models.Request
 {
     public class UserRequest
     {
+        public UserRequest()
+        {
+            Id = Guid.NewGuid();
+        }
+        public Guid Id { get; private set; }
         public string? Name { get; set; }
 
         public string? Email { get; set; }

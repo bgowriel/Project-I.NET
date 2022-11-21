@@ -2,7 +2,7 @@
 {
     public class MedicalVisitResponse
     {
-        public int Id { get; private set; }
+        public Guid Id { get; private set; }
 
         public string Title { get; private set; }
 

@@ -2,6 +2,11 @@
 {
     public class BillRequest
     {
+        public BillRequest()
+        {
+            Id = Guid.NewGuid();
+        }
+        public Guid Id { get; private set; }
         public string? Code { get; private set; }
 
         public DoctorRequest? Doctor { get; private set; }
