@@ -1,7 +1,5 @@
 ﻿using DoctorAppointment.Domain.Interfaces;
-using DoctorAppointment.Domain.Models.Request;
 using DoctorAppointment.Domain.Models.Response;
-using Microsoft.EntityFrameworkCore;
 
 namespace DoctorAppointment.DataAccess
 {

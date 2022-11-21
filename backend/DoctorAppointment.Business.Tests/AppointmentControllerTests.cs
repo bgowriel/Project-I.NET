@@ -1,12 +1,7 @@
 using DoctorAppointment.Domain.Models.Request;
 using DoctorAppointment.Domain.Models.Response;
 using FluentAssertions;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Net.Http.Json;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace DoctorAppointment.Business.Tests
 {
