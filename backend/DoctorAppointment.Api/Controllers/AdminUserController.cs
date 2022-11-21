@@ -4,6 +4,8 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace DoctorAppointment.Api.Controllers
 {
+    [Route("api/[controller]")]
+    [ApiController]
     public class AdminUserController : ControllerBase
     {
         private readonly IAdminUserService _adminUserService;
@@ -13,7 +15,7 @@ namespace DoctorAppointment.Api.Controllers
             _adminUserService = adminUserService;
         }
 
-        [HttpPost("admin")]
+        [HttpPost]
         public ActionResult AddAdminUser(AdminRequest adminUser)
         {
             var result = _adminUserService.AddAdminUser(adminUser);

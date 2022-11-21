@@ -2,13 +2,13 @@
 {
     public class AppointmentRequest
     {
-        public string Name { get; private set; }
+        public string Name { get;  set; }
 
-        public DateTime Date { get; private set; }
+        public DateTime Date { get;  set; }
 
-        public Guid DoctorId { get; private set; }
+        public Guid DoctorId { get;  set; }
 
-        public Guid PatientId { get; private set; }
+        public Guid PatientId { get;  set; }
 
         public Guid ServiceProvidedId { get; set; }
 

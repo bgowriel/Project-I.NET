@@ -1,4 +1,5 @@
-﻿using DoctorAppointment.Domain.Interfaces;
+﻿using DoctorAppointment.Domain.Helpers;
+using DoctorAppointment.Domain.Interfaces;
 using DoctorAppointment.Domain.Models.Request;
 using DoctorAppointment.Domain.Models.Response;
 
@@ -13,10 +14,15 @@ namespace DoctorAppointment.Application.AppointmentService
             this.appointmentRepository = appointmentRepository;
         }
 
-        public void AddApointment(AppointmentResponse appointment)
+        public Result AddApointment(AppointmentResponse appointment)
         {
+            if (appointment == null)
+                return Result.Failure("Appointment can't be NULL");
+
             appointmentRepository.AddApointment(appointment);
             appointmentRepository.Save();
+
+            return Result.Success();
             
         }
 
