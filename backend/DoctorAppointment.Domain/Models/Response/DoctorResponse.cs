@@ -2,6 +2,24 @@
 {
     public class DoctorResponse
     {
+        public DoctorResponse(string? name, string? email, string? phone, string? address,
+            string? specialization, string? description, string? image, string? role,
+            string? token, string? status)
+        {
+            Id = Guid.NewGuid();
+            Name = name;
+            Email = email;
+            Phone = phone;
+            Address = address;
+            Specialization = specialization;
+            Description = description;
+            Image = image;
+            Role = role;
+            Token = token;
+            Status = status;
+            Appointments = new List<AppointmentResponse>();
+        }
+
         public Guid Id { get; private set; }
 
         public string? Name { get; set; }
@@ -20,14 +38,9 @@
 
         public string? Role { get; set; }
 
-        private string? Token { get; set; } //Paraph 
-
-        private string? BankAccount { get; set; }
+        public string? Token { get; set; } //Paraph 
 
         public string? Status { get; set; } //Working, Not Working, On Vacation etc.
-
-        public List<UserResponse>? Patients { get; set; }
-        
         public List<AppointmentResponse>? Appointments { get; set; }
     }
 }

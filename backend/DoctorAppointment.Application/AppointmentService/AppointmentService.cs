@@ -1,6 +1,5 @@
 ﻿using DoctorAppointment.Domain.Helpers;
 using DoctorAppointment.Domain.Interfaces;
-using DoctorAppointment.Domain.Models.Request;
 using DoctorAppointment.Domain.Models.Response;
 
 namespace DoctorAppointment.Application.AppointmentService
