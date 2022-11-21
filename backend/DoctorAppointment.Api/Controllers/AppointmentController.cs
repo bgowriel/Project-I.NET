@@ -23,9 +23,9 @@ namespace DoctorAppointment.Api.Controllers
         }
 
         [HttpPost]
-        public ActionResult AddAppointment([FromBody] AppointmentRequest dto)
+        public ActionResult AddAppointment([FromBody] AppointmentRequest appointment)
         {
-            var newAppointment = new AppointmentResponse(dto.Name, dto.Date, dto.DoctorId, dto.PatientId, dto.ServiceProvidedId);
+            var newAppointment = new AppointmentResponse(appointment.Name, appointment.Date, appointment.DoctorId, appointment.PatientId, appointment.ServiceProvidedId);
             var result = appointmentService.AddApointment(newAppointment);
 
             if (result.IsSuccess)
