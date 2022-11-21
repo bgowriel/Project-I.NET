@@ -4,7 +4,7 @@ namespace DoctorAppointment.Domain.Models.Response
 {
     public class BillResponse
     {
-        public int Id { get; private set; }
+        public Guid Id { get; private set; }
 
         public string? Code { get; private set; }
 

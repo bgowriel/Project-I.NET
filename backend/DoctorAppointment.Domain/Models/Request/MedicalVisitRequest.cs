@@ -2,6 +2,11 @@
 {
     public class MedicalVisitRequest
     {
+        public MedicalVisitRequest()
+        {
+            Id = Guid.NewGuid();
+        }
+        public Guid Id { get; private set; }
         public string Title { get; private set; }
 
         public string Type { get; private set; }

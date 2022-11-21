@@ -1,10 +1,8 @@
-﻿using DoctorAppointment.Domain.Models.Request;
-
-namespace DoctorAppointment.Domain.Models.Response
+﻿namespace DoctorAppointment.Domain.Models.Response
 {
     public class PaymentResponse
     {
-        public int Id { get; set; }
+        public Guid Id { get; private set; }
 
         public BillResponse Bill { get; private set; }
         

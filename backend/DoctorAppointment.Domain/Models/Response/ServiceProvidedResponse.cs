@@ -2,8 +2,8 @@
 {
     public class ServiceProvidedResponse
     {
-        public Guid Id { get; set; }
-        
+        public Guid Id { get; private set; }
+
         public string Name { get; private set; }
         
         public string Type { get; private set; }

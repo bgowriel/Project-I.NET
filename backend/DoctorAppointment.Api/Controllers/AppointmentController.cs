@@ -1,10 +1,13 @@
-﻿using DoctorAppointment.Domain.Interfaces;
+﻿using DoctorAppointment.Api.Dtos;
+using DoctorAppointment.Domain.Interfaces;
 using DoctorAppointment.Domain.Models.Request;
-using Microsoft.AspNetCore.Http;
+using DoctorAppointment.Domain.Models.Response;
 using Microsoft.AspNetCore.Mvc;
 
 namespace DoctorAppointment.Api.Controllers
 {
+    [Route("api/[controller]")]
+    [ApiController]
     public class AppointmentController : ControllerBase
     {
         private readonly IAppointmentService appointmentService;
@@ -14,11 +17,18 @@ namespace DoctorAppointment.Api.Controllers
             this.appointmentService = appointmentService;
         }
 
-        [HttpPost("appointment")]
-        public ActionResult AddAppointment(AppointmentRequest appointment)
+        [HttpGet]
+        public ActionResult Get()
         {
-            var result = appointmentService.AddApointment(appointment);
-            return Ok(result);
+            return Ok(appointmentService.GetAll());
+        }
+
+        [HttpPost]
+        public ActionResult AddAppointment([FromBody] CreateAppointmentDto dto)
+        {
+            var newAppointment = new AppointmentResponse(dto.Name, dto.Date, dto.DoctorId, dto.PatientId, dto.ServiceProvidedId);
+            appointmentService.AddApointment(newAppointment);
+            return Created(nameof(Get), newAppointment);
         }
     }
 }

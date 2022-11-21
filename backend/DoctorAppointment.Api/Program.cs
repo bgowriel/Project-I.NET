@@ -7,6 +7,7 @@ using DoctorAppointment.Application.MedicineService;
 using DoctorAppointment.Application.UserService;
 using DoctorAppointment.DataAccess;
 using DoctorAppointment.Domain.Interfaces;
+using DoctorAppointment.Infrastructure;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -31,7 +32,7 @@ builder.Services.AddScoped<IMedicineRepository, MedicineRepository>();
 builder.Services.AddScoped<IMedicineService, MedicineService>();
 builder.Services.AddScoped<IMedicalVisitRepository, MedicalVisitRepository>();
 builder.Services.AddScoped<IMedicalVisitService, MedicalVisitService>();
-
+builder.Services.AddScoped<IDatabaseContext,DatabaseContext>();
 
 var app = builder.Build();
 

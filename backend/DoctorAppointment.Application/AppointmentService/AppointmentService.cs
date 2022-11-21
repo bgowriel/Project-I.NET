@@ -1,5 +1,6 @@
 ﻿using DoctorAppointment.Domain.Interfaces;
 using DoctorAppointment.Domain.Models.Request;
+using DoctorAppointment.Domain.Models.Response;
 
 namespace DoctorAppointment.Application.AppointmentService
 {
@@ -11,9 +12,17 @@ namespace DoctorAppointment.Application.AppointmentService
         {
             this.appointmentRepository = appointmentRepository;
         }
-        public Guid AddApointment(AppointmentRequest appointment)
+
+        public void AddApointment(AppointmentResponse appointment)
         {
-            throw new NotImplementedException();
+            appointmentRepository.AddApointment(appointment);
+            appointmentRepository.Save();
+            
+        }
+
+        public List<AppointmentResponse> GetAll()
+        {
+            return appointmentRepository.GetAll();
         }
     }
 }
