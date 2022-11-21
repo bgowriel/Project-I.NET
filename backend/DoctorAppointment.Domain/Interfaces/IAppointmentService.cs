@@ -6,7 +6,7 @@ namespace DoctorAppointment.Domain.Interfaces
 {
     public interface IAppointmentService
     {
-        public Result AddApointment(AppointmentResponse appointment);
+        public Result<AppointmentResponse> AddApointment(AppointmentResponse appointment);
         public List<AppointmentResponse> GetAll();
     }
 }

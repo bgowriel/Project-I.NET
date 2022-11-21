@@ -14,15 +14,18 @@ namespace DoctorAppointment.Application.AppointmentService
             this.appointmentRepository = appointmentRepository;
         }
 
-        public Result AddApointment(AppointmentResponse appointment)
+        public Result<AppointmentResponse> AddApointment(AppointmentResponse appointment)
         {
             if (appointment == null)
-                return Result.Failure("Appointment can't be NULL");
+                return Result<AppointmentResponse>.Failure("Appointment can't be NULL");
+
+            if(appointment.Name.Length < 4)
+                return Result<AppointmentResponse>.Failure("Appointment name length should be greater than 3");
 
             appointmentRepository.AddApointment(appointment);
             appointmentRepository.Save();
 
-            return Result.Success();
+            return Result<AppointmentResponse>.Success(appointment);
             
         }
 
