@@ -145,7 +145,7 @@ namespace DoctorAppointment.Api.Controllers
 
         [HttpPost]
         [Route("assign-role")]
-        public async Task<IActionResult> AssignRole([FromBody] string userName, [FromBody] string roleName)
+        public async Task<IActionResult> AssignRole([FromBody] string userName, string roleName)
         {
             var user = await _userManager.FindByNameAsync(userName);
             if (user == null)
