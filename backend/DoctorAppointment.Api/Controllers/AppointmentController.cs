@@ -1,23 +1,110 @@
-﻿using DoctorAppointment.Domain.Interfaces;
-using DoctorAppointment.Domain.Models.Request;
+﻿using AutoMapper;
+using DoctorAppointment.Application.Queries;
+using DoctorAppointment.Api.Dto;
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using DoctorAppointment.Application.Commands;
 
 namespace DoctorAppointment.Api.Controllers
 {
+    [ApiController]
+    [Route("api/appointments")]
     public class AppointmentController : ControllerBase
     {
-        private readonly IAppointmentService appointmentService;
+        private readonly IMediator _mediator;
+        private readonly IMapper _mapper;
 
-        public AppointmentController(IAppointmentService appointmentService)
+        public AppointmentController(IMediator mediator, IMapper mapper)
         {
-            this.appointmentService = appointmentService;
+            _mediator = mediator;
+            _mapper = mapper;
         }
 
-        [HttpPost("appointment")]
-        public ActionResult AddAppointment(AppointmentRequest appointment)
+        [HttpPost]
+        public async Task<IActionResult> AddAppointment([FromBody] AppointmentPutPostDto appointmentPutPostDto)
         {
-            var result = appointmentService.AddApointment(appointment);
-            return Ok(result);
+            var command = _mapper.Map<InsertAppointment>(appointmentPutPostDto);
+
+            var created = await _mediator.Send(command);
+            var createdDto = _mapper.Map<AppointmentGetDto>(created);
+
+            return CreatedAtAction(nameof(GetAppointmentById), new { id = created.Id }, createdDto);
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> GetAppointments()
+        {
+            var appointments = await _mediator.Send(new GetAllAppointments());
+            var mappedResult = _mapper.Map<List<AppointmentGetDto>>(appointments);
+            return Ok(mappedResult);
+        }
+
+        [HttpGet]
+        [Route("{id}")]
+        public async Task<IActionResult> GetAppointmentById(Guid id)
+        {
+            var appointment = await _mediator.Send(new GetAppointmentById() { Id = id });
+
+            if (appointment == null)
+            {
+                return NotFound();
+            }
+
+            var mappedResult = _mapper.Map<AppointmentGetDto>(appointment);
+            return Ok(mappedResult);
+        }
+
+
+        [HttpGet]
+        [Route("{date}")]
+        public async Task<IActionResult> GetAppointmentsByDate(DateTime date)
+        {
+            var appointments = await _mediator.Send(new GetAppointmentsByDate() { Date = date });
+            var mappedResult = _mapper.Map<List<AppointmentGetDto>>(appointments);
+            return Ok(mappedResult);
+        }
+
+        [HttpPut]
+        [Route("{id}")]
+        public async Task<IActionResult> UpdateAppointment(Guid id, [FromBody] AppointmentPutPostDto appointmentPutPostDto)
+        {
+            var command = new UpdateAppointment()
+            {
+                Id = id,
+                Date = appointmentPutPostDto.Date,
+                Description = appointmentPutPostDto.Description,
+                Status = appointmentPutPostDto.Status,
+                DoctorId = appointmentPutPostDto.DoctorId,
+                PatientId = appointmentPutPostDto.PatientId
+            };
+
+            var updated = await _mediator.Send(command);
+
+            if (updated == null)
+            {
+                return NotFound();
+            }
+            
+            var updatedDto = _mapper.Map<AppointmentGetDto>(updated);
+
+            return Ok(updatedDto);
+        }
+
+        [HttpDelete]
+        [Route("{id}")]
+        public async Task<IActionResult> DeleteAppointment(Guid id)
+        {
+            var command = new DeleteAppointment() { Id = id };
+            var deleted = await _mediator.Send(command);
+
+            if (deleted == null)
+            {
+                return NotFound();
+            }
+
+            var deletedDto = _mapper.Map<AppointmentGetDto>(deleted);
+
+            return Ok(deletedDto);
         }
     }
 }

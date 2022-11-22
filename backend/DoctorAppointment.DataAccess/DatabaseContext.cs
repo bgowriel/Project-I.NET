@@ -1,29 +1,21 @@
-﻿using DoctorAppointment.Domain.Interfaces;
-using DoctorAppointment.Domain.Models.Response;
+﻿using DoctorAppointment.Domain.Models;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 
 namespace DoctorAppointment.DataAccess
 {
-    public class DatabaseContext : DbContext
+    public class DatabaseContext : IdentityDbContext<User>
     {
-        public DbSet<AdminResponse> Admins => Set<AdminResponse>();
+        public DbSet<Appointment> Appointments => Set<Appointment>();
 
-        public DbSet<DoctorResponse> Doctors => Set<DoctorResponse>();
-
-        public DbSet<UserResponse> Users => Set<UserResponse>();
-
-        public DbSet<AppointmentResponse> Appointments => Set<AppointmentResponse>();
-
-        public DbSet<BillResponse> Bills => Set<BillResponse>();
-
-        public DbSet<ServiceProvidedResponse> Services => Set<ServiceProvidedResponse>();
+        public DbSet<Bill> Bills => Set<Bill>();
+        
+        public DbSet<MedicalVisit> MedicalVisits => Set<MedicalVisit>();
 
         public DatabaseContext() { }
 
-        public DatabaseContext(DbContextOptions<DatabaseContext> options) : base(options)
-        {
-        }
+        public DatabaseContext(DbContextOptions<DatabaseContext> options) : base(options) { }
         
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -36,30 +28,54 @@ namespace DoctorAppointment.DataAccess
         {
             base.OnModelCreating(modelBuilder);
 
-/*            modelBuilder.Entity<ServiceProvidedResponse>()
-                .HasOne(s => s.Doctor)
-                .WithMany(d => d.Services)
-                .HasForeignKey(s => s.DoctorId);
-
-            modelBuilder.Entity<BillResponse>()
-                .HasOne(bill => bill.Payment)
-                .WithOne(payment => payment.Bill)
-                .HasForeignKey<BillResponse>(bill => bill.PaymentId)
+            modelBuilder.Entity<Appointment>()
+                .HasOne(a => a.Patient)
+                .WithMany(u => u.Appointments)
+                .HasForeignKey(a => a.PatientId)
                 .IsRequired(false)
                 .OnDelete(DeleteBehavior.ClientCascade);
 
-            modelBuilder.Entity<PaymentResponse>()
-                .HasKey(payment => payment.BillId);
+            modelBuilder.Entity<Appointment>()
+                .HasOne(a => a.Doctor)
+                .WithMany()
+                .HasForeignKey(a => a.DoctorId)
+                .IsRequired(false)
+                .OnDelete(DeleteBehavior.ClientCascade);
 
-            modelBuilder.Entity<PaymentResponse>()
-                .HasOne(payment => payment.Bill)
-                .WithOne(bill => bill.Payment)
-                .HasForeignKey<PaymentResponse>(payment => payment.BillId);*/
-        }
+            modelBuilder.Entity<MedicalVisit>()
+                .HasOne(mv => mv.Patient)
+                .WithMany(p => p.MedicalVisits)
+                .HasForeignKey(mv => mv.PatientId)
+                .IsRequired(false)
+                .OnDelete(DeleteBehavior.ClientCascade);
 
-        public void Save()
-        {
-            SaveChanges();
+            modelBuilder.Entity<MedicalVisit>()
+                .HasOne(mv => mv.Doctor)
+                .WithMany()
+                .HasForeignKey(mv => mv.DoctorId)
+                .IsRequired(false)
+                .OnDelete(DeleteBehavior.ClientCascade);
+
+            modelBuilder.Entity<Bill>()
+                .HasOne(b => b.MedicalVisit)
+                .WithOne()
+                .HasForeignKey<Bill>(b => b.MedicalVisitId)
+                .IsRequired()
+                .OnDelete(DeleteBehavior.ClientCascade);
+
+            modelBuilder.Entity<Bill>()
+                .HasOne(b => b.Patient)
+                .WithMany(p => p.Bills)
+                .HasForeignKey(b => b.PatientId)
+                .IsRequired(false)
+                .OnDelete(DeleteBehavior.ClientCascade);
+
+            modelBuilder.Entity<Bill>()
+                .HasOne(b => b.Doctor)
+                .WithMany()
+                .HasForeignKey(b => b.DoctorId)
+                .IsRequired(false)
+                .OnDelete(DeleteBehavior.ClientCascade);
         }
     }
 }
