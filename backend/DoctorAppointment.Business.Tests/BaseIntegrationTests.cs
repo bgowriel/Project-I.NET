@@ -1,5 +1,5 @@
 ﻿using DoctorAppointment.Api.Controllers;
-using DoctorAppointment.Infrastructure;
+using DoctorAppointment.DataAccess;
 using Microsoft.AspNetCore.Mvc.Testing;
 
 
