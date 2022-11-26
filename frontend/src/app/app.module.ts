@@ -14,6 +14,16 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatListModule } from '@angular/material/list';
 import { MatIconModule } from '@angular/material/icon';
 import { MatTableModule } from '@angular/material/table';
+import { MatFormFieldModule } from '@angular/material/form-field'
+import { MatSelectModule } from '@angular/material/select'
+import { MatInputModule } from '@angular/material/input'
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatDialogModule } from '@angular/material/dialog';
+
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+
+
+import { AddAppointmentModalComponent } from './patient/add-appointment-modal/add-appointment-modal.component';
 
 @NgModule({
   declarations: [
@@ -23,6 +33,7 @@ import { MatTableModule } from '@angular/material/table';
     DoctorPageComponent,
     DashboardComponent,
     WorkTableComponent,
+    AddAppointmentModalComponent,
 
   ],
   imports: [
@@ -33,7 +44,14 @@ import { MatTableModule } from '@angular/material/table';
     MatButtonModule,
     MatListModule,
     MatIconModule,
-    MatTableModule
+    MatTableModule,
+    MatFormFieldModule,
+    FormsModule,
+    MatSelectModule,
+    MatInputModule,
+    MatDatepickerModule,
+    MatDialogModule,
+    ReactiveFormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
