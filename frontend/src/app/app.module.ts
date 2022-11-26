@@ -22,8 +22,10 @@ import { MatDialogModule } from '@angular/material/dialog';
 
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
+import { HttpClientModule } from '@angular/common/http';
 
 import { AddAppointmentModalComponent } from './patient/add-appointment-modal/add-appointment-modal.component';
+import { MatNativeDateModule } from '@angular/material/core';
 
 @NgModule({
   declarations: [
@@ -51,7 +53,9 @@ import { AddAppointmentModalComponent } from './patient/add-appointment-modal/ad
     MatInputModule,
     MatDatepickerModule,
     MatDialogModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    MatNativeDateModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]
