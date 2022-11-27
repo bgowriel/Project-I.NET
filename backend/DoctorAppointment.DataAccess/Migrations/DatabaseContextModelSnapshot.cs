@@ -37,6 +37,10 @@ namespace DoctorAppointment.DataAccess.Migrations
                     b.Property<string>("DoctorId")
                         .HasColumnType("nvarchar(450)");
 
+                    b.Property<string>("OfficeId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("PatientId")
                         .HasColumnType("nvarchar(450)");
 
@@ -52,6 +56,28 @@ namespace DoctorAppointment.DataAccess.Migrations
                     b.HasIndex("PatientId");
 
                     b.ToTable("Appointments");
+                });
+
+            modelBuilder.Entity("DoctorAppointment.Domain.Models.AvalaibleDate", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("Date")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("Free")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("UserId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("AvalaibleDate");
                 });
 
             modelBuilder.Entity("DoctorAppointment.Domain.Models.Bill", b =>
@@ -383,6 +409,13 @@ namespace DoctorAppointment.DataAccess.Migrations
                     b.Navigation("Patient");
                 });
 
+            modelBuilder.Entity("DoctorAppointment.Domain.Models.AvalaibleDate", b =>
+                {
+                    b.HasOne("DoctorAppointment.Domain.Models.User", null)
+                        .WithMany("AvalaibleDates")
+                        .HasForeignKey("UserId");
+                });
+
             modelBuilder.Entity("DoctorAppointment.Domain.Models.Bill", b =>
                 {
                     b.HasOne("DoctorAppointment.Domain.Models.User", "Doctor")
@@ -493,6 +526,8 @@ namespace DoctorAppointment.DataAccess.Migrations
             modelBuilder.Entity("DoctorAppointment.Domain.Models.User", b =>
                 {
                     b.Navigation("Appointments");
+
+                    b.Navigation("AvalaibleDates");
 
                     b.Navigation("Bills");
 
