@@ -6,7 +6,8 @@
       <mat-select
         required
         formControlName="cabinets"
-        [(ngModel)]="appointment.cabinetId"
+        [(ngModel)]="appointment.officeId"
+        (ngModelChange)="officeSelected(appointment.officeId)"
       >
         <mat-option
           *ngFor="let cabinet of data.cabinets"
@@ -27,7 +28,7 @@
         [(ngModel)]="appointment.doctorId"
       >
         <mat-option *ngFor="let doctor of data.doctors" [value]="doctor.id">{{
-          doctor.name
+          doctor.firstName + " " + doctor.lastName
         }}</mat-option>
       </mat-select>
       <mat-error *ngIf="form.get('doctors')?.errors" class="error-tip">

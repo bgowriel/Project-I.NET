@@ -1,6 +1,5 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, EventEmitter, HostListener, Inject, OnInit, Output } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { MatCalendarCellClassFunction } from '@angular/material/datepicker';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Appointment } from 'app/shared/models/appointment.model';
 
@@ -9,14 +8,20 @@ import { Appointment } from 'app/shared/models/appointment.model';
   templateUrl: './add-appointment-modal.component.html',
   styleUrls: ['./add-appointment-modal.component.css'],
 })
+
 export class AddAppointmentModalComponent implements OnInit {
   public form: FormGroup;
   public appointment: Appointment = new Appointment();
+
+  @Output() onOfficeSelected: EventEmitter<any> = new EventEmitter();
 
   constructor(@Inject(MAT_DIALOG_DATA) public data: any) { }
 
   ngOnInit() {
     this.initForm();
+
+    //TEMP
+    this.appointment.patientId = "18dec73a-5cd6-42f8-ab3a-237cff2d1bff"
   }
 
   public availableDates = [
@@ -36,7 +41,33 @@ export class AddAppointmentModalComponent implements OnInit {
       date: new Date('04-Dec-2022'),
       free: false
     },
+    {
+      date: new Date('06-Dec-2022'),
+      free: false
+    },
+    {
+      date: new Date('11-Dec-2022'),
+      free: false
+    },
+    {
+      date: new Date('12-Dec-2022'),
+      free: false
+    },
+    {
+      date: new Date('14-Dec-2022'),
+      free: false
+    },
+    {
+      date: new Date('18-Dec-2022'),
+      free: false
+    },
   ]
+
+  officeSelected(id: string) {
+    if (id) {
+      this.onOfficeSelected.emit(id)
+    }
+  }
 
   initForm() {
     this.form = new FormGroup({

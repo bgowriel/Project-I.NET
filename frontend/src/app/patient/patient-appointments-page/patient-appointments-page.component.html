@@ -10,5 +10,10 @@
   >
     Create New +
   </button>
-  <app-work-table class="work-table"></app-work-table>
+  <app-work-table
+    *ngIf="appointments.length"
+    class="work-table"
+  ></app-work-table>
+
+  
 </main>
