@@ -23,15 +23,4 @@ export class PatientPageComponent implements OnInit {
     console.log(this.data)
   }
 
-  async createNewAppointment(appointment: Appointment) {
-    const result = await this.patientService.createAppointment(appointment)
-      .toPromise().catch(error => error);
-
-    if (!result.ok) {
-      this.toasterService.onError("Something went wrong !");
-    }
-    else {
-      this.toasterService.onSuccess("Appointment created successfully !");
-    }
-  }
 }

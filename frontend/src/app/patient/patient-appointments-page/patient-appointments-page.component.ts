@@ -1,16 +1,18 @@
 import { Component, EventEmitter, Output } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
+import { Appointment } from 'app/shared/models/appointment.model';
+import { ToasterService } from 'app/shared/toaster/toaster.service';
 import { AddAppointmentModalComponent } from '../add-appointment-modal/add-appointment-modal.component';
+import { PatientService } from '../patient.service';
 
 @Component({
   selector: 'app-patient-appointments-page',
   templateUrl: './patient-appointments-page.component.html',
-  styleUrls: ['./patient-appointments-page.component.css']
+  styleUrls: ['./patient-appointments-page.component.css'],
+  providers: [PatientService, ToasterService]
 })
 export class PatientAppointmentsPageComponent {
-  @Output() onCreateNewAppointment: EventEmitter<any> = new EventEmitter();
-
-  constructor(public dialog: MatDialog) { }
+  constructor(public dialog: MatDialog, private patientService: PatientService, private toasterService: ToasterService) { }
 
   public views: {
     appointments: true,
@@ -44,7 +46,20 @@ export class PatientAppointmentsPageComponent {
     dialogRef.afterClosed().subscribe(result => {
       if (!result)
         return;
-      this.onCreateNewAppointment.emit(result)
+      this.createNewAppointment(result);
     })
+  }
+
+
+  async createNewAppointment(appointment: Appointment) {
+    const result = await this.patientService.createAppointment(appointment)
+      .toPromise().catch(error => error);
+
+    if (!result.ok) {
+      this.toasterService.onError("Something went wrong !");
+    }
+    else {
+      this.toasterService.onSuccess("Appointment created successfully !");
+    }
   }
 }

@@ -10,6 +10,8 @@ export class ToasterService {
         this.snackBar.openFromComponent(ToasterComponent, {
             duration: 3000,
             data: { message, type },
+            horizontalPosition: "right",
+            verticalPosition: "top",
         });
     }
 
