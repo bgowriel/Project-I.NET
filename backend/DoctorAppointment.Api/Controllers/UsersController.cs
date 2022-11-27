@@ -1,6 +1,8 @@
-﻿using DoctorAppointment.Api.Dto;
-using DoctorAppointment.Api.Wrappers;
+﻿using AutoMapper;
+using DoctorAppointment.Api.Dto;
+using DoctorAppointment.Application.Queries;
 using DoctorAppointment.Domain.Models;
+using MediatR;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -11,7 +13,7 @@ using System.Text;
 
 namespace DoctorAppointment.Api.Controllers
 {
-    [Route("api/users")]
+	[Route("api/users")]
     [ApiController]
     public class UsersController : ControllerBase
     {
@@ -21,13 +23,22 @@ namespace DoctorAppointment.Api.Controllers
 
         private readonly RoleManager<IdentityRole> _roleManager;
 
-        public UsersController(IConfiguration configuration,
+		private readonly IMediator _mediator;
+
+		private readonly IMapper _mapper;
+
+		public UsersController(IConfiguration configuration,
                                UserManager<User> userManager,
-                               RoleManager<IdentityRole> roleManager)
+                               RoleManager<IdentityRole> roleManager,
+							   IMediator mediator,
+							   IMapper mapper
+							   )
         {
             _configuration = configuration;
             _userManager = userManager;
             _roleManager = roleManager;
+            _mediator = mediator;
+            _mapper = mapper;
         }
 
         [HttpPost]
@@ -167,5 +178,30 @@ namespace DoctorAppointment.Api.Controllers
 
             return Ok(new { message = "Role assigned successfully!" });
         }
-    }
+
+		[HttpPut]
+		[Route("assign-doctor-to-office")]
+		public async Task<IActionResult> AssignDoctorToOffice([FromQuery] string doctorId, [FromQuery] Guid officeId)
+		{
+			var doctor = await _userManager.FindByIdAsync(doctorId);
+			if (doctor == null)
+			{
+				return BadRequest(new { message = "Doctor does not exist!" });
+			}
+			var office = await _mediator.Send(new GetOfficeById() { Id = officeId });
+			if (office == null)
+			{
+				return NotFound();
+			}
+
+            doctor.OfficeId = office.Id;
+            var result = await _userManager.UpdateAsync(doctor);
+			if (!result.Succeeded)
+			{
+				return BadRequest(new { message = "Office assignment failed!" });
+			}
+
+			return Ok(new { message = "Office assigned successfully!" });
+		}
+	}
 }

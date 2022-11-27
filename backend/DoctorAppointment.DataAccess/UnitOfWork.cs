@@ -1,9 +1,4 @@
 ﻿using DoctorAppointment.Application.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace DoctorAppointment.DataAccess
 {
@@ -14,10 +9,13 @@ namespace DoctorAppointment.DataAccess
         public IAppointmentRepository AppointmentRepository { get; private set; }
         public IMedicalVisitRepository MedicalVisitRepository { get; private set; }
 
+        public IOfficeRepository OfficeRepository { get; private set; }
+
         public IBillRepository BillRepository { get; private set; }
 
         public UnitOfWork(DatabaseContext context,
-                          IAppointmentRepository appointmentRepository,
+						   IOfficeRepository officeRepository,
+						  IAppointmentRepository appointmentRepository,
                           IMedicalVisitRepository medicalVisitRepository,
                           IBillRepository billRepository)
         {
@@ -25,6 +23,7 @@ namespace DoctorAppointment.DataAccess
             AppointmentRepository = appointmentRepository;
             MedicalVisitRepository = medicalVisitRepository;
             BillRepository = billRepository;
+            OfficeRepository = officeRepository;
         }
 
         public async Task Save()

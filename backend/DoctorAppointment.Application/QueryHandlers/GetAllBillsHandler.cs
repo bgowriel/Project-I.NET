@@ -2,15 +2,10 @@
 using DoctorAppointment.Application.Queries;
 using DoctorAppointment.Domain.Models;
 using MediatR;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace DoctorAppointment.Application.QueryHandlers
 {
-    public class GetAllBillsHandler : IRequestHandler<GetAllBills, List<Bill>>
+	public class GetAllBillsHandler : IRequestHandler<GetAllBills, List<Bill>>
     {
         private readonly IUnitOfWork _unitOfWork;
 
