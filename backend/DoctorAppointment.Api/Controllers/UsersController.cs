@@ -1,5 +1,4 @@
 ﻿using DoctorAppointment.Api.Dto;
-using DoctorAppointment.Api.Wrappers;
 using DoctorAppointment.Domain.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -11,7 +10,7 @@ using System.Text;
 
 namespace DoctorAppointment.Api.Controllers
 {
-    [Route("api/users")]
+	[Route("api/users")]
     [ApiController]
     public class UsersController : ControllerBase
     {

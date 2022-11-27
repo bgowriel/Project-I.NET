@@ -1,11 +1,10 @@
 using DoctorAppointment.Domain.Models;
-using DoctorAppointment.Domain.Models;
 using FluentAssertions;
 using System.Net.Http.Json;
 
 namespace DoctorAppointment.Business.Tests
 {
-    public class AppointmentControllerTests : BaseIntegrationTests
+	public class AppointmentControllerTests : BaseIntegrationTests
     {
         const string ApiURL = "api/appointments";
         private static Appointment CreateSUT()

@@ -10,10 +10,16 @@ namespace DoctorAppointment.Domain.Models
 
         public string Role { get; set; }
 
+        public Guid? OfficeId { get; set; }
+
+        public Office? Office { get; set; }
+
         public List<Appointment>? Appointments { get; set; }
 
         public List<MedicalVisit>? MedicalVisits { get; set; }
 
         public List<Bill>? Bills { get; set; }
+
+
     }
 }

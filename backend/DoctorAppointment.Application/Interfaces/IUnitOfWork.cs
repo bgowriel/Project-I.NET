@@ -6,9 +6,9 @@
 
         public IBillRepository BillRepository { get; }
 
-        //public IDoctorRepository Doctors { get; }
-
-        public IMedicalVisitRepository MedicalVisitRepository { get; }
+		//public IDoctorRepository Doctors { get; }
+		public IOfficeRepository OfficeRepository { get; }
+		public IMedicalVisitRepository MedicalVisitRepository { get; }
 
         //public IPatientRepository Patients { get; }
 

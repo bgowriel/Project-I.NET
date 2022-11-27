@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DoctorAppointment.DataAccess.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    [Migration("20221122024755_InitialCreate")]
-    partial class InitialCreate
+    [Migration("20221127143727_OfficeMig")]
+    partial class OfficeMig
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -119,6 +119,41 @@ namespace DoctorAppointment.DataAccess.Migrations
                     b.ToTable("MedicalVisits");
                 });
 
+            modelBuilder.Entity("DoctorAppointment.Domain.Models.Office", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Address")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("City")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Phone")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Offices");
+                });
+
             modelBuilder.Entity("DoctorAppointment.Domain.Models.User", b =>
                 {
                     b.Property<string>("Id")
@@ -160,6 +195,9 @@ namespace DoctorAppointment.DataAccess.Migrations
                         .HasMaxLength(256)
                         .HasColumnType("nvarchar(256)");
 
+                    b.Property<Guid?>("OfficeId")
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<string>("PasswordHash")
                         .HasColumnType("nvarchar(max)");
 
@@ -192,6 +230,8 @@ namespace DoctorAppointment.DataAccess.Migrations
                         .IsUnique()
                         .HasDatabaseName("UserNameIndex")
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
+
+                    b.HasIndex("OfficeId");
 
                     b.ToTable("AspNetUsers", (string)null);
                 });
@@ -388,6 +428,15 @@ namespace DoctorAppointment.DataAccess.Migrations
                     b.Navigation("Patient");
                 });
 
+            modelBuilder.Entity("DoctorAppointment.Domain.Models.User", b =>
+                {
+                    b.HasOne("DoctorAppointment.Domain.Models.Office", "Office")
+                        .WithMany("Doctors")
+                        .HasForeignKey("OfficeId");
+
+                    b.Navigation("Office");
+                });
+
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
                 {
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
@@ -437,6 +486,11 @@ namespace DoctorAppointment.DataAccess.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("DoctorAppointment.Domain.Models.Office", b =>
+                {
+                    b.Navigation("Doctors");
                 });
 
             modelBuilder.Entity("DoctorAppointment.Domain.Models.User", b =>
