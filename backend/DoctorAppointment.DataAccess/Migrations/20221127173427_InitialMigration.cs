@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace DoctorAppointment.DataAccess.Migrations
 {
     /// <inheritdoc />
-    public partial class OfficeMig : Migration
+    public partial class InitialMigration : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -106,7 +106,8 @@ namespace DoctorAppointment.DataAccess.Migrations
                     Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Status = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
                     DoctorId = table.Column<string>(type: "nvarchar(450)", nullable: true),
-                    PatientId = table.Column<string>(type: "nvarchar(450)", nullable: true)
+                    PatientId = table.Column<string>(type: "nvarchar(450)", nullable: true),
+                    OfficeId = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -206,6 +207,25 @@ namespace DoctorAppointment.DataAccess.Migrations
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "AvalaibleDate",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Date = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    Free = table.Column<bool>(type: "bit", nullable: false),
+                    UserId = table.Column<string>(type: "nvarchar(450)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_AvalaibleDate", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_AvalaibleDate_AspNetUsers_UserId",
+                        column: x => x.UserId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
@@ -319,6 +339,11 @@ namespace DoctorAppointment.DataAccess.Migrations
                 filter: "[NormalizedUserName] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
+                name: "IX_AvalaibleDate_UserId",
+                table: "AvalaibleDate",
+                column: "UserId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Bills_DoctorId",
                 table: "Bills",
                 column: "DoctorId");
@@ -365,6 +390,9 @@ namespace DoctorAppointment.DataAccess.Migrations
 
             migrationBuilder.DropTable(
                 name: "AspNetUserTokens");
+
+            migrationBuilder.DropTable(
+                name: "AvalaibleDate");
 
             migrationBuilder.DropTable(
                 name: "Bills");

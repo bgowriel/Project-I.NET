@@ -21,6 +21,8 @@ namespace DoctorAppointment.Domain.Models
 
         public string PatientId { get; set; }
 
-        public User Patient { get; set; }
+        public User Patient { get; set; } 
+
+        public string OfficeId { get; set; }
     }
 }

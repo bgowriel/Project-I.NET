@@ -20,6 +20,7 @@ namespace DoctorAppointment.Domain.Models
 
         public List<Bill>? Bills { get; set; }
 
+        public List<AvalaibleDate>? AvalaibleDates { get; set; }
 
     }
 }
