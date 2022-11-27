@@ -1,6 +1,6 @@
 ﻿namespace DoctorAppointment.Api.Dto
 {
-    public class BillGetDto
+	public class BillGetDto
     {
         public Guid Id { get; set; }
 

@@ -24,6 +24,7 @@ namespace DoctorAppointment.Application.CommandHandlers
                 Status = request.Status,
                 DoctorId = request.DoctorId,
                 PatientId = request.PatientId,
+                OfficeId = request.OfficeId,
             };
             
             _unitOfWork.AppointmentRepository.Update(toUpdate);

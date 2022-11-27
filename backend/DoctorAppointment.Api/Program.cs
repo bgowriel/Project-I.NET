@@ -33,6 +33,8 @@ builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 builder.Services.AddScoped<IAppointmentRepository, AppointmentRepository>();
 builder.Services.AddScoped<IBillRepository, BillRepository>();
 builder.Services.AddScoped<IMedicalVisitRepository, MedicalVisitRepository>();
+builder.Services.AddScoped<IOfficeRepository,OfficeRepository>();
+
 
 builder.Services.AddDbContext<DatabaseContext>();
 

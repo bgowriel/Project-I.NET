@@ -1,6 +1,6 @@
 ﻿namespace DoctorAppointment.Application
 {
-    public class AssemblyMarker
+	public class AssemblyMarker
     {
     }
 }

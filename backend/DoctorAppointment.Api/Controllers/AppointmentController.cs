@@ -75,7 +75,8 @@ namespace DoctorAppointment.Api.Controllers
                 Description = appointmentPutPostDto.Description,
                 Status = appointmentPutPostDto.Status,
                 DoctorId = appointmentPutPostDto.DoctorId,
-                PatientId = appointmentPutPostDto.PatientId
+                PatientId = appointmentPutPostDto.PatientId,
+                OfficeId = appointmentPutPostDto.OfficeId
             };
 
             var updated = await _mediator.Send(command);

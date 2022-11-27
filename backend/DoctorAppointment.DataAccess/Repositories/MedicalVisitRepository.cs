@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace DoctorAppointment.DataAccess.Repositories
 {
-    public class MedicalVisitRepository : IMedicalVisitRepository
+	public class MedicalVisitRepository : IMedicalVisitRepository
     {
         private readonly DatabaseContext _databaseContext;
 

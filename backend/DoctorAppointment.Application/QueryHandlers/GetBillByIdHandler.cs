@@ -5,7 +5,7 @@ using MediatR;
 
 namespace DoctorAppointment.Application.QueryHandlers
 {
-    public class GetBillByIdHandler : IRequestHandler<GetBillById, Bill>
+	public class GetBillByIdHandler : IRequestHandler<GetBillById, Bill>
     {
         private readonly IUnitOfWork _unitOfWork;
 

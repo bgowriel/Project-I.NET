@@ -24,6 +24,7 @@ namespace DoctorAppointment.Application.CommandHandlers
                 Status = request.Status,
                 DoctorId = request.DoctorId,
                 PatientId = request.PatientId,
+                OfficeId = request.OfficeId
             };
 
             await _unitOfWork.AppointmentRepository.Insert(appointment);

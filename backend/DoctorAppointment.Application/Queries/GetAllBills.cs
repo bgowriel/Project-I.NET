@@ -3,7 +3,7 @@ using MediatR;
 
 namespace DoctorAppointment.Application.Queries
 {
-    public class GetAllBills : IRequest<List<Bill>>
+	public class GetAllBills : IRequest<List<Bill>>
     {
     }
 }
