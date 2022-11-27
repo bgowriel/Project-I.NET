@@ -1,12 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace DoctorAppointment.Application
+﻿namespace DoctorAppointment.Application
 {
-    public class Generator
+	public class Generator
     {
         //TO DO: generate mock data for the database
     }

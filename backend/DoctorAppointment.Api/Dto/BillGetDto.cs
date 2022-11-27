@@ -1,8 +1,6 @@
-﻿using System.ComponentModel.DataAnnotations;
-
-namespace DoctorAppointment.Api.Dto
+﻿namespace DoctorAppointment.Api.Dto
 {
-    public class BillGetDto
+	public class BillGetDto
     {
         public Guid Id { get; set; }
 

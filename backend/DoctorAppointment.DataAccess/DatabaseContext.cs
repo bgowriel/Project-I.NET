@@ -7,13 +7,16 @@ namespace DoctorAppointment.DataAccess
 {
     public class DatabaseContext : IdentityDbContext<User>
     {
-        public DbSet<Appointment> Appointments => Set<Appointment>();
+		
+		public DbSet<Appointment> Appointments => Set<Appointment>();
 
         public DbSet<Bill> Bills => Set<Bill>();
         
         public DbSet<MedicalVisit> MedicalVisits => Set<MedicalVisit>();
 
-        public DatabaseContext() { }
+		public DbSet<Office> Offices => Set<Office>();
+
+		public DatabaseContext() { }
 
         public DatabaseContext(DbContextOptions<DatabaseContext> options) : base(options) { }
         
@@ -28,7 +31,14 @@ namespace DoctorAppointment.DataAccess
         {
             base.OnModelCreating(modelBuilder);
 
-            modelBuilder.Entity<Appointment>()
+			//modelBuilder.Entity<Office>()
+			//   .HasMany(o => o.Doctors)
+			//   .WithOne(d => d.Office)
+			//   .HasForeignKey(d => d.OfficeId)
+			//   .IsRequired(false)
+			//   .OnDelete(DeleteBehavior.SetNull);
+
+			modelBuilder.Entity<Appointment>()
                 .HasOne(a => a.Patient)
                 .WithMany(u => u.Appointments)
                 .HasForeignKey(a => a.PatientId)
