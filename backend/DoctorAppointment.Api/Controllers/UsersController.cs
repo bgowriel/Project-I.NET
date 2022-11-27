@@ -139,7 +139,7 @@ namespace DoctorAppointment.Api.Controllers
         }
 
         [HttpGet]
-        [Route("getUsers")]
+        [Route("get-users")]
         public async Task<IActionResult> GetUsers()
         {
             var users = await _userManager.Users.ToListAsync();
@@ -147,7 +147,7 @@ namespace DoctorAppointment.Api.Controllers
         }
 
         [HttpGet]
-        [Route("getUser")]
+        [Route("get-user")]
         public async Task<IActionResult> GetUser(string id)
         {
             var user = await _userManager.FindByIdAsync(id);
