@@ -83,7 +83,6 @@ builder.Services.AddAuthorization(options =>
 builder.Services.AddMediatR(Assembly.GetAssembly(typeof(AssemblyMarker)));
 builder.Services.AddAutoMapper(typeof(DoctorAppointmentPresentation));
 
-
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

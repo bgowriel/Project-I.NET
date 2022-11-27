@@ -10,18 +10,21 @@ namespace DoctorAppointment.DataAccess
         public DbSet<Appointment> Appointments => Set<Appointment>();
 
         public DbSet<Bill> Bills => Set<Bill>();
-        
+
         public DbSet<MedicalVisit> MedicalVisits => Set<MedicalVisit>();
 
         public DatabaseContext() { }
 
         public DatabaseContext(DbContextOptions<DatabaseContext> options) : base(options) { }
-        
+
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer(@"Server=localhost\SQLEXPRESS;Database=DoctorApp;Trusted_Connection=True;Trust Server Certificate = true")
-                .LogTo(Console.Error.WriteLine, LogLevel.Information)//Console.Error.WriteLine  //LogLevel.Error
-                .EnableSensitiveDataLogging();//true
+            if (!optionsBuilder.IsConfigured)
+            {
+                optionsBuilder.UseSqlServer(@"Server=localhost\SQLEXPRESS;Database=DoctorApp;Trusted_Connection=True;Trust Server Certificate = true")
+                    .LogTo(Console.Error.WriteLine, LogLevel.Information)//Console.Error.WriteLine  //LogLevel.Error
+                    .EnableSensitiveDataLogging();//true
+            }
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)

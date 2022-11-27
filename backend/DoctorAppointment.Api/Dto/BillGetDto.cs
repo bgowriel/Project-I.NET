@@ -1,6 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations;
-
-namespace DoctorAppointment.Api.Dto
+﻿namespace DoctorAppointment.Api.Dto
 {
     public class BillGetDto
     {

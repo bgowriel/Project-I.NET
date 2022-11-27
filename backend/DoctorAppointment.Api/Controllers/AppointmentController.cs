@@ -40,7 +40,7 @@ namespace DoctorAppointment.Api.Controllers
         }
 
         [HttpGet]
-        [Route("{id}")]
+        [Route("/{id}")]
         public async Task<IActionResult> GetAppointmentById(Guid id)
         {
             var appointment = await _mediator.Send(new GetAppointmentById() { Id = id });
@@ -56,7 +56,7 @@ namespace DoctorAppointment.Api.Controllers
 
 
         [HttpGet]
-        [Route("{date}")]
+        [Route("/date/{date}")]
         public async Task<IActionResult> GetAppointmentsByDate(DateTime date)
         {
             var appointments = await _mediator.Send(new GetAppointmentsByDate() { Date = date });
@@ -65,7 +65,7 @@ namespace DoctorAppointment.Api.Controllers
         }
 
         [HttpPut]
-        [Route("{id}")]
+        [Route("/{id}")]
         public async Task<IActionResult> UpdateAppointment(Guid id, [FromBody] AppointmentPutPostDto appointmentPutPostDto)
         {
             var command = new UpdateAppointment()
@@ -91,7 +91,7 @@ namespace DoctorAppointment.Api.Controllers
         }
 
         [HttpDelete]
-        [Route("{id}")]
+        [Route("/{id}")]
         public async Task<IActionResult> DeleteAppointment(Guid id)
         {
             var command = new DeleteAppointment() { Id = id };
