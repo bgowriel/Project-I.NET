@@ -64,6 +64,16 @@ namespace DoctorAppointment.Api.Controllers
             return Ok(mappedResult);
         }
 
+        // get appointments by patient id
+        [HttpGet]
+        [Route("/patient/{id}")]
+        public async Task<IActionResult> GetAppointmentsByPatientId(string id)
+        {
+            var appointments = await _mediator.Send(new GetAppointmentsByPatientId() { PatientId = id });
+            var mappedResult = _mapper.Map<List<AppointmentGetDto>>(appointments);
+            return Ok(mappedResult);
+        }
+
         [HttpPut]
         [Route("/{id}")]
         public async Task<IActionResult> UpdateAppointment(Guid id, [FromBody] AppointmentPutPostDto appointmentPutPostDto)
