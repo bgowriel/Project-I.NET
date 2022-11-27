@@ -1,17 +1,18 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse, HttpResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { catchError, map, Observable } from 'rxjs';
 import { Appointment } from '../shared/models/appointment.model';
 
+const baseUrl = 'https://localhost:7221/';
 const apiUrl: string = 'api/appointments';
+
 
 @Injectable()
 export class PatientService {
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
 
-  createAppointment(appointment: Appointment) {
-    console.log('post request')
-    this.http
-      .post('https://localhost:7221/' + apiUrl, appointment)
-      .subscribe((response) => console.log(response));
+  public createAppointment(appointment: Appointment): Observable<any> {
+    return this.http.post(baseUrl + apiUrl, appointment);
   }
+
 }

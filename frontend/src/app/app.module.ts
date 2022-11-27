@@ -26,6 +26,8 @@ import { HttpClientModule } from '@angular/common/http';
 
 import { AddAppointmentModalComponent } from './patient/add-appointment-modal/add-appointment-modal.component';
 import { MatNativeDateModule } from '@angular/material/core';
+import { ToasterComponent } from './shared/toaster/toaster.component';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 @NgModule({
   declarations: [
@@ -36,6 +38,7 @@ import { MatNativeDateModule } from '@angular/material/core';
     DashboardComponent,
     WorkTableComponent,
     AddAppointmentModalComponent,
+    ToasterComponent,
 
   ],
   imports: [
@@ -55,7 +58,8 @@ import { MatNativeDateModule } from '@angular/material/core';
     MatDialogModule,
     ReactiveFormsModule,
     MatNativeDateModule,
-    HttpClientModule
+    HttpClientModule,
+    MatSnackBarModule
   ],
   providers: [],
   bootstrap: [AppComponent]
