@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Azure.Core;
 using DoctorAppointment.Api.Dto;
 using DoctorAppointment.Application.Commands;
 using DoctorAppointment.Application.Queries;
@@ -60,5 +61,49 @@ namespace DoctorAppointment.Api.Controllers
 			var mappedResult = _mapper.Map<List<UserGetDto>>(doctors);
 			return Ok(mappedResult);
 		}
+	
+
+	[HttpPut]
+	[Route("{id}")]
+	public async Task<IActionResult> UpdateOffice(Guid id, [FromBody] OfficePutPostDto request)
+	{
+		var command = new UpdateOffice()
+		{
+			Name = request.Name,
+			Description = request.Description,
+			Address = request.Address,
+			City = request.City,
+			Email = request.Email,
+			Phone = request.Phone,
+		};
+
+		var updated = await _mediator.Send(command);
+
+		if (updated == null)
+		{
+			return NotFound();
+		}
+
+		var updatedDto = _mapper.Map<OfficeGetDto>(updated);
+
+		return Ok(updatedDto);
 	}
+
+	[HttpDelete]
+	[Route("{id}")]
+	public async Task<IActionResult> DeleteOffice(Guid id)
+	{
+		var command = new DeleteOffice() { Id = id };
+		var deleted = await _mediator.Send(command);
+
+		if (deleted == null)
+		{
+			return NotFound();
+		}
+
+		var deletedDto = _mapper.Map<OfficeGetDto>(deleted);
+
+		return Ok(deletedDto);
+	}
+}
 }
