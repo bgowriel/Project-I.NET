@@ -28,6 +28,7 @@ import { AddAppointmentModalComponent } from './patient/add-appointment-modal/ad
 import { MatNativeDateModule } from '@angular/material/core';
 import { ToasterComponent } from './shared/toaster/toaster.component';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { CabinetComponent } from './shared/cabinet/cabinet.component';
 
 @NgModule({
   declarations: [
@@ -39,6 +40,7 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
     WorkTableComponent,
     AddAppointmentModalComponent,
     ToasterComponent,
+    CabinetComponent,
 
   ],
   imports: [
