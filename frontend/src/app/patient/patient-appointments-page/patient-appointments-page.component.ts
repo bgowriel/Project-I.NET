@@ -1,13 +1,13 @@
 import { Component, EventEmitter, Output } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { AddAppointmentModalComponent } from 'app/patient/add-appointment-modal/add-appointment-modal.component';
+import { AddAppointmentModalComponent } from '../add-appointment-modal/add-appointment-modal.component';
 
 @Component({
-  selector: 'app-dashboard',
-  templateUrl: './dashboard.component.html',
-  styleUrls: ['./dashboard.component.css']
+  selector: 'app-patient-appointments-page',
+  templateUrl: './patient-appointments-page.component.html',
+  styleUrls: ['./patient-appointments-page.component.css']
 })
-export class DashboardComponent {
+export class PatientAppointmentsPageComponent {
   @Output() onCreateNewAppointment: EventEmitter<any> = new EventEmitter();
 
   constructor(public dialog: MatDialog) { }

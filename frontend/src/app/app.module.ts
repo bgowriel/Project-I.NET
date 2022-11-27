@@ -29,7 +29,10 @@ import { MatNativeDateModule } from '@angular/material/core';
 import { ToasterComponent } from './shared/toaster/toaster.component';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { CabinetComponent } from './shared/cabinet/cabinet.component';
-
+import { PatientProfilePageComponent } from './patient/patient-profile-page/patient-profile-page.component';
+import { PatientAppointmentsPageComponent } from './patient/patient-appointments-page/patient-appointments-page.component';
+import { PatientDashboardPageComponent } from './patient/patient-dashboard-page/patient-dashboard-page.component';
+import { MatCardModule } from '@angular/material/card';
 @NgModule({
   declarations: [
     AppComponent,
@@ -41,6 +44,9 @@ import { CabinetComponent } from './shared/cabinet/cabinet.component';
     AddAppointmentModalComponent,
     ToasterComponent,
     CabinetComponent,
+    PatientProfilePageComponent,
+    PatientAppointmentsPageComponent,
+    PatientDashboardPageComponent,
 
   ],
   imports: [
@@ -61,7 +67,8 @@ import { CabinetComponent } from './shared/cabinet/cabinet.component';
     ReactiveFormsModule,
     MatNativeDateModule,
     HttpClientModule,
-    MatSnackBarModule
+    MatSnackBarModule,
+    MatCardModule
   ],
   providers: [],
   bootstrap: [AppComponent]

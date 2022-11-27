@@ -1,17 +1,18 @@
 import { Component, OnInit } from '@angular/core';
-import { Router, ActivatedRoute, ParamMap } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { Appointment } from 'app/shared/models/appointment.model';
 import { ToasterService } from 'app/shared/toaster/toaster.service';
 import { PatientService } from '../patient.service';
 
 @Component({
-  selector: 'app-patient-page',
-  templateUrl: './patient-page.component.html',
-  styleUrls: ['./patient-page.component.css'],
+  selector: 'app-patient-dashboard-page',
+  templateUrl: './patient-dashboard-page.component.html',
+  styleUrls: ['./patient-dashboard-page.component.css'],
   providers: [PatientService, ToasterService]
 })
-export class PatientPageComponent implements OnInit {
-  constructor(private patientService: PatientService, private toasterService: ToasterService, private route: ActivatedRoute) {  }
+export class PatientDashboardPageComponent implements OnInit {
+
+  constructor(private patientService: PatientService, private toasterService: ToasterService, private route: ActivatedRoute) { }
 
   public data: any;
 
@@ -34,4 +35,5 @@ export class PatientPageComponent implements OnInit {
       this.toasterService.onSuccess("Appointment created successfully !");
     }
   }
+
 }

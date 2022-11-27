@@ -1,0 +1,41 @@
+:host {
+  display: flex;
+  width: 100%;
+  margin: 0 5rem;
+}
+.dashboard-wrapper {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+.header {
+  height: 7rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 0.1rem solid grey;
+  margin-bottom: 5rem;
+}
+
+.dashboard {
+  width: 100%;
+  height: 100%;
+  display: grid;
+  grid-template-columns: 50% 50%;
+  grid-template-rows: 50% 50%;
+}
+
+.card {
+  width: 90%;
+  height: 90%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-transform: uppercase;
+  font-size: 1.5rem;
+  cursor: pointer;
+}
+
+.card:hover{
+   filter: brightness(97%)
+}
