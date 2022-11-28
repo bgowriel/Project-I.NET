@@ -23,6 +23,6 @@ namespace DoctorAppointment.Domain.Models
 
         public User Patient { get; set; } 
 
-        public string OfficeId { get; set; }
+        public Guid? OfficeId { get; set; }
     }
 }

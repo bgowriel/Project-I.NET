@@ -14,6 +14,6 @@
         
         public string PatientId { get; set; }
 
-        public string OfficeId { get; set; }
+        public Guid OfficeId { get; set; }
     }
 }
