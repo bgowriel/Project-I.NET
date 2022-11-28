@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 
 export interface PeriodicElement {
   name: string;
@@ -28,4 +28,10 @@ const ELEMENT_DATA: PeriodicElement[] = [
 export class WorkTableComponent {
   displayedColumns: string[] = ['position', 'name', 'weight', 'symbol'];
   dataSource = ELEMENT_DATA;
+
+  @Input() public data: any;
+
+  ngOnInit() {
+    console.log(this.data)
+  }
 }

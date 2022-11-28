@@ -1,0 +1,19 @@
+.snack {
+  background-color: white;
+  font-size: 1.2rem;
+}
+.success {
+  color: green;
+}
+.error {
+  color: red;
+}
+::ng-deep.mat-mdc-snack-bar-container .mdc-snackbar__surface{
+  background-color: white;
+}
+::ng-deep.mdc-snackbar__surface {
+  padding: 0;
+  width: 10rem;
+  height: 4rem;
+  background-color: white;
+}

@@ -1,0 +1,80 @@
+<section class="add-appointment-modal">
+  <h1 mat-dialog-title class="title">New Appointment</h1>
+  <form mat-dialog-content class="add-appointment-form" [formGroup]="form">
+    <mat-form-field appearance="fill" class="form-item">
+      <mat-label>Cabinets</mat-label>
+      <mat-select
+        required
+        formControlName="cabinets"
+        [(ngModel)]="appointment.officeId"
+        (ngModelChange)="officeSelected(appointment.officeId)"
+      >
+        <mat-option
+          *ngFor="let cabinet of data.cabinets"
+          [value]="cabinet.id"
+          >{{ cabinet.name }}</mat-option
+        >
+      </mat-select>
+      <mat-error *ngIf="form.get('cabinets')?.errors" class="error-tip">
+        Please select a cabinet
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill" class="form-item">
+      <mat-label>Doctors</mat-label>
+      <mat-select
+        required
+        formControlName="doctors"
+        [(ngModel)]="appointment.doctorId"
+      >
+        <mat-option *ngFor="let doctor of data.doctors" [value]="doctor.id">{{
+          doctor.firstName + " " + doctor.lastName
+        }}</mat-option>
+      </mat-select>
+      <mat-error *ngIf="form.get('doctors')?.errors" class="error-tip">
+        Please select a doctor
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill" class="form-item">
+      <mat-label>Date</mat-label>
+      <input
+        required
+        matInput
+        [matDatepicker]="picker"
+        formControlName="date"
+        [matDatepickerFilter]="myFilter"
+        [(ngModel)]="appointment.date"
+      />
+      <mat-datepicker-toggle
+        matIconSuffix
+        [for]="picker"
+      ></mat-datepicker-toggle>
+      <mat-datepicker #picker></mat-datepicker>
+      <mat-error *ngIf="form.get('date')?.errors" class="error-tip">
+        Please select a date
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill" class="form-item">
+      <mat-label>Description</mat-label>
+      <textarea
+        rows="10"
+        matInput
+        [(ngModel)]="appointment.description"
+        [ngModelOptions]="{ standalone: true }"
+      ></textarea>
+    </mat-form-field>
+
+    <div mat-dialog-actions class="dialog-actions">
+      <button mat-raised-button mat-dialog-close>Cancel</button>
+      <button
+        mat-raised-button
+        [mat-dialog-close]="appointment"
+        [class.disabled]="form.invalid"
+      >
+        Send request
+      </button>
+    </div>
+  </form>
+</section>
