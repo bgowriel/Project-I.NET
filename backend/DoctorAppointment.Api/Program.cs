@@ -1,4 +1,5 @@
 using DoctorAppointment.Api;
+using DoctorAppointment.Api.Services;
 using DoctorAppointment.Application;
 using DoctorAppointment.Application.Interfaces;
 using DoctorAppointment.DataAccess;
@@ -84,6 +85,9 @@ builder.Services.AddAuthorization(options =>
 
 builder.Services.AddMediatR(Assembly.GetAssembly(typeof(AssemblyMarker)));
 builder.Services.AddAutoMapper(typeof(DoctorAppointmentPresentation));
+
+// add SeedDBService to the container
+builder.Services.AddScoped<SeedDBService>();
 
 var app = builder.Build();
 
