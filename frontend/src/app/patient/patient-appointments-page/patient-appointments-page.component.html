@@ -8,12 +8,24 @@
     mat-raised-button
     (click)="onCreateNewAppointmentClick()"
   >
-    Create New +
-  </button>
-  <app-work-table
+  Create New +
+</button>
+  <!-- display all elements from appointments -->
+  <div *ngFor="let appointment of appointments">
+      <div class="appointment">
+        <div class="appointment__date">
+          <div class="appointment__date__day">{{ appointment.date | date: 'dd' }}</div>
+          <div class="appointment__date__month">{{ appointment.date | date: 'MMM' }}</div>
+        </div>
+        <div class="appointment__details">
+          <div class="appointment__details__title">{{ appointment.description }}</div>
+          <div class="appointment__details__time">{{ appointment.date | date: 'hh:mm a' }}</div>
+        </div>
+      </div>
+  </div>
+  <!-- <app-work-table
     *ngIf="appointments.length"
     class="work-table"
-  ></app-work-table>
-
-  
+    ></app-work-table> -->
+    <!-- </main> -->
 </main>

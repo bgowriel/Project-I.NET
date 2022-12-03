@@ -37,6 +37,7 @@ namespace DoctorAppointment.IntegrationTests
                 Status = "Pending",
                 DoctorId = users[0].Id,
                 PatientId = users[1].Id,
+                OfficeId = Guid.NewGuid()
             };
 
             db.Appointments.Add(appointment);
