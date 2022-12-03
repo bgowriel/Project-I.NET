@@ -62,17 +62,19 @@ export class PatientAppointmentsPageComponent {
   }
 
   async getAllAppointments() {
-    const result = await this.patientService.getAppointments()
-      .toPromise().catch(error => error);
+    const result = await this.patientService.getAppointmentsByPatientId('5382948d-5d90-4473-bd7f-70f5f281ca9f')
+      .toPromise().catch(error => {
+        console.log("AAAAAAAAA " + error)
+      });
 
     if (result) {
       // this.toasterService.onSuccess("Appointments fetched successfully !");
       this.appointments = [...result];
       console.log(this.appointments)
     }
-    else if (!result.ok) {
-      this.toasterService.onError("Something went wrong !");
-    }
+    // else if (!result.ok) {
+    //   this.toasterService.onError("Something went wrong !");
+    // }
   }
 
   async getAllOffices() {

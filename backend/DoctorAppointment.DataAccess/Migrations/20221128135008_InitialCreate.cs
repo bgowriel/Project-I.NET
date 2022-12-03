@@ -107,7 +107,7 @@ namespace DoctorAppointment.DataAccess.Migrations
                     Status = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
                     DoctorId = table.Column<string>(type: "nvarchar(450)", nullable: true),
                     PatientId = table.Column<string>(type: "nvarchar(450)", nullable: true),
-                    OfficeId = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    OfficeId = table.Column<Guid>(type: "uniqueidentifier", nullable: true)
                 },
                 constraints: table =>
                 {

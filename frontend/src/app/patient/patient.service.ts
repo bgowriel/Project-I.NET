@@ -21,6 +21,11 @@ export class PatientService {
     return this.http.get<Appointment[]>(baseUrl + appointmentsApi);
   }
 
+  //get appointments by patient id
+  public getAppointmentsByPatientId(id: string): Observable<Appointment[]> {
+    return this.http.get<Appointment[]>('https://localhost:7221/patient/5382948d-5d90-4473-bd7f-70f5f281ca9f')//baseUrl + '/patient/' + id);
+  }
+
   public getAllOffices(): Observable<Office[]> {
     return this.http.get<Office[]>(baseUrl + officesApi);
   }

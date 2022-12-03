@@ -147,7 +147,7 @@ namespace DoctorAppointment.Api.Controllers
         }
 
         [HttpGet]
-        [Route("get-user")]
+        [Route("get-user/{id}")]
         public async Task<IActionResult> GetUser(string id)
         {
             var user = await _userManager.FindByIdAsync(id);
