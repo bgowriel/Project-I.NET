@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DoctorAppointment.DataAccess.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    [Migration("20221127210240_InitialCreate")]
+    [Migration("20221128135008_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -40,9 +40,8 @@ namespace DoctorAppointment.DataAccess.Migrations
                     b.Property<string>("DoctorId")
                         .HasColumnType("nvarchar(450)");
 
-                    b.Property<string>("OfficeId")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<Guid?>("OfficeId")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("PatientId")
                         .HasColumnType("nvarchar(450)");

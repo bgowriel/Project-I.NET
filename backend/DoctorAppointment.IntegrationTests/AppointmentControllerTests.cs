@@ -38,7 +38,8 @@ namespace DoctorAppointment.IntegrationTests
                 Description = "Surgeon",
                 Status = "Pending",
                 DoctorId = users[0].Id,
-                PatientId = users[1].Id
+                PatientId = users[1].Id,
+                OfficeId = Guid.NewGuid()
             };
             
             // act
@@ -49,7 +50,7 @@ namespace DoctorAppointment.IntegrationTests
             Assert.AreEqual(HttpStatusCode.Created, response.StatusCode);
         }
 
-        //[TestMethod]
+        [TestMethod]
         public async Task GetAppointmentById_ReturnsAppointment()
         {
             // arrange
@@ -71,7 +72,7 @@ namespace DoctorAppointment.IntegrationTests
                 Assert.Fail("Response is null");
             }
             var appointment = JsonConvert.DeserializeObject<Appointment>(responseString);
-            Assert.AreEqual(appointmentId, appointment.Id.ToString());
+            Assert.AreEqual(appointmentId, appointment.Id);
         }
 
         [TestMethod]
@@ -81,10 +82,66 @@ namespace DoctorAppointment.IntegrationTests
             var client = _factory.CreateClient();
 
             // act
-            var response = await client.GetAsync("/api/appointment/00000000-0000-0000-0000-000000000002");
+            var response = await client.GetAsync("/api/appointments/00000000-0000-0000-0000-000000000002");
 
             // assert
             Assert.AreEqual(HttpStatusCode.NotFound, response.StatusCode);
+        }
+
+        [TestMethod]
+        public async Task GetAppointments_ReturnsAppointments()
+        {
+            // arrange
+            var client = _factory.CreateClient();
+
+            // act
+            var response = await client.GetAsync("/api/appointments/");
+            response.EnsureSuccessStatusCode();
+            var responseString = await response.Content.ReadAsStringAsync();
+
+            // assert
+            if (string.IsNullOrWhiteSpace(responseString) == true)
+            {
+                Assert.Fail("Response is null");
+            }
+            var appointments = JsonConvert.DeserializeObject<List<Appointment>>(responseString);
+            Assert.IsTrue(appointments.Count > 0);
+        }
+
+        [TestMethod]
+        public async Task UpdateAppointment_ReturnsOk()
+        {
+            // arrange
+            var client = _factory.CreateClient();
+            
+            var usersResponse = await client.GetAsync("/api/users/get-users");
+            usersResponse.EnsureSuccessStatusCode();
+            var users = JsonConvert.DeserializeObject<List<User>>(await usersResponse.Content.ReadAsStringAsync());
+            
+            var doctorId = users.Where(x => x.Role == "Doctor").FirstOrDefault().Id;
+            var patientId = users.Where(x => x.Role == "Patient").FirstOrDefault().Id;
+
+            var response = await client.GetAsync("/api/appointments/");
+            response.EnsureSuccessStatusCode();
+            var appointments = JsonConvert.DeserializeObject<List<Appointment>>(await response.Content.ReadAsStringAsync());
+            var appointmentId = appointments.FirstOrDefault().Id;
+
+            var appointment = new AppointmentPutPostDto
+            {
+                Date = DateTime.Now,
+                Description = "Surgeon",
+                Status = "Pending",
+                DoctorId = doctorId,
+                PatientId = patientId,
+                OfficeId = Guid.NewGuid()
+            };
+
+            // act
+            var appointmentResponse = await client.PutAsJsonAsync($"/api/appointments/{appointmentId}", appointment);
+            appointmentResponse.EnsureSuccessStatusCode();
+
+            // assert
+            Assert.AreEqual(HttpStatusCode.OK, appointmentResponse.StatusCode);
         }
 
         [ClassCleanup]

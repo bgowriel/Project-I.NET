@@ -7,6 +7,7 @@ namespace DoctorAppointment.DataAccess
         private readonly DatabaseContext _databaseContext;
 
         public IAppointmentRepository AppointmentRepository { get; private set; }
+        
         public IMedicalVisitRepository MedicalVisitRepository { get; private set; }
 
         public IOfficeRepository OfficeRepository { get; private set; }
@@ -14,8 +15,8 @@ namespace DoctorAppointment.DataAccess
         public IBillRepository BillRepository { get; private set; }
 
         public UnitOfWork(DatabaseContext context,
-						   IOfficeRepository officeRepository,
-						  IAppointmentRepository appointmentRepository,
+                          IOfficeRepository officeRepository,
+                          IAppointmentRepository appointmentRepository,
                           IMedicalVisitRepository medicalVisitRepository,
                           IBillRepository billRepository)
         {

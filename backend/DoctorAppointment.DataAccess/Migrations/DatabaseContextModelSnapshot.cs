@@ -37,9 +37,8 @@ namespace DoctorAppointment.DataAccess.Migrations
                     b.Property<string>("DoctorId")
                         .HasColumnType("nvarchar(450)");
 
-                    b.Property<string>("OfficeId")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<Guid?>("OfficeId")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("PatientId")
                         .HasColumnType("nvarchar(450)");

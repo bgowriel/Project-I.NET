@@ -16,6 +16,6 @@ namespace DoctorAppointment.Application.Commands
         public string DoctorId { get; set; }
 
         public string PatientId { get; set; }
-        public Guid OfficeId { get; set; }
+        public Guid? OfficeId { get; set; }
     }
 }
