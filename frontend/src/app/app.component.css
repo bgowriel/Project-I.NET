@@ -8,3 +8,8 @@ main {
   display: flex;
   width: 100%;
 }
+
+.router_outlet{
+  width: 100%;
+  height: 100%;
+}

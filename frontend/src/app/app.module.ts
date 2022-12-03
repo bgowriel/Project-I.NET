@@ -33,6 +33,8 @@ import { PatientProfilePageComponent } from './patient/patient-profile-page/pati
 import { PatientAppointmentsPageComponent } from './patient/patient-appointments-page/patient-appointments-page.component';
 import { PatientDashboardPageComponent } from './patient/patient-dashboard-page/patient-dashboard-page.component';
 import { MatCardModule } from '@angular/material/card';
+import { HomeComponent } from './shared/home/home.component';
+import { MatMenuModule} from '@angular/material/menu';
 @NgModule({
   declarations: [
     AppComponent,
@@ -47,6 +49,7 @@ import { MatCardModule } from '@angular/material/card';
     PatientProfilePageComponent,
     PatientAppointmentsPageComponent,
     PatientDashboardPageComponent,
+    HomeComponent,
 
   ],
   imports: [
@@ -68,7 +71,8 @@ import { MatCardModule } from '@angular/material/card';
     MatNativeDateModule,
     HttpClientModule,
     MatSnackBarModule,
-    MatCardModule
+    MatCardModule,
+    MatMenuModule
   ],
   providers: [],
   bootstrap: [AppComponent]
