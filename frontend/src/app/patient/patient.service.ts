@@ -21,6 +21,7 @@ export class PatientService {
     return this.http.get<Appointment[]>(baseUrl + appointmentsApi);
   }
   public getAppointmentsByPatientId(id: string): Observable<Appointment[]> {
+    console.log(id)
     return this.http.get<Appointment[]>(baseUrl + appointmentsApi + '/patient/' + id);
   }
   public getAllOffices(): Observable<Office[]> {
@@ -30,7 +31,7 @@ export class PatientService {
     return this.http.get<Doctor[]>(baseUrl + 'doctors/' + id);
   }
   public getDoctorById(id: string): Observable<Doctor> {
-    return this.http.get<Doctor>(baseUrl + 'api/users/get-user/' + id);
+    return this.http.get<Doctor>(baseUrl + 'api/users/' + id);
   }
   public getOfficeById(id: string): Observable<Doctor> {
     return this.http.get<Doctor>(baseUrl + 'api/offices/' + id);
