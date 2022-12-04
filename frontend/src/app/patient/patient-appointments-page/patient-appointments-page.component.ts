@@ -93,6 +93,7 @@ export class PatientAppointmentsPageComponent implements OnInit {
         this.dataSource = await this.mapAppointmentsData(result);
       } catch (error) {
         this.toasterService.onError("Something went wrong !");
+        this.isLoading = false
       }
     }
     else if (!result) {

@@ -4,12 +4,15 @@ using DoctorAppointment.Api.Validators;
 using DoctorAppointment.Application.Commands;
 using DoctorAppointment.Application.Queries;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace DoctorAppointment.Api.Controllers
 {
-    [Route("api/offices")]
+
 	[ApiController]
+    [Authorize]
+    [Route("api/offices")]
 	public class OfficeController : ControllerBase
 	{
 		private readonly IMediator _mediator;
