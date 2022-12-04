@@ -1,5 +1,6 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component, EventEmitter, Output, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
+import { MatTable } from '@angular/material/table';
 import { Appointment } from 'app/shared/models/appointment.model';
 import { Doctor } from 'app/shared/models/doctor.model';
 import { Office } from 'app/shared/models/office.model';
@@ -21,10 +22,17 @@ export class PatientAppointmentsPageComponent {
   public doctors: Doctor[] = [];
 
   private dialogRef: any;
+  private temp: any = [];
 
-  ngOnInit() {
-    this.getAllOffices();
-    this.getAllAppointments();
+  displayedColumns: string[] = ['office', 'doctor', 'date', 'description', 'status', 'actions'];
+  dataSource: any = [];
+  isLoading: boolean = false;
+
+  @ViewChild(MatTable) table: MatTable<any>;
+
+  async ngOnInit() {
+    await this.getAllOffices();
+    await this.getAppointmentsByPatientId();
   }
 
   onCreateNewAppointmentClick() {
@@ -53,28 +61,50 @@ export class PatientAppointmentsPageComponent {
 
     if (result) {
       this.toasterService.onSuccess("Appointment created successfully !");
-      this.appointments.unshift(appointment);
-      console.log(appointment)
+      const doctor = await this.patientService.getDoctorById(appointment.doctorId).toPromise().catch(error => error);
+      const office = await this.patientService.getOfficeById(appointment.officeId).toPromise().catch(error => error);
+      appointment.doctor = doctor;
+      appointment.office = office;
+
+      this.dataSource.unshift(appointment);
+      this.table.renderRows();
     }
     else if (!result.ok) {
       this.toasterService.onError("Something went wrong !");
     }
   }
 
-  async getAllAppointments() {
-    const result = await this.patientService.getAppointmentsByPatientId('5382948d-5d90-4473-bd7f-70f5f281ca9f')
-      .toPromise().catch(error => {
-        console.log("AAAAAAAAA " + error)
-      });
+  async getAppointmentsByPatientId() {
+    this.isLoading = true;
+    const result = await this.patientService.getAppointmentsByPatientId('3ed489f3-9f93-43be-91d5-9ee7bf74ee45')
+      .toPromise().catch(error => error);
 
     if (result) {
       // this.toasterService.onSuccess("Appointments fetched successfully !");
-      this.appointments = [...result];
-      console.log(this.appointments)
+      // this.appointments = [...result];
+      this.temp = [...result];
+
+      try {
+
+        this.temp.forEach(async (appointment: any) => {
+          const doctor = await this.patientService.getDoctorById(appointment.doctorId).toPromise().catch(error => error);
+          const office = await this.patientService.getOfficeById(appointment.officeId).toPromise().catch(error => error);
+          appointment.doctor = doctor;
+          appointment.office = office;
+        })
+
+        console.log(this.temp)
+        this.appointments = [...this.temp];
+        this.dataSource = [...this.appointments];
+      } catch (error) {
+        this.toasterService.onError("Something went wrong !");
+      }
     }
-    // else if (!result.ok) {
-    //   this.toasterService.onError("Something went wrong !");
-    // }
+    else if (!result) {
+      this.toasterService.onError("Something went wrong !");
+    }
+    this.isLoading = false;
+
   }
 
   async getAllOffices() {
@@ -103,6 +133,37 @@ export class PatientAppointmentsPageComponent {
     else if (!result.ok) {
       this.toasterService.onError("Something went wrong !");
     }
-
   }
+
+  async onActionAppointmentClick(id: string, appointment: Appointment) {
+    if (appointment.status === "Canceled") {
+      await this.removeAppointment(id);
+    } else {
+      appointment.status = 'Canceled';
+      const result = await this.patientService.updateAppointment(id, appointment)
+        .toPromise().catch(error => error);
+
+      if (result) {
+        this.toasterService.onSuccess("Appointment canceled successfully !");
+      }
+      else if (!result.ok) {
+        this.toasterService.onError("Something went wrong !");
+      }
+    }
+  }
+
+  async removeAppointment(id: string) {
+    const result = await this.patientService.deleteAppointment(id)
+      .toPromise().catch(error => error);
+
+    if (result) {
+      this.toasterService.onSuccess("Appointment removed successfully !");
+      this.dataSource.splice(this.dataSource.findIndex((appointment: Appointment) => appointment.id === id), 1);
+      this.table.renderRows();
+    }
+    else if (!result.ok) {
+      this.toasterService.onError("Something went wrong !");
+    }
+  }
+
 }

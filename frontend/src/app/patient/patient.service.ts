@@ -17,22 +17,29 @@ export class PatientService {
   public createAppointment(appointment: Appointment): Observable<any> {
     return this.http.post(baseUrl + appointmentsApi, appointment);
   }
-
   public getAppointments(): Observable<Appointment[]> {
     return this.http.get<Appointment[]>(baseUrl + appointmentsApi);
   }
-
-  //get appointments by patient id
   public getAppointmentsByPatientId(id: string): Observable<Appointment[]> {
-    return this.http.get<Appointment[]>('https://localhost:7221/patient/5382948d-5d90-4473-bd7f-70f5f281ca9f')//baseUrl + '/patient/' + id);
+    return this.http.get<Appointment[]>(baseUrl + appointmentsApi + '/patient/' + id);
   }
-
   public getAllOffices(): Observable<Office[]> {
     return this.http.get<Office[]>(baseUrl + officesApi);
   }
-
   public getDoctorsByOfficeId(id: string): Observable<Doctor[]> {
     return this.http.get<Doctor[]>(baseUrl + 'doctors/' + id);
+  }
+  public getDoctorById(id: string): Observable<Doctor> {
+    return this.http.get<Doctor>(baseUrl + 'api/users/get-user/' + id);
+  }
+  public getOfficeById(id: string): Observable<Doctor> {
+    return this.http.get<Doctor>(baseUrl + 'api/offices/' + id);
+  }
+  public updateAppointment(id: string, appointment: Appointment): Observable<any> {
+    return this.http.put<any>(baseUrl + 'api/appointments/' + id, appointment);
+  }
+  public deleteAppointment(id: string): Observable<any> {
+    return this.http.delete<any>(baseUrl + 'api/appointments/' + id);
   }
 
   //register new patient(user) MOVED TO AUTHENTICATION SERVICE

@@ -35,6 +35,12 @@ import { PatientDashboardPageComponent } from './patient/patient-dashboard-page/
 import { MatCardModule } from '@angular/material/card';
 import { RegisterComponent } from './register/register.component';
 import { LoginComponent } from './login/login.component';
+import { HomeComponent } from './shared/home/home.component';
+import { MatMenuModule } from '@angular/material/menu';
+import { PageNotFoundComponent } from './shared/page-not-found/page-not-found.component';
+import { MatTooltipModule } from '@angular/material/tooltip';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -52,6 +58,8 @@ import { LoginComponent } from './login/login.component';
     RegisterComponent,
     LoginComponent,
 
+    HomeComponent,
+    PageNotFoundComponent,
   ],
   imports: [
     BrowserModule,
@@ -72,7 +80,10 @@ import { LoginComponent } from './login/login.component';
     MatNativeDateModule,
     HttpClientModule,
     MatSnackBarModule,
-    MatCardModule
+    MatCardModule,
+    MatMenuModule,
+    MatTooltipModule,
+    MatProgressSpinnerModule
   ],
   providers: [],
   bootstrap: [AppComponent]

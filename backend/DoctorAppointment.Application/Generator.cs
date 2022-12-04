@@ -2,11 +2,10 @@
 using DoctorAppointment.Domain.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using System.Diagnostics;
 
 namespace DoctorAppointment.Application
 {
-	public class Generator
+    public class Generator
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly UserManager<User> _userManager;
@@ -35,13 +34,13 @@ namespace DoctorAppointment.Application
             }
             
             // call methods to generate data
-            await GenerateOffices(20);
-            await GenerateDoctors(80);
-            await GeneratePatients(400);
-            await GeneratePatients(400);
+            await GenerateOffices(10);
+            await GenerateDoctors(10);
+            await GeneratePatients(10);
+            await GeneratePatients(10);
             await AddRolesToUsers();
-            await GenerateAppointments(400);
-            await GenerateAppointments(400);
+            await GenerateAppointments(10);
+            await GenerateAppointments(10);
             await _unitOfWork.Save();
         }
 

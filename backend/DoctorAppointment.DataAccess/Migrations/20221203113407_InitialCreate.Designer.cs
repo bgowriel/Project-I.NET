@@ -12,7 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DoctorAppointment.DataAccess.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    [Migration("20221128135008_InitialCreate")]
+<<<<<<<< HEAD:backend/DoctorAppointment.DataAccess/Migrations/20221204145754_InitialCreate.Designer.cs
+    [Migration("20221204145754_InitialCreate")]
+========
+    [Migration("20221203113407_InitialCreate")]
+>>>>>>>> main:backend/DoctorAppointment.DataAccess/Migrations/20221203113407_InitialCreate.Designer.cs
     partial class InitialCreate
     {
         /// <inheritdoc />
