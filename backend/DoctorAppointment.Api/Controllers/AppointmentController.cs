@@ -10,7 +10,6 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 
 namespace DoctorAppointment.Api.Controllers
 {
-
     [ApiController]
     [Authorize]
     [Route("api/appointments")]

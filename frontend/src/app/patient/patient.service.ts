@@ -15,6 +15,7 @@ export class PatientService {
   constructor(private http: HttpClient) { }
 
   public createAppointment(appointment: Appointment): Observable<any> {
+    console.log("Appointment to create: " + appointment);
     return this.http.post(baseUrl + appointmentsApi, appointment);
   }
   public getAppointments(): Observable<Appointment[]> {
