@@ -3,13 +3,8 @@ using DoctorAppointment.Api.Dto;
 using DoctorAppointment.Domain.Models;
 using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Net;
 using System.Net.Http.Json;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace DoctorAppointment.IntegrationTests
 {

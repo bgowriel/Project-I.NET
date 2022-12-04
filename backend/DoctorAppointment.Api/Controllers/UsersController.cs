@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using DoctorAppointment.Api.Dto;
+using DoctorAppointment.Api.Validators;
 using DoctorAppointment.Application.Queries;
 using DoctorAppointment.Domain.Models;
 using MediatR;
@@ -69,6 +70,14 @@ namespace DoctorAppointment.Api.Controllers
                 return BadRequest(new { message = "User already exists!" });
             }
 
+            //validate user
+            var validator = new RegisterModelValidator();
+            var validationResult = validator.Validate(model);
+            if (!validationResult.IsValid)
+            {
+                return BadRequest(validationResult.Errors);
+            }
+
             User user = new User()
             {
                 FirstName = model.FirstName,
@@ -99,6 +108,14 @@ namespace DoctorAppointment.Api.Controllers
         [Route("login")]
         public async Task<IActionResult> Login([FromBody] LoginModel model)
         {
+            //validate user
+            var validator = new LoginModelValidator();
+            var validationResult = validator.Validate(model);
+            if (!validationResult.IsValid)
+            {
+                return BadRequest(validationResult.Errors);
+            }
+            
             var user = await _userManager.FindByNameAsync(model.Email);
             if (user != null && await _userManager.CheckPasswordAsync(user, model.Password))
             {

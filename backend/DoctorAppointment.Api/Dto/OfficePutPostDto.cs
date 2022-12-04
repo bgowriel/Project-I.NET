@@ -1,9 +1,8 @@
-﻿using DoctorAppointment.Domain.Models;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace DoctorAppointment.Api.Dto
 {
-	public class OfficePutPostDto
+    public class OfficePutPostDto
 	{
 		[Required]
 		[MinLength(3)]
