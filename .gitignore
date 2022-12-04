@@ -350,3 +350,12 @@ MigrationBackup/
 
 # Ionide (cross platform F# VS Code tools) working folder
 .ionide/
+backend/DoctorAppointment.DataAccess/Migrations/20221203113407_InitialCreate.cs
+backend/DoctorAppointment.DataAccess/Migrations/20221203113407_InitialCreate.cs
+backend/DoctorAppointment.DataAccess/Migrations/20221203113407_InitialCreate.Designer.cs
+backend/DoctorAppointment.DataAccess/Migrations/20221204145754_InitialCreate.cs
+backend/DoctorAppointment.DataAccess/Migrations/20221204145754_InitialCreate.Designer.cs
+backend/DoctorAppointment.DataAccess/Migrations/20221204182627_InitialCreate.cs
+backend/DoctorAppointment.DataAccess/Migrations/20221204182627_InitialCreate.Designer.cs
+backend/DoctorAppointment.DataAccess/Migrations/20221203113407_InitialCreate.cs
+backend/DoctorAppointment.DataAccess/Migrations/20221203113407_InitialCreate.Designer.cs

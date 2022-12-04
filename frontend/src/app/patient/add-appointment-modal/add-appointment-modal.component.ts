@@ -21,7 +21,7 @@ export class AddAppointmentModalComponent implements OnInit {
     this.initForm();
 
     //TEMP
-    this.appointment.patientId = "3ed489f3-9f93-43be-91d5-9ee7bf74ee45"
+    this.appointment.patientId = "48f516a4-8139-4851-a8ba-107db6320917"
     this.appointment.status = "Pending"
   }
 

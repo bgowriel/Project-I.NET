@@ -5,4 +5,5 @@ export interface LoginModel {
     iss: string;
     jti: string;
     role: string;
+    userId: string;
 }
