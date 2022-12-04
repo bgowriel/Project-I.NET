@@ -5,6 +5,8 @@ using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using DoctorAppointment.Application.Commands;
 using DoctorAppointment.Api.Validators;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 
 namespace DoctorAppointment.Api.Controllers
 {
@@ -21,6 +23,7 @@ namespace DoctorAppointment.Api.Controllers
             _mapper = mapper;
         }
 
+        [Authorize]        
         [HttpPost]
         public async Task<IActionResult> AddAppointment([FromBody] AppointmentPutPostDto appointmentPutPostDto)
         {
@@ -35,7 +38,7 @@ namespace DoctorAppointment.Api.Controllers
             var created = await _mediator.Send(command);
             var createdDto = _mapper.Map<AppointmentGetDto>(created);
 
-            return CreatedAtAction(nameof(GetAppointmentById), new { id = created.Id }, createdDto);
+            return CreatedAtAction(nameof(AddAppointment), new { id = created.Id }, createdDto);
         }
 
         [HttpGet]

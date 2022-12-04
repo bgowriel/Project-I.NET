@@ -1,9 +1,11 @@
-import { Component, EventEmitter, Output, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatTable } from '@angular/material/table';
+import { UserService } from 'app/services/user.service';
 import { Appointment } from 'app/shared/models/appointment.model';
 import { Doctor } from 'app/shared/models/doctor.model';
 import { Office } from 'app/shared/models/office.model';
+import { User } from 'app/shared/models/user.model';
 import { ToasterService } from 'app/shared/toaster/toaster.service';
 import { AddAppointmentModalComponent } from '../add-appointment-modal/add-appointment-modal.component';
 import { PatientService } from '../patient.service';
@@ -14,15 +16,14 @@ import { PatientService } from '../patient.service';
   styleUrls: ['./patient-appointments-page.component.css'],
   providers: [PatientService, ToasterService]
 })
-export class PatientAppointmentsPageComponent {
-  constructor(public dialog: MatDialog, private patientService: PatientService, private toasterService: ToasterService) { }
+export class PatientAppointmentsPageComponent implements OnInit {
+  constructor(public dialog: MatDialog, private patientService: PatientService, private toasterService: ToasterService, private userService: UserService) { }
 
   public appointments: Appointment[] = [];
   public offices: Office[] = [];
   public doctors: Doctor[] = [];
 
   private dialogRef: any;
-  private temp: any = [];
 
   displayedColumns: string[] = ['office', 'doctor', 'date', 'description', 'status', 'actions'];
   dataSource: any = [];
@@ -30,9 +31,18 @@ export class PatientAppointmentsPageComponent {
 
   @ViewChild(MatTable) table: MatTable<any>;
 
+  public user: User;
+
   async ngOnInit() {
+    this.isLoading = true;
+
+    this.user = this.userService.getUser();
+
+
+    await this.getAppointmentsByPatientId(this.user.id)
     await this.getAllOffices();
-    await this.getAppointmentsByPatientId();
+
+    this.isLoading = false;
   }
 
   onCreateNewAppointmentClick() {
@@ -74,28 +84,13 @@ export class PatientAppointmentsPageComponent {
     }
   }
 
-  async getAppointmentsByPatientId() {
-    this.isLoading = true;
-    const result = await this.patientService.getAppointmentsByPatientId('3ed489f3-9f93-43be-91d5-9ee7bf74ee45')
+  async getAppointmentsByPatientId(userId: string): Promise<void> {
+    const result = await this.patientService.getAppointmentsByPatientId(userId)
       .toPromise().catch(error => error);
 
     if (result) {
-      // this.toasterService.onSuccess("Appointments fetched successfully !");
-      // this.appointments = [...result];
-      this.temp = [...result];
-
       try {
-
-        this.temp.forEach(async (appointment: any) => {
-          const doctor = await this.patientService.getDoctorById(appointment.doctorId).toPromise().catch(error => error);
-          const office = await this.patientService.getOfficeById(appointment.officeId).toPromise().catch(error => error);
-          appointment.doctor = doctor;
-          appointment.office = office;
-        })
-
-        console.log(this.temp)
-        this.appointments = [...this.temp];
-        this.dataSource = [...this.appointments];
+        this.dataSource = await this.mapAppointmentsData(result);
       } catch (error) {
         this.toasterService.onError("Something went wrong !");
       }
@@ -103,11 +98,20 @@ export class PatientAppointmentsPageComponent {
     else if (!result) {
       this.toasterService.onError("Something went wrong !");
     }
-    this.isLoading = false;
-
   }
 
-  async getAllOffices() {
+  async mapAppointmentsData(appointments: any): Promise<void> {
+    appointments.forEach(async (appointment: any) => {
+      const doctor = await this.patientService.getDoctorById(appointment.doctorId).toPromise().catch(error => error);
+      const office = await this.patientService.getOfficeById(appointment.officeId).toPromise().catch(error => error);
+      appointment.doctor = doctor;
+      appointment.office = office;
+    })
+
+    return appointments;
+  }
+
+  async getAllOffices(): Promise<void> {
     const result = await this.patientService.getAllOffices()
       .toPromise().catch(error => error);
 
