@@ -1,0 +1,19 @@
+<section>
+  <header class="header">
+    <h1 class="title">Dashboard</h1>
+    <div class="logo">LOGO</div>
+  </header>
+  <form [formGroup]="form">
+    <mat-form-field appearance="fill" class="form-item">
+      <mat-label>Please select your office</mat-label>
+      <mat-select required formControlName="offices">
+        <mat-option *ngFor="let office of offices" [value]="office.id">{{
+          office.name
+        }}</mat-option>
+      </mat-select>
+    </mat-form-field>
+    <div class="join-btn">
+      <button mat-raised-button [class.disabled]="form.invalid" (click)="onJoinOfficeClick()">Join</button>
+    </div>
+  </form>
+</section>

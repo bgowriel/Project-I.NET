@@ -3,7 +3,7 @@
     <div class="avatar-container">
       <img src="../../../assets/user.png" alt="avatar.png" />
     </div>
-    <div class="email">user@mail.com</div>
+    <div class="email">{{ user.email }}</div>
   </div>
 
   <mat-divider></mat-divider>
@@ -13,21 +13,21 @@
       <mat-list-item
         role="listitem"
         class="nav-list-item"
-        routerLink="/patient/dashboard"
+        [routerLink]="user.role == 'Patient' ? '/patient/dashboard' : '/doctor/dashboard'"
         routerLinkActive="selected"
         >dashboard</mat-list-item
       >
       <mat-list-item
         role="listitem"
         class="nav-list-item"
-        routerLink="/patient/profile"
+        [routerLink]="user.role == 'Patient' ? '/patient/profile' : '/doctor/profile'"
         routerLinkActive="selected"
         >profile</mat-list-item
       >
       <mat-list-item
         role="listitem"
         class="nav-list-item"
-        routerLink="/patient/appointments"
+        [routerLink]="user.role == 'Patient' ? '/patient/appointments' : '/doctor/appointments'"
         routerLinkActive="selected"
         >appointments</mat-list-item
       >
@@ -37,20 +37,40 @@
         routerLinkActive="selected"
         >billing</mat-list-item
       >
-      <mat-list-item
+      <mat-list-item *ngIf="user.role === 'Patient'"
         role="listitem"
         class="nav-list-item last"
         routerLinkActive="selected"
         >medical history</mat-list-item
       >
-      <mat-divider></mat-divider>
-      <mat-list-item
+      <mat-list-item *ngIf="user.role === 'Doctor'"
         role="listitem"
-        class="nav-list-item register-cabinet"
+        class="nav-list-item last"
+        routerLink="/doctor/patients"
         routerLinkActive="selected"
-        >register cabinet</mat-list-item
+        >patients</mat-list-item
       >
-      <mat-divider></mat-divider>
+      <ng-container *ngIf="user.role === 'Patient'">
+        <mat-divider></mat-divider>
+        <mat-list-item
+          role="listitem"
+          class="nav-list-item register-cabinet"
+          routerLinkActive="selected"
+          >register office</mat-list-item
+        >
+        <mat-divider></mat-divider>
+      </ng-container>
+      <ng-container *ngIf="user.role === 'Doctor'">
+        <mat-divider></mat-divider>
+        <mat-list-item
+          role="listitem"
+          class="nav-list-item register-cabinet"
+          routerLinkActive="selected"
+          routerLink="/doctor/join-office"
+          >join office</mat-list-item
+        >
+        <mat-divider></mat-divider>
+      </ng-container>
     </mat-list>
   </nav>
 

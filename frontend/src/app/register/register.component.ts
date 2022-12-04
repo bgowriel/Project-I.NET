@@ -12,18 +12,18 @@ import { Router } from '@angular/router';
 })
 export class RegisterComponent {
   submitted = false;
-  roles = [ 'Doctor', 'Patient'];
+  roles = ['Doctor', 'Patient'];
 
   user = new User();
 
   constructor(private authService: AuthenticationService,
-              private router: Router) { }
+    private router: Router) { }
 
   public register() {
     this.authService.register(this.user).subscribe(
       (data: User) => {
         console.log(data);
-        this.router.navigate(['/patient/dashboard']);
+        this.router.navigate(['/login']);
       },
       (error: any) => {
         console.log(error);

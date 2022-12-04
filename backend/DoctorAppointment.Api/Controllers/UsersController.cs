@@ -210,8 +210,8 @@ namespace DoctorAppointment.Api.Controllers
         }
 
 		[HttpPut]
-		[Route("assign-doctor-to-office")]
-		public async Task<IActionResult> AssignDoctorToOffice([FromQuery] string doctorId, [FromQuery] Guid officeId)
+		[Route("assign-doctor-to-office/{doctorId}/{officeId}")]
+		public async Task<IActionResult> AssignDoctorToOffice([FromRoute] string doctorId, [FromRoute] Guid officeId)
 		{
 			var doctor = await _userManager.FindByIdAsync(doctorId);
 			if (doctor == null)

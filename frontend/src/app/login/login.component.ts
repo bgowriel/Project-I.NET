@@ -3,6 +3,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthenticationService } from 'app/services/authentication.service';
 import { TokenStorageService } from 'app/services/token-storage.service';
+import { UserService } from 'app/services/user.service';
 import { LoginModel } from 'app/shared/models/login-model';
 import jwtDecode from 'jwt-decode';
 
@@ -32,8 +33,9 @@ export class LoginComponent implements OnInit {
   user!: LoginModel;
 
   constructor(private authService: AuthenticationService,
-              private tokenService: TokenStorageService,
-              private router: Router) { }
+    private tokenService: TokenStorageService,
+    private router: Router,
+    private userService: UserService) { }
 
   ngOnInit() {
     if (this.authService.isAuthenticated) {
@@ -54,39 +56,47 @@ export class LoginComponent implements OnInit {
       )
         .subscribe(
           (data: any) => {
-          console.log(data);
-          console.log(jwtDecode(data.token));
+            console.log(data);
+            console.log(jwtDecode(data.token));
 
-          this.user = jwtDecode(data.token);
+            this.user = jwtDecode(data.token);
 
-          this.tokenService.setEmail(this.user.email);
-          
-          console.log(this.user);
-          this.authService.setAuthenticated(true);
+            this.tokenService.setEmail(this.user.email);
 
-          if (this.user.role[1] == 'Admin') {
-            this.tokenService.setAdminRole(true);
-          } else {
-            this.tokenService.setAdminRole(false);
+            console.log(this.user);
+            console.log("asdasd", this.user)
+            this.authService.setAuthenticated(true);
+
+            if (this.user.role[1] == 'Admin') {
+              this.tokenService.setAdminRole(true);
+            } else {
+              this.tokenService.setAdminRole(false);
+            }
+
+            this.tokenService.saveToken(data.token);
+            this.tokenService.saveUser(data);
+
+            this.isLoggedIn = true;
+            this.roles = this.tokenService.getUser().roles;
+            const userRole = this.userService.getUser().role;
+            if (userRole === 'Doctor') {
+              this.router.navigate(['/', 'doctor', 'dashboard']);
+            }
+            else if (userRole === 'Patient') {
+              this.router.navigate(['/', 'patient', 'dashboard']);
+            }
+
+          },
+          (err) => {
+            console.log(err);
+            if (err.error.message) {
+              this.errorMessage = err.error.message;
+            } else {
+              this.errorMessage = "Login failed. Please check your credentials.";
+            }
+            this.isLoginFailed = true;
           }
-          
-          this.tokenService.saveToken(data.token);
-          this.tokenService.saveUser(data);
-
-          this.isLoggedIn = true;
-          this.roles = this.tokenService.getUser().roles;
-          this.router.navigate(['/', 'patient', 'dashboard']);
-        },
-        (err) => {
-          console.log(err);
-          if (err.error.message) {
-            this.errorMessage = err.error.message;
-          } else {
-            this.errorMessage = "Login failed. Please check your credentials.";
-          }
-          this.isLoginFailed = true;
-        }
-      );
+        );
     }
   }
 
