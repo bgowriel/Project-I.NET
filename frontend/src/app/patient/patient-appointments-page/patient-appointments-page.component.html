@@ -1,3 +1,6 @@
+<section class="loading" *ngIf="isLoading">
+  <mat-spinner></mat-spinner>
+</section>
 <main class="main-wrapper">
   <header class="header">
     <h1 class="title">Dashboard</h1>
@@ -8,24 +11,70 @@
     mat-raised-button
     (click)="onCreateNewAppointmentClick()"
   >
-  Create New +
-</button>
-  <!-- display all elements from appointments -->
-  <div *ngFor="let appointment of appointments">
-      <div class="appointment">
-        <div class="appointment__date">
-          <div class="appointment__date__day">{{ appointment.date | date: 'dd' }}</div>
-          <div class="appointment__date__month">{{ appointment.date | date: 'MMM' }}</div>
-        </div>
-        <div class="appointment__details">
-          <div class="appointment__details__title">{{ appointment.description }}</div>
-          <div class="appointment__details__time">{{ appointment.date | date: 'hh:mm a' }}</div>
-        </div>
-      </div>
+    Create New +
+  </button>
+  <div *ngIf="!isLoading" class="table-wrapper">
+    <table
+      class="table"
+      mat-table
+      [dataSource]="dataSource"
+      class="mat-elevation-z8 demo-table"
+    >
+      <ng-container matColumnDef="office">
+        <th mat-header-cell *matHeaderCellDef>Office</th>
+        <td mat-cell *matCellDef="let element">{{ element.office.name }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="doctor">
+        <th mat-header-cell *matHeaderCellDef>Doctor</th>
+        <td mat-cell *matCellDef="let element">
+          {{ element.doctor.firstName + " " + element.doctor.lastName }}
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="date">
+        <th mat-header-cell *matHeaderCellDef>Date</th>
+        <td mat-cell *matCellDef="let element">
+          {{ element.date | date : "dd-MMM-yyyy" }}
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="description">
+        <th mat-header-cell *matHeaderCellDef>Description</th>
+        <td mat-cell *matCellDef="let element">
+          {{
+            element.description.length > 6
+              ? (element.description | slice : 0 : 15) + "..."
+              : element.description
+          }}
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="status">
+        <th mat-header-cell *matHeaderCellDef>Status</th>
+        <td mat-cell *matCellDef="let element">
+          {{ element.status.length == 0 ? "Pending" : element.status }}
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="actions">
+        <th mat-header-cell *matHeaderCellDef>Actions</th>
+        <td mat-cell *matCellDef="let element">
+          <button
+            mat-icon-button
+            #tooltip="matTooltip"
+            [matTooltip]="element.status !== 'Canceled' ? 'Cancel' : 'Remove'"
+            matTooltipPosition="after"
+            (click)="onActionAppointmentClick(element.id, element)"
+          >
+            <mat-icon *ngIf="element.status !== 'Canceled'">cancel</mat-icon>
+            <mat-icon *ngIf="element.status === 'Canceled'">delete</mat-icon>
+          </button>
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+    </table>
   </div>
-  <!-- <app-work-table
-    *ngIf="appointments.length"
-    class="work-table"
-    ></app-work-table> -->
-    <!-- </main> -->
 </main>

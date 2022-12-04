@@ -34,7 +34,11 @@ import { PatientAppointmentsPageComponent } from './patient/patient-appointments
 import { PatientDashboardPageComponent } from './patient/patient-dashboard-page/patient-dashboard-page.component';
 import { MatCardModule } from '@angular/material/card';
 import { HomeComponent } from './shared/home/home.component';
-import { MatMenuModule} from '@angular/material/menu';
+import { MatMenuModule } from '@angular/material/menu';
+import { PageNotFoundComponent } from './shared/page-not-found/page-not-found.component';
+import { MatTooltipModule } from '@angular/material/tooltip';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -50,7 +54,7 @@ import { MatMenuModule} from '@angular/material/menu';
     PatientAppointmentsPageComponent,
     PatientDashboardPageComponent,
     HomeComponent,
-
+    PageNotFoundComponent,
   ],
   imports: [
     BrowserModule,
@@ -72,7 +76,9 @@ import { MatMenuModule} from '@angular/material/menu';
     HttpClientModule,
     MatSnackBarModule,
     MatCardModule,
-    MatMenuModule
+    MatMenuModule,
+    MatTooltipModule,
+    MatProgressSpinnerModule
   ],
   providers: [],
   bootstrap: [AppComponent]
