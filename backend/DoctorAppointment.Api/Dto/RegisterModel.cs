@@ -24,6 +24,11 @@ namespace DoctorAppointment.Api.Dto
         [Required(ErrorMessage = "Email is required")]
         public string Email { get; set; }
 
+        [Required]
+        [MinLength(10)]
+        [MaxLength(20)]
+        public string PhoneNumber { get; set; }
+        
         [MinLength(8)]
         [Required(ErrorMessage = "Password is required")]
         public string Password { get; set; }

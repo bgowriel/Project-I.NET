@@ -2,6 +2,7 @@ import { HttpClient, HttpErrorResponse, HttpResponse } from '@angular/common/htt
 import { Injectable } from '@angular/core';
 import { Doctor } from 'app/shared/models/doctor.model';
 import { Office } from 'app/shared/models/office.model';
+import { User } from 'app/shared/models/user.model';
 import { catchError, map, Observable } from 'rxjs';
 import { Appointment } from '../shared/models/appointment.model';
 
@@ -33,5 +34,11 @@ export class PatientService {
   public getDoctorsByOfficeId(id: string): Observable<Doctor[]> {
     return this.http.get<Doctor[]>(baseUrl + 'doctors/' + id);
   }
+
+  //register new patient(user) MOVED TO AUTHENTICATION SERVICE
+  // public registerPatient(patient: User): Observable<User> {
+  //   console.log(patient);
+  //   return this.http.post<User>(baseUrl + 'api/users/register', patient);
+  // }
 
 }

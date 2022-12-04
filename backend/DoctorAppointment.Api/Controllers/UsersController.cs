@@ -63,6 +63,12 @@ namespace DoctorAppointment.Api.Controllers
                 await _roleManager.CreateAsync(new IdentityRole("Doctor"));
             }
 
+            //if role different from Admin, Patient or Doctor return BadRequest
+            if (model.Role != "Admin" && model.Role != "Patient" && model.Role != "Doctor")
+            {
+                return BadRequest(new { message = "Role must be Admin, Patient or Doctor" });
+            }
+
             var userExists = await _userManager.FindByNameAsync(model.Email);
             if (userExists != null)
             {
@@ -76,6 +82,7 @@ namespace DoctorAppointment.Api.Controllers
                 Email = model.Email,
                 UserName = model.Email,
                 Role = model.Role,
+                PhoneNumber = model.PhoneNumber,
                 SecurityStamp = Guid.NewGuid().ToString(),
             };
 
@@ -87,10 +94,10 @@ namespace DoctorAppointment.Api.Controllers
             }
 
             await _userManager.AddToRoleAsync(user, model.Role);
-            /*if (model.Email == "bogdanvflorea@gmail.com")
-              {
-                  await _userManager.AddToRoleAsync(user, "admin");
-              }*/
+            if (model.Email == "bogdanvflorea@gmail.com")
+            {
+                await _userManager.AddToRoleAsync(user, "admin");
+            }
 
             return CreatedAtAction(nameof(Register), user);
         }
@@ -113,7 +120,7 @@ namespace DoctorAppointment.Api.Controllers
 
                 foreach (var userRole in userRoles)
                 {
-                    authClaims.Add(new Claim(ClaimTypes.Role, userRole));
+                    authClaims.Add(new Claim("role", userRole));
                 }
 
                 var authSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["JWT:Secret"]));
@@ -139,7 +146,7 @@ namespace DoctorAppointment.Api.Controllers
         }
 
         [HttpGet]
-        [Route("get-users")]
+        //[Route("get-users")]
         public async Task<IActionResult> GetUsers()
         {
             var users = await _userManager.Users.ToListAsync();
@@ -147,10 +154,16 @@ namespace DoctorAppointment.Api.Controllers
         }
 
         [HttpGet]
-        [Route("get-user/{id}")]
+        [Route("{id}")]
         public async Task<IActionResult> GetUser(string id)
         {
             var user = await _userManager.FindByIdAsync(id);
+            
+            if (user == null)
+            {
+                return NotFound();
+            }
+            
             return Ok(user);
         }
 
@@ -203,5 +216,50 @@ namespace DoctorAppointment.Api.Controllers
 
 			return Ok(new { message = "Office assigned successfully!" });
 		}
-	}
+
+        [HttpDelete]
+        [Route("{id}")]
+        public async Task<IActionResult> DeleteUser(string id)
+        {
+            var user = await _userManager.FindByIdAsync(id);
+            if (user == null)
+            {
+                return NotFound();
+            }
+
+            var result = await _userManager.DeleteAsync(user);
+            if (!result.Succeeded)
+            {
+                return BadRequest(new { message = "User deletion failed!" });
+            }
+
+            return Ok(new { message = "User deleted successfully!" });
+        }
+
+        [HttpPut]
+        [Route("update-user")]
+        public async Task<IActionResult> UpdateUser([FromBody] User user)
+        {
+            var userExists = await _userManager.FindByIdAsync(user.Id);
+            if (userExists == null)
+            {
+                return NotFound();
+            }
+
+            userExists.FirstName = user.FirstName;
+            userExists.LastName = user.LastName;
+            userExists.Email = user.Email;
+            userExists.UserName = user.Email;
+            userExists.PhoneNumber = user.PhoneNumber;
+            userExists.Role = user.Role;
+
+            var result = await _userManager.UpdateAsync(userExists);
+            if (!result.Succeeded)
+            {
+                return BadRequest(new { message = "User update failed!" });
+            }
+
+            return Ok(new { message = "User updated successfully!" });
+        }
+    }
 }

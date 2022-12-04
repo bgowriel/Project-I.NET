@@ -1,0 +1,90 @@
+label {
+    font-family: 'Lato';
+    font-size: 1rem;
+    text-transform: uppercase;
+    font-weight: 600;
+    color: #04093a;
+    margin-top: .5rem;
+    margin-left: .5rem;
+    margin-right: .5rem;
+    padding-top: .5rem;
+    padding-bottom: .5rem;
+    width: 10rem;
+}
+
+input {
+    font-family: 'Lato';
+    font-size: 1rem;
+    font-weight: 600;
+    color: #04093a;
+    margin-top: .5rem;
+    margin-left: .5rem;
+    margin-right: .5rem;
+    padding-top: .5rem;
+    padding-bottom: .5rem;
+    width: 15rem;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: space-between;
+    min-width: 15rem;
+    background-color: #ffffff; /*#ecc64bdd;*/
+    align-items: center;
+}
+
+#role {
+    font-family: 'Lato';
+    font-size: 1rem;
+    font-weight: 600;
+    color: #04093a;
+    margin-top: .5rem;
+    margin-left: .5rem;
+    margin-right: .5rem;
+    padding-top: .5rem;
+    padding-bottom: .5rem;
+    width: 15.5rem;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    min-width: 20rem;
+    background-color: #ffffff; /*#ecc64bdd;*/
+    padding: 5rem 5rem 5rem 5rem;
+    align-items: left;
+}
+
+button {
+    font-family: 'Lato';
+    font-size: 1rem;
+    text-transform: uppercase;
+    font-weight: 600;
+    color: #04093a;
+    margin-top: 2rem;
+    margin-left: 1rem;
+    margin-right: 1rem;
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+    width: 10rem;
+    background-color: #ecc64b99;
+}
+
+mat-icon.isHidden {
+    position: relative;
+    font-size: 1.5rem;
+    z-index: 1;
+}
+
+div.error {
+    color: red;
+}
+
+div.success {
+    color: blue;
+}
+
+div.error, div.success {
+    text-align: center;
+    z-index: 1;
+}

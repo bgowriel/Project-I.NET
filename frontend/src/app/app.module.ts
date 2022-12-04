@@ -33,6 +33,8 @@ import { PatientProfilePageComponent } from './patient/patient-profile-page/pati
 import { PatientAppointmentsPageComponent } from './patient/patient-appointments-page/patient-appointments-page.component';
 import { PatientDashboardPageComponent } from './patient/patient-dashboard-page/patient-dashboard-page.component';
 import { MatCardModule } from '@angular/material/card';
+import { RegisterComponent } from './register/register.component';
+import { LoginComponent } from './login/login.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -47,6 +49,8 @@ import { MatCardModule } from '@angular/material/card';
     PatientProfilePageComponent,
     PatientAppointmentsPageComponent,
     PatientDashboardPageComponent,
+    RegisterComponent,
+    LoginComponent,
 
   ],
   imports: [

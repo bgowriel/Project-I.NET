@@ -1,5 +1,5 @@
 <section id="main-view">
-  <app-sidenav></app-sidenav>
+  <app-sidenav *ngIf="this.authService.isAuthenticated"></app-sidenav>
   <main>
     <router-outlet></router-outlet>
   </main>
