@@ -1,9 +1,6 @@
-﻿
-using DoctorAppointment.Domain.Models;
-
-namespace DoctorAppointment.Api.Dto
+﻿namespace DoctorAppointment.Api.Dto
 {
-	public class OfficeGetDto
+    public class OfficeGetDto
 	{
 		public Guid Id { get; set; }
 

@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
-using Azure.Core;
 using DoctorAppointment.Api.Dto;
+using DoctorAppointment.Api.Validators;
 using DoctorAppointment.Application.Commands;
 using DoctorAppointment.Application.Queries;
 using MediatR;
@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace DoctorAppointment.Api.Controllers
 {
-	[Route("api/offices")]
+    [Route("api/offices")]
 	[ApiController]
 	public class OfficeController : ControllerBase
 	{
@@ -23,8 +23,15 @@ namespace DoctorAppointment.Api.Controllers
 		[HttpPost]
 		public async Task<IActionResult> AddOffice([FromBody] OfficePutPostDto office)
 		{
-			var command = _mapper.Map<InsertOffice>(office);
+           
+            var validator = new OfficePutPostDtoValidator();
+            var validationResult = validator.Validate(office);
+            if (!validationResult.IsValid)
+            {
+                return BadRequest(validationResult.Errors);
+            }
 
+            var command = _mapper.Map<InsertOffice>(office);
 			var created = await _mediator.Send(command);
 			var createdDto = _mapper.Map<OfficeGetDto>(created);
 

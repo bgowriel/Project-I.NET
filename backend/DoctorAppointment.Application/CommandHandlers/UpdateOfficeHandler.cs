@@ -2,15 +2,10 @@
 using DoctorAppointment.Application.Interfaces;
 using DoctorAppointment.Domain.Models;
 using MediatR;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace DoctorAppointment.Application.CommandHandlers
 {
-	public class UpdateOfficeHandler : IRequestHandler<UpdateOffice, Office>
+    public class UpdateOfficeHandler : IRequestHandler<UpdateOffice, Office>
 	{
 		private readonly IUnitOfWork _unitOfWork;
 

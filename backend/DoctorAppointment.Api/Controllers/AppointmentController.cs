@@ -4,6 +4,7 @@ using DoctorAppointment.Api.Dto;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using DoctorAppointment.Application.Commands;
+using DoctorAppointment.Api.Validators;
 
 namespace DoctorAppointment.Api.Controllers
 {
@@ -23,8 +24,14 @@ namespace DoctorAppointment.Api.Controllers
         [HttpPost]
         public async Task<IActionResult> AddAppointment([FromBody] AppointmentPutPostDto appointmentPutPostDto)
         {
+            var validator = new AppointmentPutPostDtoValidator();
+            var validationResult = validator.Validate(appointmentPutPostDto);
+            if (!validationResult.IsValid)
+            {
+                return BadRequest(validationResult.Errors);
+            }
+            
             var command = _mapper.Map<InsertAppointment>(appointmentPutPostDto);
-
             var created = await _mediator.Send(command);
             var createdDto = _mapper.Map<AppointmentGetDto>(created);
 
@@ -78,6 +85,13 @@ namespace DoctorAppointment.Api.Controllers
         [Route("{id}")]
         public async Task<IActionResult> UpdateAppointment(Guid id, [FromBody] AppointmentPutPostDto appointmentPutPostDto)
         {
+            //validate appointmentPutPostDto
+            var validator = new AppointmentPutPostDtoValidator();
+            var validationResult = validator.Validate(appointmentPutPostDto);
+            if (!validationResult.IsValid)
+            {
+                return BadRequest(validationResult.Errors);
+            }
             var command = new UpdateAppointment()
             {
                 Id = id,
