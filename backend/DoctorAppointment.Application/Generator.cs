@@ -2,11 +2,10 @@
 using DoctorAppointment.Domain.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using System.Diagnostics;
 
 namespace DoctorAppointment.Application
 {
-	public class Generator
+    public class Generator
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly UserManager<User> _userManager;
