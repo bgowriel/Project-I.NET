@@ -10,8 +10,8 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 
 namespace DoctorAppointment.Api.Controllers
 {
-    [Authorize]
     [ApiController]
+    [Authorize]
     [Route("api/appointments")]
     public class AppointmentController : ControllerBase
     {
@@ -24,7 +24,6 @@ namespace DoctorAppointment.Api.Controllers
             _mapper = mapper;
         }
 
-        [Authorize]        
         [HttpPost]
         public async Task<IActionResult> AddAppointment([FromBody] AppointmentPutPostDto appointmentPutPostDto)
         {

@@ -9,9 +9,10 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace DoctorAppointment.Api.Controllers
 {
-	[Authorize]
-    [Route("api/offices")]
+
 	[ApiController]
+  [Authorize]
+  [Route("api/offices")]
 	public class OfficeController : ControllerBase
 	{
 		private readonly IMediator _mediator;

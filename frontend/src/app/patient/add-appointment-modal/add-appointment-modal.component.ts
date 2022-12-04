@@ -1,7 +1,9 @@
 import { Component, EventEmitter, HostListener, Inject, OnInit, Output } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { UserService } from 'app/services/user.service';
 import { Appointment } from 'app/shared/models/appointment.model';
+import { User } from 'app/shared/models/user.model';
 
 @Component({
   selector: 'app-add-appointment-modal',
@@ -15,13 +17,15 @@ export class AddAppointmentModalComponent implements OnInit {
 
   @Output() onOfficeSelected: EventEmitter<any> = new EventEmitter();
 
-  constructor(@Inject(MAT_DIALOG_DATA) public data: any) { }
+  constructor(@Inject(MAT_DIALOG_DATA) public data: any, private userService: UserService) { }
 
+  user: User;
+  
   ngOnInit() {
     this.initForm();
 
-    //TEMP
-    this.appointment.patientId = "48f516a4-8139-4851-a8ba-107db6320917"
+    this.user = this.userService.getUser()
+    this.appointment.patientId = this.user.id.toString();
     this.appointment.status = "Pending"
   }
 
