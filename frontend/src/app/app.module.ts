@@ -40,6 +40,7 @@ import { MatMenuModule } from '@angular/material/menu';
 import { PageNotFoundComponent } from './shared/page-not-found/page-not-found.component';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { authInterceptorProviders } from './services/auth-interceptor.service';
 
 @NgModule({
   declarations: [
@@ -85,7 +86,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
     MatTooltipModule,
     MatProgressSpinnerModule
   ],
-  providers: [],
+    providers: [authInterceptorProviders],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

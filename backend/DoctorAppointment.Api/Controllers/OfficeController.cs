@@ -4,10 +4,12 @@ using DoctorAppointment.Api.Validators;
 using DoctorAppointment.Application.Commands;
 using DoctorAppointment.Application.Queries;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace DoctorAppointment.Api.Controllers
 {
+	[Authorize]
     [Route("api/offices")]
 	[ApiController]
 	public class OfficeController : ControllerBase

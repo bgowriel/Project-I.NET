@@ -47,6 +47,7 @@ export class PatientAppointmentsPageComponent {
     this.dialogRef.afterClosed().subscribe((result: Appointment) => {
       if (!result)
         return;
+      console.log("Appointment to create: " + result);
       this.createNewAppointment(result);
     })
 

@@ -5,9 +5,11 @@ using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using DoctorAppointment.Application.Commands;
 using DoctorAppointment.Api.Validators;
+using Microsoft.AspNetCore.Authorization;
 
 namespace DoctorAppointment.Api.Controllers
 {
+    [Authorize]
     [ApiController]
     [Route("api/appointments")]
     public class AppointmentController : ControllerBase
