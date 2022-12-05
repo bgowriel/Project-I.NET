@@ -33,8 +33,8 @@ namespace DoctorAppointment.Api.Controllers
 
             var command = mapper.Map<InsertAvailableDate>(request);
             var result = await mediator.Send(command);
-            return Ok(result);
-        }
+			return CreatedAtAction(nameof(GetAvailableDateById), new { id = result.Id }, result);
+		}
 
         [HttpGet]
         public async Task<IActionResult> GetAvailableDates()

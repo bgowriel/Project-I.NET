@@ -5,7 +5,7 @@ using MediatR;
 
 namespace DoctorAppointment.Application.CommandHandlers
 {
-    public class InsertAvailableDateHandler : IRequestHandler<InsertAvailableDate, AvalaibleDate>
+    public class InsertAvailableDateHandler : IRequestHandler<InsertAvailableDate, AvailableDate>
     {
         private readonly IUnitOfWork _unitOfWork;
 
@@ -14,9 +14,9 @@ namespace DoctorAppointment.Application.CommandHandlers
             _unitOfWork = unitOfWork;
         }
 
-        public async Task<AvalaibleDate> Handle(InsertAvailableDate request, CancellationToken cancellationToken)
+        public async Task<AvailableDate> Handle(InsertAvailableDate request, CancellationToken cancellationToken)
         {
-            var availableDate = new AvalaibleDate
+            var availableDate = new AvailableDate
             {
                 Id = Guid.NewGuid(),
                 Date = request.Date,

@@ -1,6 +1,6 @@
 ﻿namespace DoctorAppointment.Domain.Models
 {
-    public class AvalaibleDate
+    public class AvailableDate
     {
         public Guid Id { get; set; }
 

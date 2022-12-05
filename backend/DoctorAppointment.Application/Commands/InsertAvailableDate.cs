@@ -3,7 +3,7 @@ using MediatR;
 
 namespace DoctorAppointment.Application.Commands
 {
-    public class InsertAvailableDate :IRequest<AvalaibleDate>
+    public class InsertAvailableDate :IRequest<AvailableDate>
     {
             public Guid Id { get; set; }
 

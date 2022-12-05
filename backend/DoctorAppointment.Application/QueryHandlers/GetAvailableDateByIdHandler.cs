@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace DoctorAppointment.Application.QueryHandlers
 {
-    public class GetAvailableDateByIdHandler : IRequestHandler<GetAvailableDateById, AvalaibleDate>
+    public class GetAvailableDateByIdHandler : IRequestHandler<GetAvailableDateById, AvailableDate>
     {
         private readonly IUnitOfWork unitOfWork;
 
@@ -19,7 +19,7 @@ namespace DoctorAppointment.Application.QueryHandlers
             this.unitOfWork = unitOfWork;
         }
 
-        public async Task<AvalaibleDate> Handle(GetAvailableDateById request, CancellationToken cancellationToken)
+        public async Task<AvailableDate> Handle(GetAvailableDateById request, CancellationToken cancellationToken)
         {
             return await unitOfWork.AvalaibleDateRepository.GetById(request.Id);
         }
