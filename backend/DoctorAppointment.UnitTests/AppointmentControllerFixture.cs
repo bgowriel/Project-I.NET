@@ -6,6 +6,7 @@ using DoctorAppointment.Application.Commands;
 using MediatR;
 using Moq;
 using Microsoft.AspNetCore.Mvc;
+using DoctorAppointment.Application.Queries;
 
 namespace DoctorAppointment.UnitTests
 {
@@ -109,5 +110,102 @@ namespace DoctorAppointment.UnitTests
             Assert.AreEqual(((AppointmentGetDto)((OkObjectResult)result).Value).DoctorId, "1");
             Assert.AreEqual(((AppointmentGetDto)((OkObjectResult)result).Value).PatientId, "1");
         }
-    }
+
+		[Test]  
+		public async Task GetAllAppointmentsReturnAllExistingAppointments()
+        {
+			// Arrange
+			_mockMediator.Setup(m => m.Send(It.IsAny<GetAllAppointments>(), It.IsAny<CancellationToken>()))
+				.ReturnsAsync(new List<Appointment> { _appointment });
+
+			var controller = new AppointmentController(_mockMediator.Object, _mockMapper.Object);
+
+			// Act
+			var result = await controller.GetAppointments();
+
+			// Assert
+			Assert.IsInstanceOf<OkObjectResult>(result);
+
+		}
+
+		[Test]
+		public async Task GetAppointmentByIdReturnsAppointmentByGivenId()
+        {
+			// Arrange
+			_mockMediator.Setup(m => m.Send(It.IsAny<GetAppointmentById>(), It.IsAny<CancellationToken>()))
+				.ReturnsAsync(_appointment);
+
+			var controller = new AppointmentController(_mockMediator.Object, _mockMapper.Object);
+
+			// Act
+			var result = await controller.GetAppointmentById(_appointment.Id);
+
+			// Assert
+			Assert.IsInstanceOf<OkObjectResult>(result);
+		}
+
+        [Test]
+		public async Task GetAppointmentsByDateReturnsAllAppointmentsByGivenDate()
+        {
+            // Arrange
+            _mockMediator.Setup(m => m.Send(It.IsAny<GetAppointmentsByDate>(), It.IsAny<CancellationToken>()))
+				.ReturnsAsync(new List<Appointment> { _appointment });
+			var controller = new AppointmentController(_mockMediator.Object, _mockMapper.Object);
+
+			// Act
+			var result = await controller.GetAppointmentsByDate(_appointment.Date);
+
+			// Assert
+			Assert.IsInstanceOf<OkObjectResult>(result);
+
+		}
+
+        [Test]
+		public async Task GetAppointmentsByPatientIdReturnsAppointmentsByGivenPatientId()
+        {
+			// Arrange
+			_mockMediator.Setup(m => m.Send(It.IsAny<GetAppointmentsByPatientId>(), It.IsAny<CancellationToken>()))
+				.ReturnsAsync(new List<Appointment> { _appointment });
+
+			var controller = new AppointmentController(_mockMediator.Object, _mockMapper.Object);
+
+            // Act
+            var result = await controller.GetAppointmentsByPatientId(_appointment.PatientId);
+
+			// Assert
+			Assert.IsInstanceOf<OkObjectResult>(result);
+		}
+
+		[Test]
+		public async Task GetAppointmentsByDoctortIdReturnsAppointmentsByGivenDoctorId()
+		{
+			// Arrange
+			_mockMediator.Setup(m => m.Send(It.IsAny<GetAppointmentsByPatientId>(), It.IsAny<CancellationToken>()))
+				.ReturnsAsync(new List<Appointment> { _appointment });
+
+			var controller = new AppointmentController(_mockMediator.Object, _mockMapper.Object);
+			
+			// Act
+			var result = await controller.GetAppointmentsByPatientId(_appointment.DoctorId);
+
+			// Assert
+			Assert.IsInstanceOf<OkObjectResult>(result);
+		}
+
+        [Test]
+		public async Task DeleteAppointmentDeletesAppointmentByGivenId()
+		{
+			// Arrange
+			_mockMediator.Setup(m => m.Send(It.IsAny<DeleteAppointment>(), It.IsAny<CancellationToken>()))
+				.ReturnsAsync(_appointment);
+
+			var controller = new AppointmentController(_mockMediator.Object, _mockMapper.Object);
+
+			// Act
+			var result = await controller.DeleteAppointment(_appointment.Id);
+
+			// Assert
+			Assert.IsInstanceOf<OkObjectResult>(result);
+		}
+	}
 }

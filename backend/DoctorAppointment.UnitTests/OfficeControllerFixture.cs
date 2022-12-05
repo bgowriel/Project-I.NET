@@ -162,5 +162,20 @@ namespace DoctorAppointment.UnitTests
 			Assert.IsInstanceOf<OkObjectResult>(result);
 			Assert.AreEqual(((OfficeGetDto)((OkObjectResult)result).Value).Email, "carl@yahoo.com");
 		}
+
+		[Test]
+		public async Task DeleteOfficeShouldDeleteAnExistingOffice()
+		{
+			// Arrange
+			_mockMediator.Setup(m => m.Send(It.IsAny<DeleteOffice>(), It.IsAny<CancellationToken>()));
+
+			var controller = new OfficeController(_mockMediator.Object, _mockMapper.Object);
+
+			// Act
+			var result = await controller.DeleteOffice(_office.Id);
+
+			// Assert
+			Assert.IsInstanceOf<NotFoundResult>(result);
+		}
 	}
 }
