@@ -15,7 +15,7 @@ import { PatientService } from '../patient.service';
 export class PatientProfilePageComponent implements AfterViewInit{
   constructor(public dialog: MatDialog, private userService: UserService, private patientService: PatientService) { }
 
-  displayedColumns: string[] = ['firstName', 'lastName', 'phoneNumber', 'role'];
+  displayedColumns: string[] = ['firstName', 'lastName', 'phoneNumber', 'email'];
   dataSource: any = [];
 
   @ViewChild(MatTable) table: MatTable<any>;
