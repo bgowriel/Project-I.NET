@@ -11,7 +11,7 @@ namespace DoctorAppointment.Api.Controllers
 {
 
   [ApiController]
-  [Authorize]
+  //[Authorize]
   [Route("api/offices")]
 	public class OfficeController : ControllerBase
 	{

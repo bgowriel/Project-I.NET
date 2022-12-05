@@ -4,11 +4,11 @@ using Microsoft.EntityFrameworkCore;
 
 namespace DoctorAppointment.DataAccess.Repositories
 {
-    public class AvalaibleDateRepository : IAvalaibleDateRepository
+    public class AvailableDateRepository : IAvailableDateRepository
     {
         private readonly DatabaseContext context;
 
-        public AvalaibleDateRepository(DatabaseContext context)
+        public AvailableDateRepository(DatabaseContext context)
         {
             this.context = context;
         }

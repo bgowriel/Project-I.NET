@@ -23,6 +23,7 @@ namespace DoctorAppointment.Api
             services.AddScoped<IBillRepository, BillRepository>();
             services.AddScoped<IMedicalVisitRepository, MedicalVisitRepository>();
             services.AddScoped<IOfficeRepository, OfficeRepository>();
+            services.AddScoped<IAvailableDateRepository, AvailableDateRepository>();
 
             services.AddIdentity<User, IdentityRole>().AddEntityFrameworkStores<DatabaseContext>();
         }

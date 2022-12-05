@@ -14,14 +14,14 @@ namespace DoctorAppointment.DataAccess
 
         public IBillRepository BillRepository { get; private set; }
 
-        public IAvalaibleDateRepository AvalaibleDateRepository { get; private set; }
+        public IAvailableDateRepository AvalaibleDateRepository { get; private set; }
 
         public UnitOfWork(DatabaseContext context,
                           IOfficeRepository officeRepository,
                           IAppointmentRepository appointmentRepository,
                           IMedicalVisitRepository medicalVisitRepository,
                           IBillRepository billRepository,
-                          IAvalaibleDateRepository avalaibleDateRepository)
+                          IAvailableDateRepository avalaibleDateRepository)
         {
             _databaseContext = context;
             AppointmentRepository = appointmentRepository;

@@ -28,7 +28,7 @@ namespace DoctorAppointment.IntegrationTests
             // arrange
             var client = _factory.CreateClient();
 
-            var usersResponse = await client.GetAsync("/api/users/get-users");
+            var usersResponse = await client.GetAsync("/api/users");
             usersResponse.EnsureSuccessStatusCode();
             var users = JsonConvert.DeserializeObject<List<User>>(await usersResponse.Content.ReadAsStringAsync());
 
@@ -43,7 +43,7 @@ namespace DoctorAppointment.IntegrationTests
             };
             
             // act
-            var response = await client.PostAsJsonAsync("/api/appointments/", appointment);
+            var response = await client.PostAsJsonAsync("/api/appointments", appointment);
             response.EnsureSuccessStatusCode();
             
             // assert
@@ -56,7 +56,7 @@ namespace DoctorAppointment.IntegrationTests
             // arrange
             var client = _factory.CreateClient();
             
-            var response = await client.GetAsync("/api/appointments/");
+            var response = await client.GetAsync("/api/appointments");
             response.EnsureSuccessStatusCode();
             var appointments = JsonConvert.DeserializeObject<List<Appointment>>(await response.Content.ReadAsStringAsync());
             var appointmentId = appointments.FirstOrDefault().Id;
@@ -95,7 +95,7 @@ namespace DoctorAppointment.IntegrationTests
             var client = _factory.CreateClient();
 
             // act
-            var response = await client.GetAsync("/api/appointments/");
+            var response = await client.GetAsync("/api/appointments");
             response.EnsureSuccessStatusCode();
             var responseString = await response.Content.ReadAsStringAsync();
 
@@ -114,7 +114,7 @@ namespace DoctorAppointment.IntegrationTests
             // arrange
             var client = _factory.CreateClient();
             
-            var usersResponse = await client.GetAsync("/api/users/get-users");
+            var usersResponse = await client.GetAsync("/api/users");
             usersResponse.EnsureSuccessStatusCode();
             var users = JsonConvert.DeserializeObject<List<User>>(await usersResponse.Content.ReadAsStringAsync());
             

@@ -30,8 +30,9 @@ namespace DoctorAppointment.IntegrationTests
             var user = new RegisterModel
             {
                 FirstName = "John",
-                LastName = "Doe",
-                Email = "john.doe@gmail.com",
+                LastName = "Down",
+                Email = "john.down@gmail.com",
+                PhoneNumber = "1234567890",
                 Role = "Doctor",
                 Password = "123456.Abcde",
             };
@@ -51,7 +52,7 @@ namespace DoctorAppointment.IntegrationTests
             var client = _factory.CreateClient();
 
             // act
-            var response = await client.GetAsync("/api/users/get-users");
+            var response = await client.GetAsync("/api/users");
             response.EnsureSuccessStatusCode();
             var users = await response.Content.ReadFromJsonAsync<List<User>>();
 
@@ -66,12 +67,12 @@ namespace DoctorAppointment.IntegrationTests
             // arrange
             var client = _factory.CreateClient();
 
-            var response = await client.GetAsync("/api/users/get-users");
+            var response = await client.GetAsync("/api/users");
             response.EnsureSuccessStatusCode();
             var users = await response.Content.ReadFromJsonAsync<List<User>>();
 
             // act
-            var userResponse = await client.GetAsync($"/api/users/get-user/{users[0].Id}");
+            var userResponse = await client.GetAsync($"/api/users/{users[0].Id}");
             userResponse.EnsureSuccessStatusCode();
             var user = await userResponse.Content.ReadFromJsonAsync<User>();
 
@@ -79,5 +80,55 @@ namespace DoctorAppointment.IntegrationTests
             Assert.AreEqual(HttpStatusCode.OK, userResponse.StatusCode);
             Assert.AreEqual(users[0].Id, user.Id);
         }
+
+        [TestMethod]
+        public async Task UpdateUser_ReturnsOk()
+        {
+            // arrange
+            var client = _factory.CreateClient();
+
+            var response = await client.GetAsync("/api/users");
+            response.EnsureSuccessStatusCode();
+            var users = await response.Content.ReadFromJsonAsync<List<User>>();
+
+            users[0].Email = "john.noname@example.com";
+
+            // act
+            var userResponse = await client.PutAsJsonAsync($"/api/users/update-user", users[0]);
+            userResponse.EnsureSuccessStatusCode();
+
+            // assert
+            Assert.AreEqual(HttpStatusCode.OK, userResponse.StatusCode);
+        }
+
+        [TestMethod]
+        public async Task DeleteUser_ReturnsOk()
+        {
+            // arrange
+            var client = _factory.CreateClient();
+            // create a new user
+            var user = new RegisterModel
+            {
+                FirstName = "John",
+                LastName = "Down",
+                Email = "john.downridge@example.com",
+                PhoneNumber = "1234567890",
+                Role = "Doctor",
+                Password = "123456.Abcde",
+            };
+
+            var response = await client.PostAsJsonAsync("/api/users/register", user);
+            response.EnsureSuccessStatusCode();
+            // get the new user id
+            var newUser = await response.Content.ReadFromJsonAsync<User>();
+
+            // act
+            var userResponse = await client.DeleteAsync($"/api/users/{newUser.Id}");
+            userResponse.EnsureSuccessStatusCode();
+
+            // assert
+            Assert.AreEqual(HttpStatusCode.OK, userResponse.StatusCode);
+        }
     }
+        
 }
