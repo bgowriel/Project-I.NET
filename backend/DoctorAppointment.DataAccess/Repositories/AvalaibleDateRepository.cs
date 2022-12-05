@@ -13,17 +13,17 @@ namespace DoctorAppointment.DataAccess.Repositories
             this.context = context;
         }
 
-        public async Task<AvalaibleDate?> GetById(Guid id)
+        public async Task<AvailableDate?> GetById(Guid id)
         {
             return await context.AvalaibleDates.SingleOrDefaultAsync(a => a.Id == id);
         }
 
-        public async Task<List<AvalaibleDate>?> GetAll()
+        public async Task<List<AvailableDate>?> GetAll()
         {
             return await context.AvalaibleDates.Take(100).ToListAsync();
         }
 
-        public async Task Insert(AvalaibleDate avalaibleDate)
+        public async Task Insert(AvailableDate avalaibleDate)
         {
             await context.AvalaibleDates.AddAsync(avalaibleDate);
         }
