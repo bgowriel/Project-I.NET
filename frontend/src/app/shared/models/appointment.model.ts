@@ -1,5 +1,6 @@
 import { Doctor } from "./doctor.model";
 import { Office } from "./office.model";
+import { User } from "./user.model";
 
 export class Appointment {
   public id: string;
@@ -11,6 +12,7 @@ export class Appointment {
   public officeId: string
   public doctor: Doctor;
   public office: Office;
+  public patient: User;
 
   constructor() {
   }

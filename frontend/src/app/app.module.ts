@@ -6,7 +6,6 @@ import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { SidenavComponent } from './shared/sidenav/sidenav.component';
 import { PatientPageComponent } from './patient/patient-page/patient-page.component';
-import { DoctorPageComponent } from './doctor/doctor-page/doctor-page.component';
 import { DashboardComponent } from './shared/dashboard/dashboard.component';
 import { WorkTableComponent } from './shared/work-table/work-table.component';
 import { MatSidenavModule } from '@angular/material/sidenav';
@@ -41,13 +40,18 @@ import { PageNotFoundComponent } from './shared/page-not-found/page-not-found.co
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { AuthInterceptorProviders } from './services/auth-interceptor.service';
+import { DoctorAppointmentsPageComponent } from './doctor/doctor-appointments-page/doctor-appointments-page.component';
+import { DoctorDashboardPageComponent } from './doctor/doctor-dashboard-page/doctor-dashboard-page.component';
+import { DoctorProfilePageComponent } from './doctor/doctor-profile-page/doctor-profile-page.component';
+import { DoctorBillingPageComponent } from './doctor/doctor-billing-page/doctor-billing-page.component';
+import { DoctorPatientsPageComponent } from './doctor/doctor-patients-page/doctor-patients-page.component';
+import { DoctorJoinOfficePageComponent } from './doctor/doctor-join-office-page/doctor-join-office-page.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     SidenavComponent,
     PatientPageComponent,
-    DoctorPageComponent,
     DashboardComponent,
     WorkTableComponent,
     AddAppointmentModalComponent,
@@ -61,6 +65,12 @@ import { AuthInterceptorProviders } from './services/auth-interceptor.service';
 
     HomeComponent,
     PageNotFoundComponent,
+    DoctorAppointmentsPageComponent,
+    DoctorDashboardPageComponent,
+    DoctorProfilePageComponent,
+    DoctorBillingPageComponent,
+    DoctorPatientsPageComponent,
+    DoctorJoinOfficePageComponent,
   ],
   imports: [
     BrowserModule,
