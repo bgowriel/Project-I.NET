@@ -8,6 +8,7 @@ import { Appointment } from '../shared/models/appointment.model';
 
 const baseUrl = 'https://localhost:7221/';
 const appointmentsApi: string = 'api/appointments';
+const userApi: string = 'api/users/';
 const officesApi: string = 'api/offices'
 
 @Injectable()
@@ -42,6 +43,11 @@ export class PatientService {
   }
   public deleteAppointment(id: string): Observable<any> {
     return this.http.delete<any>(baseUrl + 'api/appointments/' + id);
+  }
+
+  public getPatientByPatientId(id: string): Observable<User> {
+    console.log(id)
+    return this.http.get<User>(baseUrl + userApi + id);
   }
 
   //register new patient(user) MOVED TO AUTHENTICATION SERVICE
