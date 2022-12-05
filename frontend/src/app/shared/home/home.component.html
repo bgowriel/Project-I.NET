@@ -1,10 +1,15 @@
 <section class="home_view">
     <div class="menu">
-        <button mat-button [matMenuTriggerFor]="menu" class="nice_menu">Login</button>
+        <!-- <button class="nice_menu" onclick="location.href = 'http://localhost:4200/login' " >Login</button> -->
+        <button mat-button [matMenuTriggerFor]="menu" class="nice_menu">Join Us!</button>
+        
+        
         <mat-menu #menu="matMenu">
-        <button mat-menu-item>Login as a Doctor</button>
-        <button mat-menu-item>Login as a Client</button>
-        </mat-menu>
+        <button mat-menu-item onclick="location.href = 'http://localhost:4200/login' ">Login</button>
+        <button mat-menu-item onclick="location.href = 'http://localhost:4200/register' ">Register</button>
+        </mat-menu> 
+       
+    
     </div>
     <div class="body">
         <div class="body_banner"></div>

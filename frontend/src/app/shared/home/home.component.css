@@ -16,6 +16,11 @@
 }
 .nice_menu{
     margin-left: 10px;
+    background-color: #0092d4;
+    color:white;
+}
+.mat-mdc-button:not(:disabled){
+    color: white !important;
 }
 .body{
     width: 100%;
@@ -58,4 +63,8 @@
 .white{
     background-color: white;
     color:rgb(77, 67, 67);
+}
+button{
+    background: white;
+    border: none;
 }
