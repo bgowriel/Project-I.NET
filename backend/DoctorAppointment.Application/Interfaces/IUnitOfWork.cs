@@ -10,6 +10,8 @@
 
 		public IMedicalVisitRepository MedicalVisitRepository { get; }
 
+        public IAvalaibleDateRepository AvalaibleDateRepository { get; }
+
         Task Save();
     }
 }
