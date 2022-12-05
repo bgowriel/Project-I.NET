@@ -16,7 +16,9 @@ namespace DoctorAppointment.DataAccess
 
 		public DbSet<Office> Offices => Set<Office>();
 
-		public DatabaseContext() { }
+        public DbSet<AvalaibleDate> AvalaibleDates => Set<AvalaibleDate>();
+
+        public DatabaseContext() { }
 
         public DatabaseContext(DbContextOptions<DatabaseContext> options) : base(options) { }
 

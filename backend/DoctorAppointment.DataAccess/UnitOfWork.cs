@@ -14,17 +14,21 @@ namespace DoctorAppointment.DataAccess
 
         public IBillRepository BillRepository { get; private set; }
 
+        public IAvalaibleDateRepository AvalaibleDateRepository { get; private set; }
+
         public UnitOfWork(DatabaseContext context,
                           IOfficeRepository officeRepository,
                           IAppointmentRepository appointmentRepository,
                           IMedicalVisitRepository medicalVisitRepository,
-                          IBillRepository billRepository)
+                          IBillRepository billRepository,
+                          IAvalaibleDateRepository avalaibleDateRepository)
         {
             _databaseContext = context;
             AppointmentRepository = appointmentRepository;
             MedicalVisitRepository = medicalVisitRepository;
             BillRepository = billRepository;
             OfficeRepository = officeRepository;
+            AvalaibleDateRepository = avalaibleDateRepository;
         }
 
         public async Task Save()

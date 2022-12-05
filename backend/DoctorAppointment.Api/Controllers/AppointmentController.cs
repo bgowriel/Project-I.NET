@@ -6,7 +6,6 @@ using Microsoft.AspNetCore.Mvc;
 using DoctorAppointment.Application.Commands;
 using DoctorAppointment.Api.Validators;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
 
 namespace DoctorAppointment.Api.Controllers
 {

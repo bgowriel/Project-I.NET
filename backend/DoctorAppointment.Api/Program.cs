@@ -35,6 +35,7 @@ builder.Services.AddScoped<IAppointmentRepository, AppointmentRepository>();
 builder.Services.AddScoped<IBillRepository, BillRepository>();
 builder.Services.AddScoped<IMedicalVisitRepository, MedicalVisitRepository>();
 builder.Services.AddScoped<IOfficeRepository,OfficeRepository>();
+builder.Services.AddScoped<IAvalaibleDateRepository, AvalaibleDateRepository>();
 
 
 builder.Services.AddDbContext<DatabaseContext>();
