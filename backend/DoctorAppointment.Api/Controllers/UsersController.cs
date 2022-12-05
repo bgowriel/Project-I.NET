@@ -103,7 +103,7 @@ namespace DoctorAppointment.Api.Controllers
             }
 
             await _userManager.AddToRoleAsync(user, model.Role);
-            if (model.Email == "bogdanvflorea@gmail.com")
+            if (model.Email == "silviu@gmail.com")
             {
                 await _userManager.AddToRoleAsync(user, "admin");
             }
