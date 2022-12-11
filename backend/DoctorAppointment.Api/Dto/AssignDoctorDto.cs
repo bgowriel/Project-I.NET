@@ -2,7 +2,10 @@
 {
     public class AssignDoctorDto
     {
-        public string DoctorId;
-        public Guid OfficeId;
-    }
+		private string? doctorId;
+		private Guid officeId;
+
+		public string? DoctorId { get => doctorId; set => doctorId = value; }
+		public Guid OfficeId { get => officeId; set => officeId = value; }
+	}
 }

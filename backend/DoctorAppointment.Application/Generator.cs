@@ -83,7 +83,6 @@ namespace DoctorAppointment.Application
                 if (_userManager.Users.Any(u => u.Email == doctor.Email))
                 {
                     throw new Exception("User with this email already exists");
-                    //continue;
                 }
 
                 var password = doctor.FirstName + doctor.LastName + ".2022";
@@ -112,7 +111,6 @@ namespace DoctorAppointment.Application
                 if (_userManager.Users.Any(u => u.Email == patient.Email))
                 {
                     throw new Exception("User with this email already exists");
-                    //continue;
                 }
 
                 var password = patient.FirstName + patient.LastName + ".2022";

@@ -32,60 +32,53 @@ namespace DoctorAppointment.DataAccess
             }
         }
 
-        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        protected override void OnModelCreating(ModelBuilder builder)
         {
-            base.OnModelCreating(modelBuilder);
+            base.OnModelCreating(builder);
 
-			//modelBuilder.Entity<Office>()
-			//   .HasMany(o => o.Doctors)
-			//   .WithOne(d => d.Office)
-			//   .HasForeignKey(d => d.OfficeId)
-			//   .IsRequired(false)
-			//   .OnDelete(DeleteBehavior.SetNull);
-
-			modelBuilder.Entity<Appointment>()
+			builder.Entity<Appointment>()
                 .HasOne(a => a.Patient)
                 .WithMany(u => u.Appointments)
                 .HasForeignKey(a => a.PatientId)
                 .IsRequired(false)
                 .OnDelete(DeleteBehavior.ClientCascade);
 
-            modelBuilder.Entity<Appointment>()
+            builder.Entity<Appointment>()
                 .HasOne(a => a.Doctor)
                 .WithMany()
                 .HasForeignKey(a => a.DoctorId)
                 .IsRequired(false)
                 .OnDelete(DeleteBehavior.ClientCascade);
 
-            modelBuilder.Entity<MedicalVisit>()
+            builder.Entity<MedicalVisit>()
                 .HasOne(mv => mv.Patient)
                 .WithMany(p => p.MedicalVisits)
                 .HasForeignKey(mv => mv.PatientId)
                 .IsRequired(false)
                 .OnDelete(DeleteBehavior.ClientCascade);
 
-            modelBuilder.Entity<MedicalVisit>()
+            builder.Entity<MedicalVisit>()
                 .HasOne(mv => mv.Doctor)
                 .WithMany()
                 .HasForeignKey(mv => mv.DoctorId)
                 .IsRequired(false)
                 .OnDelete(DeleteBehavior.ClientCascade);
 
-            modelBuilder.Entity<Bill>()
+            builder.Entity<Bill>()
                 .HasOne(b => b.MedicalVisit)
                 .WithOne()
                 .HasForeignKey<Bill>(b => b.MedicalVisitId)
                 .IsRequired()
                 .OnDelete(DeleteBehavior.ClientCascade);
 
-            modelBuilder.Entity<Bill>()
+            builder.Entity<Bill>()
                 .HasOne(b => b.Patient)
                 .WithMany(p => p.Bills)
                 .HasForeignKey(b => b.PatientId)
                 .IsRequired(false)
                 .OnDelete(DeleteBehavior.ClientCascade);
 
-            modelBuilder.Entity<Bill>()
+            builder.Entity<Bill>()
                 .HasOne(b => b.Doctor)
                 .WithMany()
                 .HasForeignKey(b => b.DoctorId)

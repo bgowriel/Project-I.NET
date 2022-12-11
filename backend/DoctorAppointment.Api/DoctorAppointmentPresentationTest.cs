@@ -15,7 +15,7 @@ namespace DoctorAppointment.Api
         {
             services.AddControllers();
 
-            services.AddMediatR(Assembly.GetAssembly(typeof(AssemblyMarker)));
+			services.AddMediatR(Assembly.GetAssembly(typeof(AssemblyMarker)));
             services.AddAutoMapper(typeof(DoctorAppointmentPresentation));
             
             services.AddScoped<IUnitOfWork, UnitOfWork>();

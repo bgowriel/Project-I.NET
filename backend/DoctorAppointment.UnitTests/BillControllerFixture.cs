@@ -80,7 +80,7 @@ namespace DoctorAppointment.UnitTests
 			var result = await billController.AddBill(_billPutPostDto);
 
 			// Assert
-			Assert.IsInstanceOf<CreatedAtActionResult>(result);
+			Assert.That(result, Is.InstanceOf<CreatedAtActionResult>());
 
 		}
 
@@ -97,7 +97,7 @@ namespace DoctorAppointment.UnitTests
 			var result = await billController.GetBills();
 
 			// Assert
-			Assert.IsInstanceOf<OkObjectResult>(result);
+			Assert.That(result, Is.InstanceOf<OkObjectResult>());
 		}
 
 
@@ -114,7 +114,7 @@ namespace DoctorAppointment.UnitTests
 			var result = await billController.GetBillById(_bill.Id);
 
 			// Assert
-			Assert.IsInstanceOf<OkObjectResult>(result);
+			Assert.That(result, Is.InstanceOf<OkObjectResult>());
 		}
 	}
 }
