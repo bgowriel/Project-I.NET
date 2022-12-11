@@ -80,7 +80,7 @@ namespace DoctorAppointment.UnitTests
 
 			// Assert
 			Console.WriteLine(result.ToString());
-			Assert.IsInstanceOf<CreatedAtActionResult>(result);
+			Assert.That(result, Is.InstanceOf<CreatedAtActionResult>());
 
 		}
 
@@ -97,7 +97,7 @@ namespace DoctorAppointment.UnitTests
 			var result = await controller.GetOffices();
 
 			// Assert
-			Assert.IsInstanceOf<OkObjectResult>(result);
+			Assert.That(result, Is.InstanceOf<OkObjectResult>());
 		}
 
 		[Test]
@@ -113,7 +113,7 @@ namespace DoctorAppointment.UnitTests
 			var result = await controller.GetOfficeById(_office.Id);
 
 			// Assert
-			Assert.IsInstanceOf<OkObjectResult>(result);
+			Assert.That(result, Is.InstanceOf<OkObjectResult>());
 		}
 
 		[Test]
@@ -129,7 +129,7 @@ namespace DoctorAppointment.UnitTests
 			var result = await controller.GetDoctors(_office.Id);
 
 			// Assert
-			Assert.IsInstanceOf<OkObjectResult>(result);
+			Assert.That(result, Is.InstanceOf<OkObjectResult>());
 		}
 
 		[Test]
@@ -159,8 +159,8 @@ namespace DoctorAppointment.UnitTests
 
 			// Assert
 			Console.WriteLine(result.ToString());
-			Assert.IsInstanceOf<OkObjectResult>(result);
-			Assert.AreEqual(((OfficeGetDto)((OkObjectResult)result).Value).Email, "carl@yahoo.com");
+			Assert.That(result, Is.InstanceOf<OkObjectResult>());
+			Assert.That(((OfficeGetDto)((OkObjectResult)result).Value).Email, Is.EqualTo("carl@yahoo.com"));
 		}
 
 		[Test]
