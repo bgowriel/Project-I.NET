@@ -48,3 +48,17 @@ display: flex;
 .mat-elevation-z8 {
     box-shadow: none;
 }
+.input_full_width{
+    width: 100%;
+}
+td {
+padding-right: 8px;
+}
+.table_full_w{
+    width: 100%;
+}
+.main_form{
+  min-width: 150px;
+  max-width: 500px;
+  width: 100%;
+}

@@ -1,10 +1,10 @@
 import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
 import { MatTable } from '@angular/material/table';
 import { UserService } from 'app/services/user.service';
 import { User } from 'app/shared/models/user.model';
 import { ToasterService } from 'app/shared/toaster/toaster.service';
 import { PatientService } from '../patient.service';
+import {MatInputModule} from '@angular/material/input';
 
 @Component({
   selector: 'app-patient-profile-page',
@@ -12,25 +12,16 @@ import { PatientService } from '../patient.service';
   styleUrls: ['./patient-profile-page.component.css'],
   providers: [PatientService, ToasterService]
 })
-export class PatientProfilePageComponent implements AfterViewInit{
-  constructor(public dialog: MatDialog, private userService: UserService, private patientService: PatientService) { }
+export class PatientProfilePageComponent implements OnInit{
+  constructor( private userService: UserService, private patientService: PatientService, private toasterService: ToasterService) { }
 
-  displayedColumns: string[] = ['firstName', 'lastName', 'phoneNumber', 'email'];
   dataSource: any = [];
-
-  @ViewChild(MatTable) table: MatTable<any>;
 
   public user: User;
 
-  ngAfterViewInit() {
+  ngOnInit() {
     this.user = this.userService.getUser();
-    //this.asignDataToDataSource();
     this.getUserById(this.user.id);
-  }
-
-  asignDataToDataSource() {
-    this.dataSource=this.user;
-    this.table.renderRows();
   }
 
   getUserById(id: string) {
@@ -38,4 +29,14 @@ export class PatientProfilePageComponent implements AfterViewInit{
       this.dataSource=[patient]
     });
   }
+
+  updateUser(){
+    const updatedUser = this.dataSource[0];
+    this.patientService.updatePatient(updatedUser).subscribe(patient=>{
+      this.toasterService.onSuccess("User updated successfully !");
+    }, err=> {
+      this.toasterService.onError("User was not updated successfully !");
+    })
+  }
+
 }
