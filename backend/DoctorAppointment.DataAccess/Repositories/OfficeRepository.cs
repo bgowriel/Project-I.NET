@@ -16,8 +16,13 @@ namespace DoctorAppointment.DataAccess.Repositories
 	
 		public async Task<Office> GetById(Guid id)
 		{
-			return await _databaseContext.Offices.SingleOrDefaultAsync(o => o.Id == id);
-		}
+			var office = await _databaseContext.Offices.SingleOrDefaultAsync(o => o.Id == id);
+            if (office == null)
+            {
+                throw new ArgumentNullException(nameof(office));
+            }
+            return office;
+        }
 		public async Task<List<Office>> GetAll()
 		{
 			return await _databaseContext.Offices.Take(100).ToListAsync();
@@ -25,9 +30,15 @@ namespace DoctorAppointment.DataAccess.Repositories
 
 		public async Task<List<User>> GetAllDoctors(Guid id)
 		{
-			return await _databaseContext.Offices.Where(o => o.Id == id)
-				.Include(o => o.Doctors).Select(o => o.Doctors).SingleAsync();
-		}
+            var doctors = await _databaseContext.Offices.Where(o => o.Id == id)
+                .Include(o => o.Doctors).Select(o => o.Doctors).SingleAsync();
+            if (doctors == null)
+            {
+                throw new ArgumentNullException(nameof(doctors));
+            }
+            return doctors;
+
+        }
 
 		public async Task Insert(Office entity)
 		{

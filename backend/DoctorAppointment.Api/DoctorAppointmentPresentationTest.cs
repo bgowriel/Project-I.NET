@@ -15,11 +15,12 @@ namespace DoctorAppointment.Api
         {
             services.AddControllers();
             var mediatR = Assembly.GetAssembly(typeof(AssemblyMarker));
+            //nullcheck mediatR
             if (mediatR == null)
             {
-				throw new ArgumentNullException("MediatR assembly not found");
-			}
-			services.AddMediatR(mediatR);
+                throw new ArgumentNullException(nameof(mediatR));
+            }
+            services.AddMediatR(mediatR);
             services.AddAutoMapper(typeof(DoctorAppointmentPresentation));
             
             services.AddScoped<IUnitOfWork, UnitOfWork>();

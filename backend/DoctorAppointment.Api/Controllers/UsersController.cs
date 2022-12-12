@@ -127,12 +127,17 @@ namespace DoctorAppointment.Api.Controllers
             {
                 return BadRequest(validationResult.Errors);
             }
-            
+
+            if (model.Email == null || model.Password == null)
+            {
+                return BadRequest(new { message = "Email and Password are required" });
+            }
+
             var user = await _userManager.FindByNameAsync(model.Email);
             if (user != null && await _userManager.CheckPasswordAsync(user, model.Password))
             {
                 var userRoles = await _userManager.GetRolesAsync(user);
-				if (model.Email == null)
+				if (user.Email == null)
 				{
 					return BadRequest(new { message = "Email and Password are required" });
 				}

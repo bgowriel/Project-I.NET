@@ -77,6 +77,10 @@ namespace DoctorAppointment.IntegrationTests
         [TestMethod]
         public async Task GetUserById_ReturnsUser()
         {
+            if (_factory == null)
+            {
+                throw new ArgumentNullException(nameof(_factory));
+            }
             // arrange
             var client = _factory.CreateClient();
 
