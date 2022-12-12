@@ -8,6 +8,7 @@ import { Appointment } from '../shared/models/appointment.model';
 
 const baseUrl = 'https://localhost:7221/';
 const appointmentsApi: string = 'api/appointments';
+const updateUserApi: string = 'api/users/update-user';
 const userApi: string = 'api/users/';
 const officesApi: string = 'api/offices'
 
@@ -46,8 +47,13 @@ export class PatientService {
   }
 
   public getPatientByPatientId(id: string): Observable<User> {
-    console.log(id)
+    console.log(id);
     return this.http.get<User>(baseUrl + userApi + id);
+  }
+
+  public updatePatient(user: User): Observable<any>{
+    console.log("User to update: " + user);
+    return this.http.put(baseUrl+updateUserApi, user);
   }
 
   //register new patient(user) MOVED TO AUTHENTICATION SERVICE
