@@ -19,7 +19,7 @@ namespace DoctorAppointment.Application.QueryHandlers
             var appointments = await _unitOfWork.AppointmentRepository.GetByDate(request.Date);
             if (appointments == null)
             {
-                throw new ArgumentNullException(nameof(appointments));
+                throw new Exception("appointments is null");
             }
             return appointments;
         }

@@ -18,7 +18,7 @@ namespace DoctorAppointment.Application.QueryHandlers
             var doctors = await _unitOfWork.OfficeRepository.GetAllDoctors(request.OfficeId);
             if (doctors == null)
             {
-                throw new ArgumentNullException(nameof(doctors));
+                throw new Exception("doctors is null");
             }
             return doctors;
 		}

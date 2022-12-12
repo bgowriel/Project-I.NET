@@ -18,7 +18,7 @@ namespace DoctorAppointment.Api
             //nullcheck mediatR
             if (mediatR == null)
             {
-                throw new ArgumentNullException(nameof(mediatR));
+                throw new Exception("Null value");
             }
             services.AddMediatR(mediatR);
             services.AddAutoMapper(typeof(DoctorAppointmentPresentation));

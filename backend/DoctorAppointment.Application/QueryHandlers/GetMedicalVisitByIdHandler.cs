@@ -19,7 +19,7 @@ namespace DoctorAppointment.Application.QueryHandlers
             var medicalVisit = await _unitOfWork.MedicalVisitRepository.GetById(request.Id);
             if (medicalVisit == null)
             {
-                throw new ArgumentNullException(nameof(medicalVisit));
+                throw new Exception("medicalVisit is null");
             }
             return medicalVisit;
         }

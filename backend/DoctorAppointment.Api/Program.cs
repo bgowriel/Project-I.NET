@@ -68,7 +68,7 @@ builder.Services.AddAuthentication(options =>
 {
     if (builder.Configuration["JWT:Secret"] == null)
     {
-        throw new ArgumentNullException("JWT:Secret");
+        throw new Exception("JWT:Secret is not set in appsettings.json");
     }
     
     options.TokenValidationParameters = new TokenValidationParameters()
@@ -87,9 +87,10 @@ builder.Services.AddAuthorization(options =>
     options.AddPolicy("ApproveAppointments", policy => policy.RequireRole("Doctor"));
 });
 
+
 if (Assembly.GetAssembly(typeof(AssemblyMarker)) == null)
 {
-    throw new ArgumentNullException(nameof(AssemblyMarker));
+    throw new Exception("MediatR assembly not found");
 }
 
 builder.Services.AddMediatR(Assembly.GetAssembly(typeof(AssemblyMarker)));

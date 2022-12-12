@@ -19,7 +19,7 @@ namespace DoctorAppointment.Application.QueryHandlers
             var bill = await _unitOfWork.BillRepository.GetById(request.Id);
             if (bill == null)
             {
-                throw new ArgumentNullException(nameof(bill));
+                throw new Exception("bill is null");
             }
             return bill;
         }

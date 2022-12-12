@@ -24,7 +24,7 @@ namespace DoctorAppointment.Application.QueryHandlers
             var availableDates = await _unitOfWork.AvalaibleDateRepository.GetAll();
             if (availableDates == null)
             {
-                throw new ArgumentNullException(nameof(availableDates));
+                throw new Exception("availableDates is null");
             }
             return availableDates;
            
