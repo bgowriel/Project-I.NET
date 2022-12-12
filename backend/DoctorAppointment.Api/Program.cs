@@ -48,9 +48,13 @@ builder.Services.AddCors(options =>
     options.AddPolicy(name: MyRules,
                       policy =>
                       {
-                          policy.AllowAnyOrigin()
+                          //allow only http://localhost:4200
+                          policy.WithOrigins("http://localhost:4200")
                                 .AllowAnyHeader()
                                 .AllowAnyMethod();
+                          //policy.AllowAnyOrigin()
+                          //      .AllowAnyHeader()
+                          //      .AllowAnyMethod();
                       });
 });
 

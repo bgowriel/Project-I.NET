@@ -14,6 +14,7 @@ namespace DoctorAppointment.IntegrationTests
                 LastName = "Doe",
                 Email = "john.doe@example.com",
                 Role = "Doctor",
+                UserName = "john.doe@example.com"
             };
 
             User patient = new()
@@ -22,6 +23,7 @@ namespace DoctorAppointment.IntegrationTests
                 LastName = "Doe",
                 Email = "jane.doe@example.com",
                 Role = "Patient",
+                UserName = "jane.doe@example.com"
             };
 
             db.Users.Add(doctor);
