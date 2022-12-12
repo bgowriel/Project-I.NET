@@ -19,7 +19,7 @@ namespace DoctorAppointment.DataAccess.Repositories
 			var office = await _databaseContext.Offices.SingleOrDefaultAsync(o => o.Id == id);
             if (office == null)
             {
-                throw new ArgumentNullException(nameof(office));
+                throw new NullReferenceException("No office found");
             }
             return office;
         }
@@ -34,7 +34,7 @@ namespace DoctorAppointment.DataAccess.Repositories
                 .Include(o => o.Doctors).Select(o => o.Doctors).SingleAsync();
             if (doctors == null)
             {
-                throw new ArgumentNullException(nameof(doctors));
+                throw new NullReferenceException("No doctors found");
             }
             return doctors;
 

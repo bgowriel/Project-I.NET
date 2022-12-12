@@ -68,7 +68,7 @@ builder.Services.AddAuthentication(options =>
 {
     if (builder.Configuration["JWT:Secret"] == null)
     {
-        throw new Exception("JWT:Secret is not set in appsettings.json");
+        throw new NullReferenceException("JWT:Secret not found");
     }
     
     options.TokenValidationParameters = new TokenValidationParameters()
@@ -90,7 +90,7 @@ builder.Services.AddAuthorization(options =>
 
 if (Assembly.GetAssembly(typeof(AssemblyMarker)) == null)
 {
-    throw new Exception("MediatR assembly not found");
+    throw new NullReferenceException("MediatR assembly not found");
 }
 
 builder.Services.AddMediatR(Assembly.GetAssembly(typeof(AssemblyMarker)));

@@ -62,7 +62,14 @@ namespace DoctorAppointment.IntegrationTests
                 throw new Exception("No appointments found");
             }
 
-            AppointmentId = db.Appointments.FirstOrDefault().Id;
+            AppointmentId = (Guid)(db.Appointments.FirstOrDefault()?.Id);
+
+            if (AppointmentId == null)
+            {
+                throw new Exception("No appointments found");
+            }
+
+
         }
     }
 }
