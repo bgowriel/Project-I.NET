@@ -19,7 +19,7 @@ namespace DoctorAppointment.Api.Dto
 		[Required]
 		[MinLength(3)]
 		[MaxLength(100)]
-		public string City { get; set; }
+		public string? City { get; set; }
 
 		[EmailAddress]
 		[MinLength(6)]

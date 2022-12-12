@@ -21,7 +21,16 @@ namespace DoctorAppointment.Application.QueryHandlers
 
         public async Task<AvailableDate> Handle(GetAvailableDateById request, CancellationToken cancellationToken)
         {
-            return await unitOfWork.AvalaibleDateRepository.GetById(request.Id);
+            if (request.Id == null)
+            {
+                throw new NullReferenceException("Id is null");
+            }
+            var availableDate = await unitOfWork.AvalaibleDateRepository.GetById(request.Id);
+            if (availableDate == null)
+            {
+                throw new NullReferenceException("No available date found");
+            }
+            return availableDate;
         }
     }
     

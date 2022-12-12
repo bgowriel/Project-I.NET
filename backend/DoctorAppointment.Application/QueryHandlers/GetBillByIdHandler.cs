@@ -16,7 +16,16 @@ namespace DoctorAppointment.Application.QueryHandlers
 
         public async Task<Bill> Handle(GetBillById request, CancellationToken cancellationToken)
         {
-            return await _unitOfWork.BillRepository.GetById(request.Id);
+            if (request == null)
+            {
+                throw new NullReferenceException("Request is null");
+            }
+            var bill = await _unitOfWork.BillRepository.GetById(request.Id);
+            if (bill == null)
+            {
+                throw new NullReferenceException("No bill found");
+            }
+            return bill;
         }
     }
 }

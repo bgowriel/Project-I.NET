@@ -77,9 +77,7 @@ namespace DoctorAppointment.UnitTests
 			var result = await controller.AddMedicalVisit(_medicalVisitPutPostDto);
 
 			// Assert
-			Assert.IsInstanceOf<CreatedAtActionResult>(result);
-			var okResult = result as CreatedAtActionResult;
-			Assert.That(okResult.StatusCode, Is.EqualTo(201));
+			Assert.That(result, Is.InstanceOf<CreatedAtActionResult>());
 		}
 
 		[Test]
@@ -96,9 +94,7 @@ namespace DoctorAppointment.UnitTests
 			var result = await controller.GetMedicalVisits();
 
 			// Assert
-			Assert.IsInstanceOf<OkObjectResult>(result);
-			var okResult = result as OkObjectResult;
-			Assert.That(okResult.StatusCode, Is.EqualTo(200));
+			Assert.That(result, Is.InstanceOf<OkObjectResult>());
 		}
 
 		[Test]
@@ -114,9 +110,7 @@ namespace DoctorAppointment.UnitTests
 			var result = await controller.GetMedicalVisitById(_medicalVisit.Id);
 
 			// Assert
-			Assert.IsInstanceOf<OkObjectResult>(result);
-			var okResult = result as OkObjectResult;
-			Assert.That(okResult.StatusCode, Is.EqualTo(200));
+			Assert.That(result, Is.InstanceOf<OkObjectResult>());
 		}
 	}
 	

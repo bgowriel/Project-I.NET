@@ -11,8 +11,8 @@ namespace DoctorAppointment.Application.Commands
 
         public string? Description { get; set; }
 
-        public string DoctorId { get; set; }
+        public string? DoctorId { get; set; }
 
-        public string PatientId { get; set; }
+        public string? PatientId { get; set; }
     }
 }

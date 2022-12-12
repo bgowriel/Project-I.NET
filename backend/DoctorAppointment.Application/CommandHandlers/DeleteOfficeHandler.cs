@@ -19,7 +19,7 @@ namespace DoctorAppointment.Application.CommandHandlers
 
 			if (office == null)
 			{
-				return null;
+				return new Office();
 			}
 
 			_unitOfWork.OfficeRepository.Delete(office);
