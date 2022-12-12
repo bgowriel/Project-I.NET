@@ -14,7 +14,7 @@ namespace DoctorAppointment.Application.QueryHandlers
             _unitOfWork = unitOfWork;
         }
 
-        public async Task<MedicalVisit> Handle(GetMedicalVisitById request, CancellationToken cancellationToken)
+        public async Task<MedicalVisit?> Handle(GetMedicalVisitById request, CancellationToken cancellationToken)
         {
             return await _unitOfWork.MedicalVisitRepository.GetById(request.Id);
         }

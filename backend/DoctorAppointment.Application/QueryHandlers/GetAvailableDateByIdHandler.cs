@@ -19,7 +19,7 @@ namespace DoctorAppointment.Application.QueryHandlers
             this.unitOfWork = unitOfWork;
         }
 
-        public async Task<AvailableDate> Handle(GetAvailableDateById request, CancellationToken cancellationToken)
+        public async Task<AvailableDate?> Handle(GetAvailableDateById request, CancellationToken cancellationToken)
         {
             return await unitOfWork.AvalaibleDateRepository.GetById(request.Id);
         }

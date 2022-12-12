@@ -13,7 +13,7 @@ namespace DoctorAppointment.Application.QueryHandlers
 		{
 			_unitOfWork = unitOfWork;
 		}
-		public async Task<List<User>> Handle(GetAllDoctors request, CancellationToken cancellationToken)
+		public async Task<List<User>?> Handle(GetAllDoctors request, CancellationToken cancellationToken)
 		{
 			return await _unitOfWork.OfficeRepository.GetAllDoctors(request.OfficeId);
 		}

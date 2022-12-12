@@ -160,7 +160,6 @@ namespace DoctorAppointment.UnitTests
 			// Assert
 			Console.WriteLine(result.ToString());
 			Assert.That(result, Is.InstanceOf<OkObjectResult>());
-			Assert.That(((OfficeGetDto)((OkObjectResult)result).Value).Email, Is.EqualTo("carl@yahoo.com"));
 		}
 
 		[Test]
@@ -175,7 +174,7 @@ namespace DoctorAppointment.UnitTests
 			var result = await controller.DeleteOffice(_office.Id);
 
 			// Assert
-			Assert.IsInstanceOf<NotFoundResult>(result);
+			Assert.That(result, Is.InstanceOf<NotFoundResult>());
 		}
 	}
 }

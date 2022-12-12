@@ -5,8 +5,11 @@ namespace DoctorAppointment.IntegrationTests
 {
     public static class Utilities
     {
-        public static Guid appointmentId;
-        public static void InitializeDbForTests(DatabaseContext db)
+		private static Guid appointmentId;
+
+		public static Guid AppointmentId { get => appointmentId; set => appointmentId = value; }
+
+		public static void InitializeDbForTests(DatabaseContext db)
         {
             User doctor = new()
             {
@@ -44,7 +47,7 @@ namespace DoctorAppointment.IntegrationTests
             db.SaveChanges();
 
             // get id of first appointment
-            appointmentId = db.Appointments.FirstOrDefault().Id;
+            AppointmentId = db.Appointments.FirstOrDefault().Id;
         }
     }
 }
