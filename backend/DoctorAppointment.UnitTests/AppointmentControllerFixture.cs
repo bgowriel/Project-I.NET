@@ -166,9 +166,24 @@ namespace DoctorAppointment.UnitTests
 				.ReturnsAsync(new List<Appointment> { _appointment });
 
 			var controller = new AppointmentController(_mockMediator.Object, _mockMapper.Object);
+            
+			if (_appointment == null)
+            {
+				throw new Exception("Appointment not found");
+			}
 
+            if (_appointment.PatientId == null)
+            {
+				throw new Exception("PatientId not found");
+			}
+			
             // Act
             var result = await controller.GetAppointmentsByPatientId(_appointment.PatientId);
+
+			if (result == null)
+			{
+				throw new Exception("Appointment not found");
+			}
 
 			// Assert
 			Assert.That(result, Is.InstanceOf<OkObjectResult>());
@@ -182,7 +197,17 @@ namespace DoctorAppointment.UnitTests
 				.ReturnsAsync(new List<Appointment> { _appointment });
 
 			var controller = new AppointmentController(_mockMediator.Object, _mockMapper.Object);
-			
+
+			if (_appointment == null)
+            {
+				throw new Exception("Appointment not found");
+			}
+
+			if (_appointment.DoctorId == null)
+			{
+				throw new Exception("DoctorId not found");
+			}
+
 			// Act
 			var result = await controller.GetAppointmentsByPatientId(_appointment.DoctorId);
 

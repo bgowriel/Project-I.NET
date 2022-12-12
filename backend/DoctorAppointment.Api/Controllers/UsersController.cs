@@ -70,7 +70,12 @@ namespace DoctorAppointment.Api.Controllers
                 return BadRequest(new { message = "Role must be Admin, Patient or Doctor" });
             }
 
-            var userExists = await _userManager.FindByNameAsync(model.Email);
+			if (model.Email == null || model.Password == null)
+			{
+				return BadRequest(new { message = "Email and Password are required" });
+			}
+
+			var userExists = await _userManager.FindByNameAsync(model.Email);
             if (userExists != null)
             {
                 return BadRequest(new { message = "User already exists!" });
@@ -127,8 +132,11 @@ namespace DoctorAppointment.Api.Controllers
             if (user != null && await _userManager.CheckPasswordAsync(user, model.Password))
             {
                 var userRoles = await _userManager.GetRolesAsync(user);
-
-                var authClaims = new List<Claim>
+				if (model.Email == null)
+				{
+					return BadRequest(new { message = "Email and Password are required" });
+				}
+				var authClaims = new List<Claim>
                 {
                     new Claim("userId", user.Id),
                     new Claim("email",  value : user.Email),
@@ -139,8 +147,14 @@ namespace DoctorAppointment.Api.Controllers
                 {
                     authClaims.Add(new Claim("role", userRole));
                 }
+                var _config = _configuration["JWT:Secret"];
+				
+				if (_config == null)
+                {
+					return BadRequest(new { message = "JWT:Secret not found" });
+				}
 
-                var authSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["JWT:Secret"]));
+				var authSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config));
 
                 var token = new JwtSecurityToken(
                     issuer: _configuration["JWT:ValidIssuer"],//"https://localhost:7147", backend
