@@ -104,7 +104,12 @@ namespace DoctorAppointment.IntegrationTests
                 Assert.Fail("No appointments in database");
             }
     
-            var appointmentId = appointments.FirstOrDefault().Id;
+            var appointmentId = appointments.FirstOrDefault()?.Id;
+
+            if (appointmentId == null)
+            {
+                Assert.Fail("No appointments in database");
+            }
 
             // act
             var appointmentResponse = await client.GetAsync($"/api/appointments/{appointmentId}");
@@ -222,8 +227,19 @@ namespace DoctorAppointment.IntegrationTests
             }
 
 
-            var doctorId = users.Where(x => x.Role == "Doctor").FirstOrDefault().Id;
-            var patientId = users.Where(x => x.Role == "Patient").FirstOrDefault().Id;
+            var doctorId = users.Where(x => x.Role == "Doctor").FirstOrDefault()?.Id;
+
+            if (doctorId == null)
+            {
+                Assert.Fail("No doctors in database");
+            }
+
+            var patientId = users.Where(x => x.Role == "Patient").FirstOrDefault()?.Id;
+
+            if (patientId == null)
+            {
+                Assert.Fail("No patients in database");
+            }
 
             var response = await client.GetAsync("/api/appointments/");
             response.EnsureSuccessStatusCode();
@@ -242,7 +258,12 @@ namespace DoctorAppointment.IntegrationTests
             {
                 Assert.Fail("No appointments in database");
             }
-            var appointmentId = appointments.FirstOrDefault().Id;
+            var appointmentId = appointments.FirstOrDefault()?.Id;
+
+            if (appointmentId == null)
+            {
+                Assert.Fail("No appointments in database");
+            }
 
             var appointment = new AppointmentPutPostDto
             {
