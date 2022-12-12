@@ -13,15 +13,15 @@ namespace DoctorAppointment.Domain.Models
 
         [Required]
         [MaxLength(50)]
-        public string Status { get; set; }
+        public string? Status { get; set; }
 
-        public string DoctorId { get; set; }
+        public string? DoctorId { get; set; }
 
-        public User Doctor { get; set; }
+        public User? Doctor { get; set; }
 
-        public string PatientId { get; set; }
+        public string? PatientId { get; set; }
 
-        public User Patient { get; set; } 
+        public User? Patient { get; set; } 
 
         public Guid? OfficeId { get; set; }
     }

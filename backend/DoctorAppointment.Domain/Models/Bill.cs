@@ -13,16 +13,16 @@ namespace DoctorAppointment.Domain.Models
         [Range(0, int.MaxValue)]
         public double Amount { get; set; }
 
-        public string PatientId { get; set; }
+        public string? PatientId { get; set; }
 
-        public User Patient { get; set; }
+        public User? Patient { get; set; }
 
-        public string DoctorId { get; set; }
+        public string? DoctorId { get; set; }
 
-        public User Doctor { get; set; }
+        public User? Doctor { get; set; }
 
         public Guid MedicalVisitId { get; set; }
 
-        public MedicalVisit MedicalVisit { get; set; }
+        public MedicalVisit? MedicalVisit { get; set; }
     }
 }

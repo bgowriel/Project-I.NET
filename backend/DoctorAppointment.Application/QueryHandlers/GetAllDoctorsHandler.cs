@@ -15,7 +15,17 @@ namespace DoctorAppointment.Application.QueryHandlers
 		}
 		public async Task<List<User>> Handle(GetAllDoctors request, CancellationToken cancellationToken)
 		{
-			return await _unitOfWork.OfficeRepository.GetAllDoctors(request.OfficeId);
+            if (request == null)
+            {
+                throw new NullReferenceException("Request is null");
+            }
+            
+            var doctors = await _unitOfWork.OfficeRepository.GetAllDoctors(request.OfficeId);
+            if (doctors == null)
+            {
+                throw new NullReferenceException("No doctors found");
+            }
+            return doctors;
 		}
 	}
 }

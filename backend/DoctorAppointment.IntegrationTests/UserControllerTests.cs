@@ -11,8 +11,8 @@ namespace DoctorAppointment.IntegrationTests
     [TestClass]
     public class UserControllerTests
     {
-        private static TestContext _testContext;
-        private static WebApplicationFactory<DoctorAppointmentPresentationTest> _factory;
+        private static TestContext? _testContext;
+        private static WebApplicationFactory<DoctorAppointmentPresentationTest>? _factory;
 
         [ClassInitialize]
         public static void ClassInit(TestContext testContext)
@@ -25,6 +25,10 @@ namespace DoctorAppointment.IntegrationTests
         public async Task CreateUser_ReturnsCreated()
         {
             // arrange
+			if (_factory == null)
+            {
+				throw new ArgumentNullException(nameof(_factory));
+			}
             var client = _factory.CreateClient();
 
             var user = new RegisterModel
@@ -49,12 +53,21 @@ namespace DoctorAppointment.IntegrationTests
         public async Task GetUsers_ReturnsUsers()
         {
             // arrange
-            var client = _factory.CreateClient();
-
-            // act
-            var response = await client.GetAsync("/api/users");
+           
+			if (_factory == null)
+			{
+				throw new ArgumentNullException(nameof(_factory));
+			}
+			var client = _factory.CreateClient();
+			// act
+			var response = await client.GetAsync("/api/users");
             response.EnsureSuccessStatusCode();
             var users = await response.Content.ReadFromJsonAsync<List<User>>();
+			
+			if (users == null)
+            {
+				throw new ArgumentNullException(nameof(users));
+			}
 
             // assert
             Assert.AreEqual(HttpStatusCode.OK, response.StatusCode);
@@ -64,20 +77,33 @@ namespace DoctorAppointment.IntegrationTests
         [TestMethod]
         public async Task GetUserById_ReturnsUser()
         {
+            if (_factory == null)
+            {
+                throw new ArgumentNullException(nameof(_factory));
+            }
             // arrange
             var client = _factory.CreateClient();
 
             var response = await client.GetAsync("/api/users");
             response.EnsureSuccessStatusCode();
             var users = await response.Content.ReadFromJsonAsync<List<User>>();
+			if (users == null)
+			{
+				throw new ArgumentNullException(nameof(users));
+			}
 
-            // act
-            var userResponse = await client.GetAsync($"/api/users/{users[0].Id}");
+			// act
+			var userResponse = await client.GetAsync($"/api/users/{users[0].Id}");
             userResponse.EnsureSuccessStatusCode();
             var user = await userResponse.Content.ReadFromJsonAsync<User>();
 
-            // assert
-            Assert.AreEqual(HttpStatusCode.OK, userResponse.StatusCode);
+			if (user == null)
+			{
+				throw new ArgumentNullException(nameof(user));
+			}
+
+			// assert
+			Assert.AreEqual(HttpStatusCode.OK, userResponse.StatusCode);
             Assert.AreEqual(users[0].Id, user.Id);
         }
 
@@ -85,13 +111,25 @@ namespace DoctorAppointment.IntegrationTests
         public async Task UpdateUser_ReturnsOk()
         {
             // arrange
-            var client = _factory.CreateClient();
 
+            if (_factory == null)
+            {
+				throw new ArgumentNullException(nameof(_factory));
+			}
+			
+			var client = _factory.CreateClient();
+			
+		
             var response = await client.GetAsync("/api/users");
             response.EnsureSuccessStatusCode();
             var users = await response.Content.ReadFromJsonAsync<List<User>>();
 
-            users[0].Email = "john.noname@example.com";
+            if (users == null)
+            {
+				throw new ArgumentNullException(nameof(users));
+			}
+
+			users[0].Email = "john.noname@example.com";
 
             // act
             var userResponse = await client.PutAsJsonAsync($"/api/users/update-user", users[0]);
@@ -105,7 +143,14 @@ namespace DoctorAppointment.IntegrationTests
         public async Task DeleteUser_ReturnsOk()
         {
             // arrange
-            var client = _factory.CreateClient();
+
+            if (_factory == null)
+            {
+				throw new ArgumentNullException(nameof(_factory));
+			}
+			
+
+			var client = _factory.CreateClient();
             // create a new user
             var user = new RegisterModel
             {
@@ -121,9 +166,12 @@ namespace DoctorAppointment.IntegrationTests
             response.EnsureSuccessStatusCode();
             // get the new user id
             var newUser = await response.Content.ReadFromJsonAsync<User>();
-
-            // act
-            var userResponse = await client.DeleteAsync($"/api/users/{newUser.Id}");
+            if (newUser == null)
+            {
+				throw new ArgumentNullException(nameof(newUser));
+			}
+			// act
+			var userResponse = await client.DeleteAsync($"/api/users/{newUser.Id}");
             userResponse.EnsureSuccessStatusCode();
 
             // assert

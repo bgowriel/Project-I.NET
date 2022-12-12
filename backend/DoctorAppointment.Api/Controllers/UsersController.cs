@@ -1,9 +1,11 @@
 ﻿using AutoMapper;
 using DoctorAppointment.Api.Dto;
 using DoctorAppointment.Api.Validators;
+using DoctorAppointment.Application.Commands;
 using DoctorAppointment.Application.Queries;
 using DoctorAppointment.Domain.Models;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -28,7 +30,7 @@ namespace DoctorAppointment.Api.Controllers
 
 		private readonly IMapper _mapper;
 
-		public UsersController(IConfiguration configuration,
+        public UsersController(IConfiguration configuration,
                                UserManager<User> userManager,
                                RoleManager<IdentityRole> roleManager,
 							   IMediator mediator,
@@ -41,33 +43,40 @@ namespace DoctorAppointment.Api.Controllers
             _mediator = mediator;
             _mapper = mapper;
         }
+        
+        private async Task InitializeRoles()
+        {
+            if (!await _roleManager.RoleExistsAsync("Admin"))
+            {
+                await _roleManager.CreateAsync(new IdentityRole("Admin"));
+            }
+
+            if (!await _roleManager.RoleExistsAsync("Doctor"))
+            {
+                await _roleManager.CreateAsync(new IdentityRole("Doctor"));
+            }
+
+            if (!await _roleManager.RoleExistsAsync("Patient"))
+            {
+                await _roleManager.CreateAsync(new IdentityRole("Patient"));
+            }
+        }
 
         [HttpPost]
         [Route("register")]
         public async Task<IActionResult> Register([FromBody] RegisterModel model)
         {
-            var roleExists = await _roleManager.RoleExistsAsync("Admin");
-            if (!roleExists)
-            {
-                await _roleManager.CreateAsync(new IdentityRole("Admin"));
-            }
-            
-            roleExists = await _roleManager.RoleExistsAsync("Patient");
-            if (!roleExists)
-            {
-                await _roleManager.CreateAsync(new IdentityRole("Patient"));
-            }
-
-            roleExists = await _roleManager.RoleExistsAsync("Doctor");
-            if (!roleExists)
-            {
-                await _roleManager.CreateAsync(new IdentityRole("Doctor"));
-            }
+            await InitializeRoles();
 
             //if role different from Admin, Patient or Doctor return BadRequest
             if (model.Role != "Admin" && model.Role != "Patient" && model.Role != "Doctor")
             {
                 return BadRequest(new { message = "Role must be Admin, Patient or Doctor" });
+            }
+
+            if (model.Email == null)
+            {
+                return BadRequest(new { message = "Email is required" });
             }
 
             var userExists = await _userManager.FindByNameAsync(model.Email);
@@ -84,31 +93,16 @@ namespace DoctorAppointment.Api.Controllers
                 return BadRequest(validationResult.Errors);
             }
 
-            User user = new User()
+            var command = _mapper.Map<InsertUser>(model);
+            var created = await _mediator.Send(command);
+            var userGetDto = _mapper.Map<UserGetDto>(created);
+                        
+            if (model.Email == "silviu@gmail.com" || model.Email == "bogdanvflorea@gmail.com")
             {
-                FirstName = model.FirstName,
-                LastName = model.LastName,
-                Email = model.Email,
-                UserName = model.Email,
-                Role = model.Role,
-                PhoneNumber = model.PhoneNumber,
-                SecurityStamp = Guid.NewGuid().ToString(),
-            };
-
-            var result = await _userManager.CreateAsync(user, model.Password);
-
-            if (!result.Succeeded)
-            {
-                return BadRequest(new { message = "User creation failed! Please check user details and try again." });
+                await _userManager.AddToRoleAsync(created, "admin");
             }
 
-            await _userManager.AddToRoleAsync(user, model.Role);
-            if (model.Email == "silviu@gmail.com")
-            {
-                await _userManager.AddToRoleAsync(user, "admin");
-            }
-
-            return CreatedAtAction(nameof(Register), user);
+            return CreatedAtAction(nameof(Register), new { id = created.Id }, userGetDto);
         }
 
         [HttpPost]
@@ -122,13 +116,21 @@ namespace DoctorAppointment.Api.Controllers
             {
                 return BadRequest(validationResult.Errors);
             }
-            
+
+            if (model.Email == null || model.Password == null)
+            {
+                return BadRequest(new { message = "Email and Password are required" });
+            }
+
             var user = await _userManager.FindByNameAsync(model.Email);
             if (user != null && await _userManager.CheckPasswordAsync(user, model.Password))
             {
                 var userRoles = await _userManager.GetRolesAsync(user);
-
-                var authClaims = new List<Claim>
+				if (user.Email == null)
+				{
+					return BadRequest(new { message = "Email and Password are required" });
+				}
+				var authClaims = new List<Claim>
                 {
                     new Claim("userId", user.Id),
                     new Claim("email",  value : user.Email),
@@ -139,11 +141,17 @@ namespace DoctorAppointment.Api.Controllers
                 {
                     authClaims.Add(new Claim("role", userRole));
                 }
+                var _config = _configuration["JWT:Secret"];
+				
+				if (_config == null)
+                {
+					return BadRequest(new { message = "JWT:Secret not found" });
+				}
 
-                var authSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["JWT:Secret"]));
+				var authSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config));
 
                 var token = new JwtSecurityToken(
-                    issuer: _configuration["JWT:ValidIssuer"],//"https://localhost:7147", backend
+                    issuer: _configuration["JWT:ValidIssuer"],//"https://localhost:7221", backend
                     audience: _configuration["JWT:ValidAudience"],//"http://localhost:4200", frontend
                     expires: DateTime.Now.AddHours(3),
                     claims: authClaims,
@@ -163,7 +171,7 @@ namespace DoctorAppointment.Api.Controllers
         }
 
         [HttpGet]
-        //[Route("get-users")]
+        [Authorize]
         public async Task<IActionResult> GetUsers()
         {
             var users = await _userManager.Users.ToListAsync();
@@ -171,6 +179,7 @@ namespace DoctorAppointment.Api.Controllers
         }
 
         [HttpGet]
+        [Authorize]
         [Route("{id}")]
         public async Task<IActionResult> GetUser(string id)
         {
@@ -185,6 +194,7 @@ namespace DoctorAppointment.Api.Controllers
         }
 
         [HttpPost]
+        [Authorize]
         [Route("assign-role")]
         public async Task<IActionResult> AssignRole([FromBody] string userName, string roleName)
         {
@@ -210,6 +220,7 @@ namespace DoctorAppointment.Api.Controllers
         }
 
 		[HttpPut]
+        [Authorize]
 		[Route("assign-doctor-to-office/{doctorId}/{officeId}")]
 		public async Task<IActionResult> AssignDoctorToOffice([FromRoute] string doctorId, [FromRoute] Guid officeId)
 		{
@@ -235,6 +246,7 @@ namespace DoctorAppointment.Api.Controllers
 		}
 
         [HttpDelete]
+        [Authorize]
         [Route("{id}")]
         public async Task<IActionResult> DeleteUser(string id)
         {
@@ -254,6 +266,7 @@ namespace DoctorAppointment.Api.Controllers
         }
 
         [HttpPut]
+        [Authorize]
         [Route("update-user")]
         public async Task<IActionResult> UpdateUser([FromBody] User user)
         {

@@ -20,7 +20,7 @@ namespace DoctorAppointment.Application.CommandHandlers
 
             if (bill == null)
             {
-                return null;
+                return new Bill();
             }
 
             _unitOfWork.BillRepository.Delete(bill);

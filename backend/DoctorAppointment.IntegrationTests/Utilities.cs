@@ -5,8 +5,11 @@ namespace DoctorAppointment.IntegrationTests
 {
     public static class Utilities
     {
-        public static Guid appointmentId;
-        public static void InitializeDbForTests(DatabaseContext db)
+		private static Guid appointmentId;
+
+		public static Guid AppointmentId { get => appointmentId; set => appointmentId = value; }
+
+		public static void InitializeDbForTests(DatabaseContext db)
         {
             User doctor = new()
             {
@@ -44,7 +47,29 @@ namespace DoctorAppointment.IntegrationTests
             db.SaveChanges();
 
             // get id of first appointment
-            appointmentId = db.Appointments.FirstOrDefault().Id;
+            if (db.Appointments == null)
+            {
+				throw new Exception("No appointments found");
+			}
+            
+            if (db.Appointments.FirstOrDefault() == null)
+            {
+                throw new Exception("No appointments found");
+            }
+
+            if (db.Appointments.FirstOrDefault()?.Id == null)
+            {
+                throw new Exception("No appointments found");
+            }
+
+            AppointmentId = (Guid)(db.Appointments.FirstOrDefault()?.Id);
+
+            if (AppointmentId == null)
+            {
+                throw new Exception("No appointments found");
+            }
+
+
         }
     }
 }

@@ -1,6 +1,6 @@
 ﻿namespace DoctorAppointment.Domain.Models
 {
-    public class UserRoles
+    public static class UserRoles
     {
         public const string Admin = "Admin";
 
