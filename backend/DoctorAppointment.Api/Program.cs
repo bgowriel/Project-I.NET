@@ -66,6 +66,11 @@ builder.Services.AddAuthentication(options =>
     options.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
 }).AddJwtBearer(options =>
 {
+    if (builder.Configuration["JWT:Secret"] == null)
+    {
+        throw new ArgumentNullException("JWT:Secret");
+    }
+    
     options.TokenValidationParameters = new TokenValidationParameters()
     {
         ValidateIssuer = true,
@@ -81,6 +86,11 @@ builder.Services.AddAuthorization(options =>
     options.AddPolicy("ContentEditor", policy => policy.RequireRole("Admin"));
     options.AddPolicy("ApproveAppointments", policy => policy.RequireRole("Doctor"));
 });
+
+if (Assembly.GetAssembly(typeof(AssemblyMarker)) == null)
+{
+    throw new ArgumentNullException(nameof(AssemblyMarker));
+}
 
 builder.Services.AddMediatR(Assembly.GetAssembly(typeof(AssemblyMarker)));
 builder.Services.AddAutoMapper(typeof(DoctorAppointmentPresentation));

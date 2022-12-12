@@ -12,8 +12,9 @@ namespace DoctorAppointment.IntegrationTests
     [TestClass]
     public class AppointmentControllerTests
     {
-        private static TestContext _testContext;
-        private static WebApplicationFactory<DoctorAppointmentPresentationTest> _factory;
+        private static TestContext? _testContext;
+        private static WebApplicationFactory<DoctorAppointmentPresentationTest>? _factory;
+        
 
         [ClassInitialize]
         public static void ClassInit(TestContext testContext)
@@ -26,6 +27,10 @@ namespace DoctorAppointment.IntegrationTests
         public async Task CreateAppointment_ReturnsCreated()
         {
             // arrange
+            if (_factory == null)
+            {
+                throw new ArgumentNullException(nameof(_factory));
+            }
             var client = _factory.CreateClient();
 
             var usersResponse = await client.GetAsync("/api/users");
@@ -68,6 +73,10 @@ namespace DoctorAppointment.IntegrationTests
         [TestMethod]
         public async Task GetAppointmentById_ReturnsAppointment()
         {
+            if (_factory == null)
+            {
+                throw new ArgumentNullException(nameof(_factory));
+            }
             // arrange
             var client = _factory.CreateClient();
             
@@ -85,7 +94,17 @@ namespace DoctorAppointment.IntegrationTests
 				Assert.Inconclusive("No appointments in database");
 			}
 
-			var appointmentId = appointments.FirstOrDefault().Id;
+            if (appointments.FirstOrDefault() == null)
+            {
+                Assert.Fail("No appointments in database");
+            }
+
+            if (appointments.FirstOrDefault().Id == null)
+            {
+                Assert.Fail("No appointments in database");
+            }
+
+            var appointmentId = appointments.FirstOrDefault().Id;
 
             // act
             var appointmentResponse = await client.GetAsync($"/api/appointments/{appointmentId}");
@@ -110,6 +129,10 @@ namespace DoctorAppointment.IntegrationTests
         [TestMethod]
         public async Task GetAppointmentById_ReturnsNotFound()
         {
+            if (_factory == null)
+            {
+                throw new ArgumentNullException(nameof(_factory));
+            }
             // arrange
             var client = _factory.CreateClient();
 
@@ -123,6 +146,10 @@ namespace DoctorAppointment.IntegrationTests
         [TestMethod]
         public async Task GetAppointments_ReturnsAppointments()
         {
+            if (_factory == null)
+            {
+                throw new ArgumentNullException(nameof(_factory));
+            }
             // arrange
             var client = _factory.CreateClient();
 
@@ -154,6 +181,10 @@ namespace DoctorAppointment.IntegrationTests
         [TestMethod]
         public async Task UpdateAppointment_ReturnsOk()
         {
+            if (_factory == null)
+            {
+                throw new ArgumentNullException(nameof(_factory));
+            }
             // arrange
             var client = _factory.CreateClient();
             
@@ -170,12 +201,42 @@ namespace DoctorAppointment.IntegrationTests
 				Assert.Inconclusive("No users in database");
 			}
 
-			var doctorId = users.Where(x => x.Role == "Doctor").FirstOrDefault().Id;
+            if (users.Where(x => x.Role == "Doctor").FirstOrDefault() == null)
+            {
+                Assert.Fail("No doctors in database");
+            }
+
+            if (users.Where(x => x.Role == "Doctor").FirstOrDefault().Id == null)
+            {
+                Assert.Fail("No doctors in database");
+            }
+
+            if (users.Where(x => x.Role == "Patient").FirstOrDefault() == null)
+            {
+                Assert.Fail("No patients in database");
+            }
+
+            if (users.Where(x => x.Role == "Patient").FirstOrDefault().Id == null)
+            {
+                Assert.Fail("No patients in database");
+            }
+
+
+            var doctorId = users.Where(x => x.Role == "Doctor").FirstOrDefault().Id;
             var patientId = users.Where(x => x.Role == "Patient").FirstOrDefault().Id;
 
             var response = await client.GetAsync("/api/appointments/");
             response.EnsureSuccessStatusCode();
             var appointments = JsonConvert.DeserializeObject<List<Appointment>>(await response.Content.ReadAsStringAsync());
+            if (appointments.FirstOrDefault() == null)
+            {
+                Assert.Fail("No appointments in database");
+            }
+
+            if (appointments.FirstOrDefault().Id == null)
+            {
+                Assert.Fail("No appointments in database");
+            }
             var appointmentId = appointments.FirstOrDefault().Id;
 
             var appointment = new AppointmentPutPostDto
@@ -199,7 +260,7 @@ namespace DoctorAppointment.IntegrationTests
         [ClassCleanup]
         public static void ClassCleanup()
         {
-            _factory.Dispose();
+            _factory?.Dispose();
         }
     }
 }
