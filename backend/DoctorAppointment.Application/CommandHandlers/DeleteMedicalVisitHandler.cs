@@ -20,7 +20,7 @@ namespace DoctorAppointment.Application.CommandHandlers
 
             if (medicalVisit == null)
             {
-                return null;
+                return new MedicalVisit();
             }
 
             _unitOfWork.MedicalVisitRepository.Delete(medicalVisit);

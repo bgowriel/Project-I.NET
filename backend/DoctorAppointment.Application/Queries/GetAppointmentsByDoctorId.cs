@@ -5,6 +5,6 @@ namespace DoctorAppointment.Application.Queries
 {
     public class GetAppointmentsByDoctorId : IRequest<List<Appointment>>
     {
-        public string DoctorId { get; set; }
+        public string? DoctorId { get; set; }
     }
 }
