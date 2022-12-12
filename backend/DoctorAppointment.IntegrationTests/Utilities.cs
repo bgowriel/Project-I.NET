@@ -57,7 +57,7 @@ namespace DoctorAppointment.IntegrationTests
                 throw new Exception("No appointments found");
             }
 
-            if (db.Appointments.FirstOrDefault().Id == null)
+            if (db.Appointments.FirstOrDefault()?.Id == null)
             {
                 throw new Exception("No appointments found");
             }
