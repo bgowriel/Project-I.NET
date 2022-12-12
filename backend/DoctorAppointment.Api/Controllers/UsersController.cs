@@ -43,7 +43,7 @@ namespace DoctorAppointment.Api.Controllers
             _mediator = mediator;
             _mapper = mapper;
         }
-        
+
         private async Task InitializeRoles()
         {
             if (!await _roleManager.RoleExistsAsync("Admin"))
@@ -171,30 +171,32 @@ namespace DoctorAppointment.Api.Controllers
         }
 
         [HttpGet]
-        [Authorize]
+        //[Authorize]
         public async Task<IActionResult> GetUsers()
         {
-            var users = await _userManager.Users.ToListAsync();
-            return Ok(users);
+            var query = new GetAllUsers();
+            var users = await _mediator.Send(query);
+            var usersGetDto = _mapper.Map<IEnumerable<UserGetDto>>(users);
+            return Ok(usersGetDto);
         }
 
         [HttpGet]
-        [Authorize]
+        //[Authorize]
         [Route("{id}")]
         public async Task<IActionResult> GetUser(string id)
         {
-            var user = await _userManager.FindByIdAsync(id);
-            
-            if (user == null)
+            var query = new GetUserById() { Id = id };
+            var user = await _mediator.Send(query);
+            if (user.UserName == null)
             {
                 return NotFound();
             }
-            
-            return Ok(user);
+            var userGetDto = _mapper.Map<UserGetDto>(user);
+            return Ok(userGetDto);
         }
 
         [HttpPost]
-        [Authorize]
+        //[Authorize]
         [Route("assign-role")]
         public async Task<IActionResult> AssignRole([FromBody] string userName, string roleName)
         {
@@ -220,7 +222,7 @@ namespace DoctorAppointment.Api.Controllers
         }
 
 		[HttpPut]
-        [Authorize]
+        //[Authorize]
 		[Route("assign-doctor-to-office/{doctorId}/{officeId}")]
 		public async Task<IActionResult> AssignDoctorToOffice([FromRoute] string doctorId, [FromRoute] Guid officeId)
 		{
@@ -246,7 +248,7 @@ namespace DoctorAppointment.Api.Controllers
 		}
 
         [HttpDelete]
-        [Authorize]
+        //[Authorize]
         [Route("{id}")]
         public async Task<IActionResult> DeleteUser(string id)
         {
@@ -266,7 +268,7 @@ namespace DoctorAppointment.Api.Controllers
         }
 
         [HttpPut]
-        [Authorize]
+        //[Authorize]
         [Route("update-user")]
         public async Task<IActionResult> UpdateUser([FromBody] User user)
         {

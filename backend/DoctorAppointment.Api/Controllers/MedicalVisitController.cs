@@ -10,7 +10,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace DoctorAppointment.Api.Controllers
 {
     [ApiController]
-    [Authorize]
+    //[Authorize]
     [Route("api/[controller]")]
     public class MedicalVisitController : ControllerBase
     {
