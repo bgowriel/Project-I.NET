@@ -14,7 +14,7 @@ namespace DoctorAppointment.Application.QueryHandlers
             _unitOfWork = unitOfWork;
         }
 
-        public async Task<Bill> Handle(GetBillById request, CancellationToken cancellationToken)
+        public async Task<Bill?> Handle(GetBillById request, CancellationToken cancellationToken)
         {
             return await _unitOfWork.BillRepository.GetById(request.Id);
         }

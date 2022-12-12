@@ -2,9 +2,17 @@
 {
     public class AssignDoctorDto
     {
-		public string? doctorId;
-		public Guid? officeId;
+		private string? doctorId;
+		private Guid? officeId;
 
-	
+		public string? DoctorId
+		{
+			get { return doctorId; }
+			set { doctorId = value; }
+		}
+		public Guid? OfficeId {
+			get { return officeId; }
+			set { officeId = value; }
+		}
 	}
 }

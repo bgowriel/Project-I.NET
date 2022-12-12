@@ -2,7 +2,7 @@
 
 namespace DoctorAppointment.DataAccess
 {
-    public class UnitOfWork : IUnitOfWork
+    public sealed class UnitOfWork : IUnitOfWork
     {
         private readonly DatabaseContext _databaseContext;
 
@@ -38,7 +38,8 @@ namespace DoctorAppointment.DataAccess
 
         public void Dispose()
         {
-            _databaseContext.Dispose();
+            GC.SuppressFinalize(this);
+			_databaseContext.Dispose();
         }
     }
 }
