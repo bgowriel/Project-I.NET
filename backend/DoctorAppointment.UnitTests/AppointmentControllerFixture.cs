@@ -74,10 +74,9 @@ namespace DoctorAppointment.UnitTests
             // Act
             var result = await controller.AddAppointment(_appointmentPutPostDto);
 
-			// Assert
-			Assert.That(result, Is.InstanceOf(typeof(CreatedAtActionResult)));
-		}
-	
+            // Assert
+            Assert.IsInstanceOf<CreatedAtActionResult>(result);
+        }
 
         [Test]
         public async Task UpdateAppointmentUpdatesAnExistingAppointment()
@@ -106,11 +105,11 @@ namespace DoctorAppointment.UnitTests
 
             // Assert
             Console.WriteLine(result.ToString());
-            Assert.That(result, Is.InstanceOf<OkObjectResult>());
-			Assert.That(((AppointmentGetDto)((OkObjectResult)result).Value).Status, Is.EqualTo("Approved"));
-			Assert.That(((AppointmentGetDto)((OkObjectResult)result).Value).DoctorId, Is.EqualTo("1"));
-			Assert.That(((AppointmentGetDto)((OkObjectResult)result).Value).PatientId, Is.EqualTo("1"));
-		}
+            Assert.IsInstanceOf<OkObjectResult>(result);
+            Assert.AreEqual(((AppointmentGetDto)((OkObjectResult)result).Value).Status, "Approved");
+            Assert.AreEqual(((AppointmentGetDto)((OkObjectResult)result).Value).DoctorId, "1");
+            Assert.AreEqual(((AppointmentGetDto)((OkObjectResult)result).Value).PatientId, "1");
+        }
 
 		[Test]  
 		public async Task GetAllAppointmentsReturnAllExistingAppointments()
@@ -125,7 +124,7 @@ namespace DoctorAppointment.UnitTests
 			var result = await controller.GetAppointments();
 
 			// Assert
-			Assert.That(result, Is.InstanceOf<OkObjectResult>());
+			Assert.IsInstanceOf<OkObjectResult>(result);
 
 		}
 
@@ -142,7 +141,7 @@ namespace DoctorAppointment.UnitTests
 			var result = await controller.GetAppointmentById(_appointment.Id);
 
 			// Assert
-			Assert.That(result, Is.InstanceOf<OkObjectResult>());
+			Assert.IsInstanceOf<OkObjectResult>(result);
 		}
 
         [Test]
@@ -157,7 +156,7 @@ namespace DoctorAppointment.UnitTests
 			var result = await controller.GetAppointmentsByDate(_appointment.Date);
 
 			// Assert
-			Assert.That(result, Is.InstanceOf<OkObjectResult>());
+			Assert.IsInstanceOf<OkObjectResult>(result);
 
 		}
 
@@ -174,7 +173,7 @@ namespace DoctorAppointment.UnitTests
             var result = await controller.GetAppointmentsByPatientId(_appointment.PatientId);
 
 			// Assert
-			Assert.That(result, Is.InstanceOf<OkObjectResult>());
+			Assert.IsInstanceOf<OkObjectResult>(result);
 		}
 
 		[Test]
@@ -190,7 +189,7 @@ namespace DoctorAppointment.UnitTests
 			var result = await controller.GetAppointmentsByPatientId(_appointment.DoctorId);
 
 			// Assert
-			Assert.That(result, Is.InstanceOf<OkObjectResult>());
+			Assert.IsInstanceOf<OkObjectResult>(result);
 		}
 
         [Test]
@@ -206,7 +205,7 @@ namespace DoctorAppointment.UnitTests
 			var result = await controller.DeleteAppointment(_appointment.Id);
 
 			// Assert
-			Assert.That(result, Is.InstanceOf<OkObjectResult>());
+			Assert.IsInstanceOf<OkObjectResult>(result);
 		}
 	}
 }

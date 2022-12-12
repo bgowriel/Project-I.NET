@@ -7,30 +7,30 @@ namespace DoctorAppointment.Api.Dto
         [Required]
         [MinLength(3)]
         [MaxLength(100)]
-        public string? FirstName { get; set; }
+        public string FirstName { get; set; }
 
         [Required]
         [MinLength(3)]
         [MaxLength(100)]
-        public string? LastName { get; set; }
+        public string LastName { get; set; }
 
         [Required]
         [MinLength(3)]
         [MaxLength(10)]
-        public string? Role { get; set; }
+        public string Role { get; set; }
 
         [EmailAddress]
         [MinLength(6)]
         [Required(ErrorMessage = "Email is required")]
-        public string? Email { get; set; }
+        public string Email { get; set; }
 
         [Required]
         [MinLength(10)]
         [MaxLength(20)]
-        public string? PhoneNumber { get; set; }
+        public string PhoneNumber { get; set; }
         
         [MinLength(8)]
         [Required(ErrorMessage = "Password is required")]
-        public string? Password { get; set; }
+        public string Password { get; set; }
     }
 }

@@ -131,7 +131,7 @@ namespace DoctorAppointment.Api.Controllers
                 var authClaims = new List<Claim>
                 {
                     new Claim("userId", user.Id),
-                    new Claim("email",  value : user.Email),
+                    new Claim("email", user.Email),
                     new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
                 };
 

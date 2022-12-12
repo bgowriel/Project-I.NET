@@ -6,9 +6,9 @@
 
         public double Amount { get; set; }
 
-        public string? PatientId { get; set; }
+        public string PatientId { get; set; }
 
-        public string? DoctorId { get; set; }
+        public string DoctorId { get; set; }
 
         public Guid MedicalVisitId { get; set; }
     }

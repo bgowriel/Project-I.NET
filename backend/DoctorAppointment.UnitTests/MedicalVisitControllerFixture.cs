@@ -79,7 +79,7 @@ namespace DoctorAppointment.UnitTests
 			// Assert
 			Assert.IsInstanceOf<CreatedAtActionResult>(result);
 			var okResult = result as CreatedAtActionResult;
-			Assert.That(okResult.StatusCode, Is.EqualTo(201));
+			Assert.AreEqual(201, okResult.StatusCode);
 		}
 
 		[Test]
@@ -98,7 +98,7 @@ namespace DoctorAppointment.UnitTests
 			// Assert
 			Assert.IsInstanceOf<OkObjectResult>(result);
 			var okResult = result as OkObjectResult;
-			Assert.That(okResult.StatusCode, Is.EqualTo(200));
+			Assert.AreEqual(200, okResult.StatusCode);
 		}
 
 		[Test]
@@ -116,7 +116,7 @@ namespace DoctorAppointment.UnitTests
 			// Assert
 			Assert.IsInstanceOf<OkObjectResult>(result);
 			var okResult = result as OkObjectResult;
-			Assert.That(okResult.StatusCode, Is.EqualTo(200));
+			Assert.AreEqual(200, okResult.StatusCode);
 		}
 	}
 	

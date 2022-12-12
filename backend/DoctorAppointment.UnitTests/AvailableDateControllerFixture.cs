@@ -66,8 +66,8 @@ namespace DoctorAppointment.UnitTests
 			var result = await controller.AddAvailableDate(_availableDatePutPostDto);
 
 			// Assert
-			Assert.That(result, Is.InstanceOf<CreatedAtActionResult>());
-
+			Assert.IsInstanceOf<CreatedAtActionResult>(result);
+			
 		}
 
 		[Test]
@@ -83,7 +83,7 @@ namespace DoctorAppointment.UnitTests
 			var result = await controller.GetAvailableDates();
 
 			// Assert
-			Assert.That(result, Is.InstanceOf<OkObjectResult>());
+			Assert.IsInstanceOf<OkObjectResult>(result);
 		}
 
 		[Test]
@@ -99,7 +99,7 @@ namespace DoctorAppointment.UnitTests
 			var result = await controller.GetAvailableDateById(_availableDate.Id);
 
 			// Assert
-			Assert.That(result, Is.InstanceOf<OkObjectResult>());
+			Assert.IsInstanceOf<OkObjectResult>(result);
 		}
 	}
 	
