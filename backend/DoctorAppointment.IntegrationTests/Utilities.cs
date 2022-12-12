@@ -47,7 +47,11 @@ namespace DoctorAppointment.IntegrationTests
             db.SaveChanges();
 
             // get id of first appointment
-            AppointmentId = db.Appointments.FirstOrDefault().Id;
+            if (db.Appointments == null)
+            {
+				throw new Exception("No appointments found");
+			}
+			AppointmentId = db.Appointments.FirstOrDefault().Id;
         }
     }
 }

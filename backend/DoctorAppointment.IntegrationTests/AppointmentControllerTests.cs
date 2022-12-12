@@ -32,7 +32,22 @@ namespace DoctorAppointment.IntegrationTests
             usersResponse.EnsureSuccessStatusCode();
             var users = JsonConvert.DeserializeObject<List<User>>(await usersResponse.Content.ReadAsStringAsync());
 
-            var appointment = new AppointmentPutPostDto
+            if (users == null)
+            {
+				Assert.Fail("No users found");
+			}
+			
+			if (users.Count == 0)
+			{
+				Assert.Inconclusive("No users in database");
+			}
+
+			if (users[0] == null || users[1] == null)
+			{
+				Assert.Fail("No users in database");
+			}
+
+			var appointment = new AppointmentPutPostDto
             {
                 Date = DateTime.Now,
                 Description = "Surgeon",
@@ -59,7 +74,18 @@ namespace DoctorAppointment.IntegrationTests
             var response = await client.GetAsync("/api/appointments");
             response.EnsureSuccessStatusCode();
             var appointments = JsonConvert.DeserializeObject<List<Appointment>>(await response.Content.ReadAsStringAsync());
-            var appointmentId = appointments.FirstOrDefault().Id;
+
+			if(appointments == null)
+            {
+				Assert.Fail("No appointments found");
+			}
+			
+			if (appointments.Count == 0)
+			{
+				Assert.Inconclusive("No appointments in database");
+			}
+
+			var appointmentId = appointments.FirstOrDefault().Id;
 
             // act
             var appointmentResponse = await client.GetAsync($"/api/appointments/{appointmentId}");
@@ -72,7 +98,13 @@ namespace DoctorAppointment.IntegrationTests
                 Assert.Fail("Response is null");
             }
             var appointment = JsonConvert.DeserializeObject<Appointment>(responseString);
-            Assert.AreEqual(appointmentId, appointment.Id);
+
+			if (appointment == null)
+			{
+				Assert.Fail("No appointment found");
+			}
+			
+			Assert.AreEqual(appointmentId, appointment.Id);
         }
 
         [TestMethod]
@@ -105,7 +137,18 @@ namespace DoctorAppointment.IntegrationTests
                 Assert.Fail("Response is null");
             }
             var appointments = JsonConvert.DeserializeObject<List<Appointment>>(responseString);
-            Assert.IsTrue(appointments.Count > 0);
+
+			if (appointments == null)
+			{
+				Assert.Fail("No appointments found");
+			}
+
+			if (appointments.Count == 0)
+			{
+				Assert.Inconclusive("No appointments in database");
+			}
+
+			Assert.IsTrue(appointments.Count > 0);
         }
 
         [TestMethod]
@@ -117,8 +160,17 @@ namespace DoctorAppointment.IntegrationTests
             var usersResponse = await client.GetAsync("/api/users");
             usersResponse.EnsureSuccessStatusCode();
             var users = JsonConvert.DeserializeObject<List<User>>(await usersResponse.Content.ReadAsStringAsync());
-            
-            var doctorId = users.Where(x => x.Role == "Doctor").FirstOrDefault().Id;
+			if (users == null)
+			{
+				Assert.Fail("No users found");
+			}
+
+			if (users.Count == 0)
+			{
+				Assert.Inconclusive("No users in database");
+			}
+
+			var doctorId = users.Where(x => x.Role == "Doctor").FirstOrDefault().Id;
             var patientId = users.Where(x => x.Role == "Patient").FirstOrDefault().Id;
 
             var response = await client.GetAsync("/api/appointments/");
