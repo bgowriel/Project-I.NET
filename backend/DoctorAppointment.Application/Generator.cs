@@ -2,6 +2,7 @@
 using DoctorAppointment.Domain.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using System.Security.Cryptography;
 
 namespace DoctorAppointment.Application
 {
@@ -10,7 +11,6 @@ namespace DoctorAppointment.Application
         private readonly IUnitOfWork _unitOfWork;
         private readonly UserManager<User> _userManager;
         private readonly RoleManager<IdentityRole> _roleManager;
-        private readonly Random _random = new Random();
 
         public Generator(IUnitOfWork unitOfWork, UserManager<User> userManager, RoleManager<IdentityRole> roleManager)
         {
@@ -75,9 +75,9 @@ namespace DoctorAppointment.Application
                     LastName = Faker.Name.Last(),
                     Role = "Doctor",
                     PhoneNumber = Faker.Phone.Number(),
-                    OfficeId = officesIds[_random.Next(0, officesIds.Count)]
+                    OfficeId = officesIds[RandomNumberGenerator.GetInt32(officesIds.Count)]
                 };
-                doctor.Email = doctor.FirstName + "." + doctor.LastName + _random.Next(1950, 2000) + "@gmail.com";
+                doctor.Email = doctor.FirstName + "." + doctor.LastName + RandomNumberGenerator.GetInt32(1950, 2000) + "@gmail.com";
                 doctor.UserName = doctor.Email;
 
                 if (_userManager.Users.Any(u => u.Email == doctor.Email))
@@ -105,7 +105,7 @@ namespace DoctorAppointment.Application
                     Role = "Patient",
                     PhoneNumber = Faker.Phone.Number(),
                 };
-                patient.Email = patient.FirstName + "." + patient.LastName + _random.Next(1950, 2000) + "@gmail.com";
+                patient.Email = patient.FirstName + "." + patient.LastName + RandomNumberGenerator.GetInt32(1950, 2000) + "@gmail.com";
                 patient.UserName = patient.Email;
 
                 if (_userManager.Users.Any(u => u.Email == patient.Email))
@@ -150,16 +150,16 @@ namespace DoctorAppointment.Application
 
             for (int i = 0; i < howMany; i++)
             {
-                var doctor = doctors[_random.Next(0, doctors.Count)];
-                var date = DateTime.Today.AddDays(_random.Next(1, 50)).AddHours(_random.Next(8, 17)).AddMinutes(0).AddSeconds(0);
+                var doctor = doctors[RandomNumberGenerator.GetInt32(doctors.Count)];
+                var date = DateTime.Today.AddDays(RandomNumberGenerator.GetInt32(1, 50)).AddHours(RandomNumberGenerator.GetInt32(8, 17)).AddMinutes(0).AddSeconds(0);
 
                 var appointment = new Appointment
                 {
                     Date = date,
                     Description = Faker.Lorem.Sentence(),
-                    Status = _random.Next(0, 2) == 0 ? "Pending" : "Approved",
+                    Status = RandomNumberGenerator.GetInt32(2) == 0 ? "Pending" : "Approved",
                     DoctorId = doctor.Id,
-                    PatientId = patients[_random.Next(0, patients.Count)].Id,
+                    PatientId = patients[RandomNumberGenerator.GetInt32(patients.Count)].Id,
                     OfficeId = doctor.OfficeId
                 };
 
