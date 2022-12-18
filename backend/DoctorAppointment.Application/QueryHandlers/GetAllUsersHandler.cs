@@ -22,7 +22,9 @@ namespace DoctorAppointment.Application.QueryHandlers
 
         public async Task<List<User>> Handle(GetAllUsers request, CancellationToken cancellationToken)
         {
-            var users = await _userManager.Users.Take(1000).ToListAsync();
+            if (_userManager is null) return new List<User>();
+            
+            var users = await _userManager.Users.Take(1000).ToListAsync(cancellationToken: cancellationToken);
             return users;
         }
     }

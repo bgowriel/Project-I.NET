@@ -18,13 +18,10 @@ namespace DoctorAppointment.Application.QueryHandlers
         {
             if (request == null)
             {
-                throw new NullReferenceException("Request is null");
+                return new List<Appointment>();
             }
             var appointments = await _unitOfWork.AppointmentRepository.GetByDate(request.Date);
-            if (appointments == null)
-            {
-                throw new NullReferenceException("No appointments found");
-            }
+            appointments ??= new List<Appointment>();
             return appointments;
         }
     }

@@ -2,8 +2,8 @@
 {
     public class AssignDoctorDto
     {
-		public string? doctorId;
-		public Guid? officeId;
-		
-	}
+        public string? doctorId { get; set; }
+
+        public Guid? officeId { get; set; }
+    }
 }

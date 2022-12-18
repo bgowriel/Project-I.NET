@@ -22,10 +22,7 @@ namespace DoctorAppointment.Application.QueryHandlers
         public async Task<List<AvailableDate>> Handle(GetAllAvailableDates request, CancellationToken cancellationToken)
         {
             var availableDates = await _unitOfWork.AvalaibleDateRepository.GetAll();
-            if (availableDates == null)
-            {
-                throw new NullReferenceException("No available dates found");
-            }
+            availableDates ??= new List<AvailableDate>();
             return availableDates;
            
         }

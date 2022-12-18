@@ -17,14 +17,11 @@ namespace DoctorAppointment.Application.QueryHandlers
 		{
             if (request == null)
             {
-                throw new NullReferenceException("Request is null");
+                return new List<User>();
             }
             
             var doctors = await _unitOfWork.OfficeRepository.GetAllDoctors(request.OfficeId);
-            if (doctors == null)
-            {
-                throw new NullReferenceException("No doctors found");
-            }
+            doctors ??= new List<User>();
             return doctors;
 		}
 	}

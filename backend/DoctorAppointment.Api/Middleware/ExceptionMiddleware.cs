@@ -1,5 +1,4 @@
 ﻿using DoctorAppointment.Api.Exceptions;
-using EstateWebManager.API.Exceptions;
 using Newtonsoft.Json;
 using System.Net;
 
@@ -25,7 +24,7 @@ namespace DoctorAppointment.Api.Middleware
             }
             catch (Exception exception)
             {
-                _logger.LogError(exception, message: exception.Message);
+                _logger.LogError("Exception: {exception} occured with the following message: {exception.Message}.", exception, exception.Message);
                 await HandleGlobalExceptionAsync(httpContext, exception);
             }
         }
@@ -39,10 +38,9 @@ namespace DoctorAppointment.Api.Middleware
             else if (exception is ForbiddenException) code = HttpStatusCode.Forbidden;
             else if (exception is BadRequestException) code = HttpStatusCode.BadRequest;
 
-            var result = JsonConvert.SerializeObject(new { error = exception.Message });
             context.Response.ContentType = "application/json";
             context.Response.StatusCode = (int)code;
-            await context.Response.WriteAsync(result);
+            await context.Response.WriteAsync(exception.Message);
             if (exception.InnerException != null) await context.Response.WriteAsync(exception.InnerException.Message);
             if (exception.StackTrace != null) await context.Response.WriteAsync(exception.StackTrace);
         }

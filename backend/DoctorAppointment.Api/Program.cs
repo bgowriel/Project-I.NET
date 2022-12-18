@@ -1,4 +1,5 @@
 using DoctorAppointment.Api;
+using DoctorAppointment.Api.Exceptions;
 using DoctorAppointment.Api.Middleware;
 using DoctorAppointment.Api.Services;
 using DoctorAppointment.Application;
@@ -70,7 +71,7 @@ builder.Services.AddAuthentication(options =>
 {
     if (builder.Configuration["JWT:Secret"] == null)
     {
-        throw new NullReferenceException("JWT:Secret not found");
+        throw new JWTException("JWT:Secret not found");
     }
     
     options.TokenValidationParameters = new TokenValidationParameters()
@@ -90,9 +91,9 @@ builder.Services.AddAuthorization(options =>
 });
 
 
-if (Assembly.GetAssembly(typeof(AssemblyMarker)) == null)
+if (typeof(AssemblyMarker) == null)
 {
-    throw new NullReferenceException("MediatR assembly not found");
+    throw new AssemblyException("MediatR assembly not found");
 }
 
 builder.Services.AddMediatR(Assembly.GetAssembly(typeof(AssemblyMarker)));

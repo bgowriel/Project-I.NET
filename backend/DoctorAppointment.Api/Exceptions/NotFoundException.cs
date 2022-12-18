@@ -1,4 +1,4 @@
-﻿namespace EstateWebManager.API.Exceptions
+﻿namespace DoctorAppointment.Api.Exceptions
 {
     public class NotFoundException : Exception
     {
