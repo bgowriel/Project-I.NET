@@ -1,5 +1,4 @@
-﻿using DoctorAppointment.Application.Exceptions;
-using DoctorAppointment.Application.Interfaces;
+﻿using DoctorAppointment.Application.Interfaces;
 using DoctorAppointment.Domain.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;

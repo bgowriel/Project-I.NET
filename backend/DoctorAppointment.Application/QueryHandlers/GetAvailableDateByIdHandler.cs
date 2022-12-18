@@ -1,4 +1,5 @@
-﻿using DoctorAppointment.Application.Interfaces;
+﻿using DoctorAppointment.Application.Exceptions;
+using DoctorAppointment.Application.Interfaces;
 using DoctorAppointment.Application.Queries;
 using DoctorAppointment.Domain.Models;
 using MediatR;
@@ -21,14 +22,14 @@ namespace DoctorAppointment.Application.QueryHandlers
 
         public async Task<AvailableDate> Handle(GetAvailableDateById request, CancellationToken cancellationToken)
         {
-            if (request.Id == null)
+            if (request == null)
             {
-                throw new NullReferenceException("Id is null");
+                throw new NotFoundException("AvailableDate.Id is null");
             }
             var availableDate = await unitOfWork.AvalaibleDateRepository.GetById(request.Id);
             if (availableDate == null)
             {
-                throw new NullReferenceException("No available date found");
+                throw new NotFoundException("No available date with given Id was found");
             }
             return availableDate;
         }

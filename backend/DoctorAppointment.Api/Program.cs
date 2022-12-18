@@ -80,7 +80,7 @@ builder.Services.AddAuthentication(options =>
         ValidateAudience = true,
         ValidAudience = builder.Configuration["JWT:ValidAudience"],
         ValidIssuer = builder.Configuration["JWT:ValidIssuer"],
-        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["JWT:Secret"]))
+        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["JWT:Secret"]??"EmptySecret"))
     };
 });
 
@@ -91,12 +91,12 @@ builder.Services.AddAuthorization(options =>
 });
 
 
-if (typeof(AssemblyMarker) == null)
+if (Assembly.GetAssembly(typeof(AssemblyMarker)) == null)
 {
     throw new AssemblyException("MediatR assembly not found");
 }
 
-builder.Services.AddMediatR(Assembly.GetAssembly(typeof(AssemblyMarker)));
+builder.Services.AddMediatR(assemblies: Assembly.GetAssembly(typeof(AssemblyMarker)));
 builder.Services.AddAutoMapper(typeof(DoctorAppointmentPresentation));
 
 // add SeedDBService to the container

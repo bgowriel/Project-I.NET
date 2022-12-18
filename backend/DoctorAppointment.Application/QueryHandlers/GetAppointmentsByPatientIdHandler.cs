@@ -1,4 +1,5 @@
-﻿using DoctorAppointment.Application.Interfaces;
+﻿using DoctorAppointment.Application.Exceptions;
+using DoctorAppointment.Application.Interfaces;
 using DoctorAppointment.Application.Queries;
 using DoctorAppointment.Domain.Models;
 using MediatR;
@@ -16,14 +17,14 @@ namespace DoctorAppointment.Application.QueryHandlers
 
         public async Task<List<Appointment>> Handle(GetAppointmentsByPatientId request, CancellationToken cancellationToken)
         {
-            if (request == null)
+            if (request.PatientId == null)
             {
-                throw new NullReferenceException("Request is null");
+                throw new NotFoundException("PatientId is null");
             }
             var appointments = await _unitOfWork.AppointmentRepository.GetByPatientId(request.PatientId);
             if (appointments == null)
             {
-                throw new NullReferenceException("No appointments found");
+                return new List<Appointment>();
             }
             return appointments;
         }
