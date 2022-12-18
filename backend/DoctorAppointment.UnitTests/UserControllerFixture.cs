@@ -141,6 +141,8 @@ namespace DoctorAppointment.UnitTests
             var result = await controller.Register(_registerModel) as BadRequestObjectResult;
 
             // Assert
+            Assert.That(result, Is.Not.Null);
+            Assert.That(result.Value, Is.Not.Null);
             Assert.That(result.Value.ToString(), Is.EqualTo("{ message = Email is required }"));
         }
 
