@@ -5,8 +5,6 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { SidenavComponent } from './shared/sidenav/sidenav.component';
-import { DashboardComponent } from './shared/dashboard/dashboard.component';
-import { WorkTableComponent } from './shared/work-table/work-table.component';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatButtonModule } from '@angular/material/button';
 import { MatListModule } from '@angular/material/list';
@@ -26,7 +24,6 @@ import { AddAppointmentModalComponent } from './patient/add-appointment-modal/ad
 import { MatNativeDateModule } from '@angular/material/core';
 import { ToasterComponent } from './shared/toaster/toaster.component';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
-import { CabinetComponent } from './shared/cabinet/cabinet.component';
 import { PatientProfilePageComponent } from './patient/patient-profile-page/patient-profile-page.component';
 import { PatientAppointmentsPageComponent } from './patient/patient-appointments-page/patient-appointments-page.component';
 import { PatientDashboardPageComponent } from './patient/patient-dashboard-page/patient-dashboard-page.component';
@@ -53,11 +50,8 @@ import { AdminPageComponent } from './admin/admin-page/admin-page.component';
   declarations: [
     AppComponent,
     SidenavComponent,
-    DashboardComponent,
-    WorkTableComponent,
     AddAppointmentModalComponent,
     ToasterComponent,
-    CabinetComponent,
     PatientProfilePageComponent,
     PatientAppointmentsPageComponent,
     PatientDashboardPageComponent,
