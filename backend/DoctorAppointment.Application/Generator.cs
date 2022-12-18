@@ -134,7 +134,7 @@ namespace DoctorAppointment.Application
                     City = Faker.Address.City(),
                     Email = Faker.Internet.Email(),
                     Phone = Faker.Phone.Number(),
-                    //ImageUrl = Faker.Image.PicsumUrl()
+                    Status = RandomNumberGenerator.GetInt32(2) == 0 ? "Pending" : "Approved",
                 };
 
                 await _unitOfWork.OfficeRepository.Insert(office);

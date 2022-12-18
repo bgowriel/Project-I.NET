@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { AdminPageComponent } from './admin/admin-page/admin-page.component';
 import { DoctorAppointmentsPageComponent } from './doctor/doctor-appointments-page/doctor-appointments-page.component';
 import { DoctorDashboardPageComponent } from './doctor/doctor-dashboard-page/doctor-dashboard-page.component';
 import { DoctorJoinOfficePageComponent } from './doctor/doctor-join-office-page/doctor-join-office-page.component';
@@ -27,6 +28,7 @@ const routes: Routes = [
   { path: 'doctor/appointments', data: {role: 'Doctor'}, canActivate: [AuthGuardService], component: DoctorAppointmentsPageComponent },
   { path: 'doctor/patients', data: {role: 'Doctor'}, canActivate: [AuthGuardService], component: DoctorPatientsPageComponent },
   { path: 'doctor/join-office', data: {role: 'Doctor'}, canActivate: [AuthGuardService], component: DoctorJoinOfficePageComponent },
+  { path: 'admin/dashboard', data: {role: 'Admin'}, canActivate: [AuthGuardService], component: AdminPageComponent},
   { path: 'home', component: HomeComponent },
   { path: '', redirectTo: 'login', pathMatch: 'full' },
   { path: '**', component: PageNotFoundComponent, pathMatch: 'full' },

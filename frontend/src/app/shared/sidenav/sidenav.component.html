@@ -13,11 +13,12 @@
       <mat-list-item
         role="listitem"
         class="nav-list-item"
-        [routerLink]="user.role == 'Patient' ? '/patient/dashboard' : '/doctor/dashboard'"
+        [routerLink]="user.role == 'Patient' ? '/patient/dashboard' : user.role == 'Doctor' ? '/doctor/dashboard' : '/admin/dashboard'"
         routerLinkActive="selected"
         >dashboard</mat-list-item
       >
       <mat-list-item
+        *ngIf="user.role !== 'Admin'"
         role="listitem"
         class="nav-list-item"
         [routerLink]="user.role == 'Patient' ? '/patient/profile' : '/doctor/profile'"
@@ -25,6 +26,7 @@
         >profile</mat-list-item
       >
       <mat-list-item
+        *ngIf="user.role !== 'Admin'"
         role="listitem"
         class="nav-list-item"
         [routerLink]="user.role == 'Patient' ? '/patient/appointments' : '/doctor/appointments'"
@@ -32,6 +34,7 @@
         >appointments</mat-list-item
       >
       <mat-list-item
+        *ngIf="user.role !== 'Admin'"
         role="listitem"
         class="nav-list-item"
         routerLinkActive="selected"

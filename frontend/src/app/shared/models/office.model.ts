@@ -6,6 +6,7 @@ export class Office {
     public city: string
     public email: string
     public phone: string
+    public status: string
 
     constructor() {
     }

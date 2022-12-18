@@ -79,12 +79,14 @@ namespace DoctorAppointment.Api.Controllers
 	{
 		var command = new UpdateOffice()
 		{
+			Id = id,
 			Name = request.Name,
 			Description = request.Description,
 			Address = request.Address,
 			City = request.City,
 			Email = request.Email,
 			Phone = request.Phone,
+			Status = request.Status,
 		};
 
 		var updated = await _mediator.Send(command);

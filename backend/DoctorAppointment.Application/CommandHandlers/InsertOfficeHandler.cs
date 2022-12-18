@@ -25,7 +25,7 @@ namespace DoctorAppointment.Application.CommandHandlers
 				City = request.City,
 				Email = request.Email,
 				Phone = request.Phone,
-
+				Status = "Pending"
 			};
 
 			await _unitOfWork.OfficeRepository.Insert(office);

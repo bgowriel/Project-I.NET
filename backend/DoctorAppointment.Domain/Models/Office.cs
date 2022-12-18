@@ -18,6 +18,6 @@
 
 		public List<User>? Doctors { get; set; }
 
-
+		public string? Status { get; set; }
 	}
 }
