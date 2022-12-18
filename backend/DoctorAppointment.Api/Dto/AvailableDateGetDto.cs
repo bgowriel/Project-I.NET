@@ -7,6 +7,5 @@
             public DateTime Date { get; set; }
 
             public bool Free { get; set; }
-       
     }
 }

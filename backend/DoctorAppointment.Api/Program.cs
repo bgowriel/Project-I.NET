@@ -1,4 +1,6 @@
 using DoctorAppointment.Api;
+using DoctorAppointment.Api.Exceptions;
+using DoctorAppointment.Api.Middleware;
 using DoctorAppointment.Api.Services;
 using DoctorAppointment.Application;
 using DoctorAppointment.Application.Interfaces;
@@ -52,9 +54,6 @@ builder.Services.AddCors(options =>
                           policy.WithOrigins("http://localhost:4200")
                                 .AllowAnyHeader()
                                 .AllowAnyMethod();
-                          //policy.AllowAnyOrigin()
-                          //      .AllowAnyHeader()
-                          //      .AllowAnyMethod();
                       });
 });
 
@@ -72,7 +71,7 @@ builder.Services.AddAuthentication(options =>
 {
     if (builder.Configuration["JWT:Secret"] == null)
     {
-        throw new NullReferenceException("JWT:Secret not found");
+        throw new JWTException("JWT:Secret not found");
     }
     
     options.TokenValidationParameters = new TokenValidationParameters()
@@ -92,9 +91,9 @@ builder.Services.AddAuthorization(options =>
 });
 
 
-if (Assembly.GetAssembly(typeof(AssemblyMarker)) == null)
+if (typeof(AssemblyMarker) == null)
 {
-    throw new NullReferenceException("MediatR assembly not found");
+    throw new AssemblyException("MediatR assembly not found");
 }
 
 builder.Services.AddMediatR(Assembly.GetAssembly(typeof(AssemblyMarker)));
@@ -108,9 +107,12 @@ var app = builder.Build();
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
+    app.UseDeveloperExceptionPage();
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
+app.UseGlobalExceptionMiddleware();
 
 app.UseHttpsRedirection();
 

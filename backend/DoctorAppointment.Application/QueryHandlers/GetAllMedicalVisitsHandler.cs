@@ -17,10 +17,7 @@ namespace DoctorAppointment.Application.QueryHandlers
         public async Task<List<MedicalVisit>> Handle(GetAllMedicalVisits request, CancellationToken cancellationToken)
         {
             var medicalVisits = await _unitOfWork.MedicalVisitRepository.GetAll();
-            if (medicalVisits == null)
-            {
-                throw new NullReferenceException("No medical visits found");
-            }
+            medicalVisits ??= new List<MedicalVisit>();
             return medicalVisits;
         }
     }

@@ -1,4 +1,5 @@
-﻿using DoctorAppointment.Application.Interfaces;
+﻿using DoctorAppointment.Application.Exceptions;
+using DoctorAppointment.Application.Interfaces;
 using DoctorAppointment.Domain.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -98,19 +99,11 @@ namespace DoctorAppointment.Application
         {
             for (int i = 0; i < howMany; i++)
             {
-                var patient = new User
-                {
-                    FirstName = Faker.Name.First(),
-                    LastName = Faker.Name.Last(),
-                    Role = "Patient",
-                    PhoneNumber = Faker.Phone.Number(),
-                };
-                patient.Email = patient.FirstName + "." + patient.LastName + RandomNumberGenerator.GetInt32(1950, 2000) + "@gmail.com";
-                patient.UserName = patient.Email;
+                var patient = GetFakePatientData();
 
                 if (_userManager.Users.Any(u => u.Email == patient.Email))
                 {
-                    throw new ArgumentException("User with this email already exists");
+                    continue;
                 }
 
                 var password = patient.FirstName + patient.LastName + ".2022";
@@ -166,6 +159,20 @@ namespace DoctorAppointment.Application
                 await _unitOfWork.AppointmentRepository.Insert(appointment);
             }
             await _unitOfWork.Save();
+        }
+
+        private User GetFakePatientData()
+        {
+            var patient = new User
+            {
+                FirstName = Faker.Name.First(),
+                LastName = Faker.Name.Last(),
+                Role = "Patient",
+                PhoneNumber = Faker.Phone.Number(),
+            };
+            patient.Email = patient.FirstName + "." + patient.LastName + RandomNumberGenerator.GetInt32(1950, 2000) + "@gmail.com";
+            patient.UserName = patient.Email;
+            return patient;
         }
     }
 }

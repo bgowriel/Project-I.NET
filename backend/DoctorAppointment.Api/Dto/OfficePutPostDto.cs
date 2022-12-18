@@ -29,7 +29,5 @@ namespace DoctorAppointment.Api.Dto
 		[PhoneAttribute]
 		[Required(ErrorMessage = "Phone number is required")]
 		public string? Phone { get; set; }
-
-
 	}
 }

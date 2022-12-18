@@ -1,4 +1,5 @@
-﻿using DoctorAppointment.Application;
+﻿using DoctorAppointment.Api.Exceptions;
+using DoctorAppointment.Application;
 using DoctorAppointment.Application.Interfaces;
 using DoctorAppointment.DataAccess;
 using DoctorAppointment.DataAccess.Repositories;
@@ -18,7 +19,7 @@ namespace DoctorAppointment.Api
             
             if (mediatR == null)
             {
-                throw new NullReferenceException("MediatR assembly not found");
+                throw new MediatRException("MediatR assembly not found");
             }
             services.AddMediatR(mediatR);
             services.AddAutoMapper(typeof(DoctorAppointmentPresentation));
