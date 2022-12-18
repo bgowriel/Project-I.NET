@@ -6,6 +6,7 @@ import { DoctorJoinOfficePageComponent } from './doctor/doctor-join-office-page/
 import { DoctorPatientsPageComponent } from './doctor/doctor-patients-page/doctor-patients-page.component';
 import { DoctorProfilePageComponent } from './doctor/doctor-profile-page/doctor-profile-page.component';
 import { LoginComponent } from './login/login.component';
+import { AddOfficePageComponent } from './patient/add-office-page/add-office-page.component';
 import { PatientAppointmentsPageComponent } from './patient/patient-appointments-page/patient-appointments-page.component';
 import { PatientDashboardPageComponent } from './patient/patient-dashboard-page/patient-dashboard-page.component';
 import { PatientProfilePageComponent } from './patient/patient-profile-page/patient-profile-page.component';
@@ -20,6 +21,7 @@ const routes: Routes = [
   { path: 'patient/dashboard', data: {role: 'Patient'}, canActivate: [AuthGuardService], component: PatientDashboardPageComponent },
   { path: 'patient/profile', data: {role: 'Patient'}, canActivate: [AuthGuardService], component: PatientProfilePageComponent },
   { path: 'patient/appointments', data: {role: 'Patient'}, canActivate: [AuthGuardService], component: PatientAppointmentsPageComponent },
+  { path: 'patient/register-office', data: {role: 'Patient'}, canActivate: [AuthGuardService], component: AddOfficePageComponent },
   { path: 'doctor/dashboard', data: {role: 'Doctor'}, canActivate: [AuthGuardService], component: DoctorDashboardPageComponent },
   { path: 'doctor/profile', data: {role: 'Doctor'}, canActivate: [AuthGuardService], component: DoctorProfilePageComponent },
   { path: 'doctor/appointments', data: {role: 'Doctor'}, canActivate: [AuthGuardService], component: DoctorAppointmentsPageComponent },

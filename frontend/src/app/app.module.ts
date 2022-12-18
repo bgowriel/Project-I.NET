@@ -5,7 +5,6 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { SidenavComponent } from './shared/sidenav/sidenav.component';
-import { PatientPageComponent } from './patient/patient-page/patient-page.component';
 import { DashboardComponent } from './shared/dashboard/dashboard.component';
 import { WorkTableComponent } from './shared/work-table/work-table.component';
 import { MatSidenavModule } from '@angular/material/sidenav';
@@ -47,12 +46,12 @@ import { DoctorBillingPageComponent } from './doctor/doctor-billing-page/doctor-
 import { DoctorPatientsPageComponent } from './doctor/doctor-patients-page/doctor-patients-page.component';
 import { DoctorJoinOfficePageComponent } from './doctor/doctor-join-office-page/doctor-join-office-page.component';
 import { AuthInterceptorProviders } from './services/auth/auth-interceptor.service';
+import { AddOfficePageComponent } from './patient/add-office-page/add-office-page.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     SidenavComponent,
-    PatientPageComponent,
     DashboardComponent,
     WorkTableComponent,
     AddAppointmentModalComponent,
@@ -72,6 +71,7 @@ import { AuthInterceptorProviders } from './services/auth/auth-interceptor.servi
     DoctorBillingPageComponent,
     DoctorPatientsPageComponent,
     DoctorJoinOfficePageComponent,
+    AddOfficePageComponent,
   ],
   imports: [
     BrowserModule,
