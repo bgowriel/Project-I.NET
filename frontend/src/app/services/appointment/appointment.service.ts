@@ -35,7 +35,7 @@ export class AppointmentService {
   public updateAppointment(id: string, appointment: Appointment): Observable<any> {
     return this.http.put<any>(baseUrl + 'api/appointments/' + id, appointment);
   }
-  
+
   public deleteAppointment(id: string): Observable<any> {
     return this.http.delete<any>(baseUrl + 'api/appointments/' + id);
   }

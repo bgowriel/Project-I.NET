@@ -12,7 +12,9 @@ const updateUserApi: string = 'api/users/update-user';
 const userApi: string = 'api/users/';
 const officesApi: string = 'api/offices'
 
-@Injectable()
+@Injectable({
+  providedIn: 'root'
+})
 export class PatientService {
   constructor(private http: HttpClient) { }
 
@@ -23,5 +25,4 @@ export class PatientService {
   public updatePatient(user: User): Observable<any>{
     return this.http.put(baseUrl+updateUserApi, user);
   }
-
 }

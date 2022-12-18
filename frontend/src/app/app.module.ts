@@ -21,7 +21,7 @@ import { MatDialogModule } from '@angular/material/dialog';
 
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClient, HttpClientModule } from '@angular/common/http';
 
 import { AddAppointmentModalComponent } from './patient/add-appointment-modal/add-appointment-modal.component';
 import { MatNativeDateModule } from '@angular/material/core';
@@ -97,7 +97,7 @@ import { AuthInterceptorProviders } from './services/auth/auth-interceptor.servi
     MatTooltipModule,
     MatProgressSpinnerModule
   ],
-  providers: [AuthInterceptorProviders],
+  providers: [AuthInterceptorProviders, HttpClient, HttpClientModule],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
