@@ -1,4 +1,5 @@
 using DoctorAppointment.Api;
+using DoctorAppointment.Api.Middleware;
 using DoctorAppointment.Api.Services;
 using DoctorAppointment.Application;
 using DoctorAppointment.Application.Interfaces;
@@ -52,9 +53,6 @@ builder.Services.AddCors(options =>
                           policy.WithOrigins("http://localhost:4200")
                                 .AllowAnyHeader()
                                 .AllowAnyMethod();
-                          //policy.AllowAnyOrigin()
-                          //      .AllowAnyHeader()
-                          //      .AllowAnyMethod();
                       });
 });
 
@@ -108,9 +106,12 @@ var app = builder.Build();
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
+    app.UseDeveloperExceptionPage();
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
+app.UseGlobalExceptionMiddleware();
 
 app.UseHttpsRedirection();
 
