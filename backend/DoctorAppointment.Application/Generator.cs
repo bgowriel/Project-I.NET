@@ -160,7 +160,7 @@ namespace DoctorAppointment.Application
             await _unitOfWork.Save();
         }
 
-        private User GetFakePatientData()
+        private static User GetFakePatientData()
         {
             var patient = new User
             {

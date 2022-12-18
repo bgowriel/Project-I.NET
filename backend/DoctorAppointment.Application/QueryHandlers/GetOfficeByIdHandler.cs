@@ -1,4 +1,5 @@
-﻿using DoctorAppointment.Application.Interfaces;
+﻿using DoctorAppointment.Application.Exceptions;
+using DoctorAppointment.Application.Interfaces;
 using DoctorAppointment.Application.Queries;
 using DoctorAppointment.Domain.Models;
 using MediatR;
@@ -17,12 +18,12 @@ namespace DoctorAppointment.Application.QueryHandlers
 		{
             if (request == null)
             {
-                throw new NullReferenceException("Request is null");
+                throw new NotFoundException("Office Id is null");
             }
             var office = await _unitOfWork.OfficeRepository.GetById(request.Id);
             if (office == null)
             {
-                throw new NullReferenceException("No office found");
+                throw new NotFoundException("No office found with this Id");
             }
             return office;
 		}

@@ -1,8 +1,15 @@
-﻿namespace DoctorAppointment.Api.Exceptions
+﻿using System.Runtime.Serialization;
+
+namespace DoctorAppointment.Api.Exceptions
 {
+    [Serializable]
     public class UnauthorizedException : Exception
     {
         public UnauthorizedException(string message) : base(message)
+        {
+        }
+
+        protected UnauthorizedException(SerializationInfo info, StreamingContext context) : base(info, context)
         {
         }
     }

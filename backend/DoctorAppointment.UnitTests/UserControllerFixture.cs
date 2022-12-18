@@ -93,7 +93,7 @@ namespace DoctorAppointment.UnitTests
             var result = await controller.Register(_registerModel);
 
             // Assert
-            Assert.IsInstanceOf<CreatedAtActionResult>(result);
+            Assert.That(result, Is.InstanceOf<CreatedAtActionResult>());
         }
 
         [Test]
@@ -108,7 +108,7 @@ namespace DoctorAppointment.UnitTests
             var result = await controller.Register(_registerModel) as CreatedAtActionResult;
 
             // Assert
-            Assert.IsNotNull(result);
+            Assert.That(result, Is.Not.Null);
             Assert.That(result.Value, Is.EqualTo(_userGetDto));
         }
 
@@ -125,7 +125,7 @@ namespace DoctorAppointment.UnitTests
             var result = await controller.Register(_registerModel) as BadRequestObjectResult;
 
             // Assert
-            Assert.IsInstanceOf<BadRequestObjectResult>(result);
+            Assert.That(result, Is.InstanceOf<BadRequestObjectResult>());
         }
 
         [Test]
@@ -158,7 +158,7 @@ namespace DoctorAppointment.UnitTests
             var result = await controller.GetUser(_user.Id);
 
             // Assert
-            Assert.IsInstanceOf<OkObjectResult>(result);
+            Assert.That(result, Is.InstanceOf<OkObjectResult>());
         }
 
         [Test]
@@ -173,7 +173,7 @@ namespace DoctorAppointment.UnitTests
             var result = await controller.GetUser(_user.Id) as OkObjectResult;
 
             // Assert
-            Assert.IsNotNull(result);
+            Assert.That(result, Is.Not.Null);
             Assert.That(result.Value, Is.EqualTo(_userGetDto));
         }
 
@@ -189,7 +189,7 @@ namespace DoctorAppointment.UnitTests
             var result = await controller.GetUser(new User().Id);
 
             // Assert
-            Assert.IsInstanceOf<NotFoundResult>(result);
+            Assert.That(result, Is.InstanceOf<NotFoundResult>());
         }
     }
 }

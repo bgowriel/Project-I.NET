@@ -1,4 +1,5 @@
-﻿using DoctorAppointment.Application.Interfaces;
+﻿using DoctorAppointment.Application.Exceptions;
+using DoctorAppointment.Application.Interfaces;
 using DoctorAppointment.Application.Queries;
 using DoctorAppointment.Domain.Models;
 using MediatR;
@@ -18,12 +19,12 @@ namespace DoctorAppointment.Application.QueryHandlers
         {
             if (request == null)
             {
-                throw new NullReferenceException("Request is null");
+                throw new NotFoundException("Bill Id is null");
             }
             var bill = await _unitOfWork.BillRepository.GetById(request.Id);
             if (bill == null)
             {
-                throw new NullReferenceException("No bill found");
+                throw new NotFoundException("No bill found with this Id");
             }
             return bill;
         }
