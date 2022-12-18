@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 import { User } from '../shared/models/user.model';
-import { PatientService } from '../patient/patient.service';
-import { AuthenticationService } from 'app/services/authentication.service';
+import { PatientService } from '../services/patient/patient.service';
 import { Router } from '@angular/router';
+import { AuthenticationService } from 'app/services/auth/authentication.service';
 
 @Component({
   selector: 'app-register',

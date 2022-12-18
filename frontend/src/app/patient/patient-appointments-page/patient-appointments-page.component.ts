@@ -1,23 +1,26 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatTable } from '@angular/material/table';
-import { UserService } from 'app/services/user.service';
+import { UserService } from 'app/services/user/user.service';
 import { Appointment } from 'app/shared/models/appointment.model';
 import { Doctor } from 'app/shared/models/doctor.model';
 import { Office } from 'app/shared/models/office.model';
 import { User } from 'app/shared/models/user.model';
 import { ToasterService } from 'app/shared/toaster/toaster.service';
 import { AddAppointmentModalComponent } from '../add-appointment-modal/add-appointment-modal.component';
-import { PatientService } from '../patient.service';
+import { PatientService } from '../../services/patient/patient.service';
+import { AppointmentService } from 'app/services/appointment/appointment.service';
+import { DoctorService } from 'app/services/doctor/doctor.service';
+import { OfficeService } from 'app/services/office/office.service';
 
 @Component({
   selector: 'app-patient-appointments-page',
   templateUrl: './patient-appointments-page.component.html',
   styleUrls: ['./patient-appointments-page.component.css'],
-  providers: [PatientService, ToasterService]
+  providers: [PatientService, ToasterService, DoctorService, OfficeService, AppointmentService]
 })
 export class PatientAppointmentsPageComponent implements OnInit {
-  constructor(public dialog: MatDialog, private patientService: PatientService, private toasterService: ToasterService, private userService: UserService) { }
+  constructor(public dialog: MatDialog, private officeService: OfficeService , private doctorService: DoctorService, private patientService: PatientService, private toasterService: ToasterService, private userService: UserService, private appointmentService: AppointmentService) { }
 
   public appointments: Appointment[] = [];
   public offices: Office[] = [];
@@ -67,13 +70,13 @@ export class PatientAppointmentsPageComponent implements OnInit {
   }
 
   async createNewAppointment(appointment: Appointment) {
-    const result = await this.patientService.createAppointment(appointment)
+    const result = await this.appointmentService.createAppointment(appointment)
       .toPromise().catch(error => error);
 
     if (result) {
       this.toasterService.onSuccess("Appointment created successfully !");
-      const doctor = await this.patientService.getDoctorById(appointment.doctorId).toPromise().catch(error => error);
-      const office = await this.patientService.getOfficeById(appointment.officeId).toPromise().catch(error => error);
+      const doctor = await this.doctorService.getDoctorById(appointment.doctorId).toPromise().catch(error => error);
+      const office = await this.officeService.getOfficeById(appointment.officeId).toPromise().catch(error => error);
       appointment.doctor = doctor;
       appointment.office = office;
 
@@ -86,7 +89,7 @@ export class PatientAppointmentsPageComponent implements OnInit {
   }
 
   async getAppointmentsByPatientId(userId: string): Promise<void> {
-    const result = await this.patientService.getAppointmentsByPatientId(userId)
+    const result = await this.appointmentService.getAppointmentsByPatientId(userId)
       .toPromise().catch(error => error);
 
     if (result) {
@@ -104,8 +107,8 @@ export class PatientAppointmentsPageComponent implements OnInit {
 
   async mapAppointmentsData(appointments: any): Promise<void> {
     appointments.forEach(async (appointment: any) => {
-      const doctor = await this.patientService.getDoctorById(appointment.doctorId).toPromise().catch(error => error);
-      const office = await this.patientService.getOfficeById(appointment.officeId).toPromise().catch(error => error);
+      const doctor = await this.doctorService.getDoctorById(appointment.doctorId).toPromise().catch(error => error);
+      const office = await this.officeService.getOfficeById(appointment.officeId).toPromise().catch(error => error);
       appointment.doctor = doctor;
       appointment.office = office;
     })
@@ -114,7 +117,7 @@ export class PatientAppointmentsPageComponent implements OnInit {
   }
 
   async getAllOffices(): Promise<void> {
-    const result = await this.patientService.getAllOffices()
+    const result = await this.officeService.getAllOffices()
       .toPromise().catch(error => error);
 
     if (result) {
@@ -127,7 +130,7 @@ export class PatientAppointmentsPageComponent implements OnInit {
 
   }
   async getDoctorsByOfficeId(id: string) {
-    const result = await this.patientService.getDoctorsByOfficeId(id)
+    const result = await this.doctorService.getDoctorsByOfficeId(id)
       .toPromise().catch(error => error);
 
     console.log(result)
@@ -146,7 +149,7 @@ export class PatientAppointmentsPageComponent implements OnInit {
       await this.removeAppointment(id);
     } else {
       appointment.status = 'Canceled';
-      const result = await this.patientService.updateAppointment(id, appointment)
+      const result = await this.appointmentService.updateAppointment(id, appointment)
         .toPromise().catch(error => error);
 
       if (result) {
@@ -159,7 +162,7 @@ export class PatientAppointmentsPageComponent implements OnInit {
   }
 
   async removeAppointment(id: string) {
-    const result = await this.patientService.deleteAppointment(id)
+    const result = await this.appointmentService.deleteAppointment(id)
       .toPromise().catch(error => error);
 
     if (result) {

@@ -1,16 +1,16 @@
 import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { MatTable } from '@angular/material/table';
-import { UserService } from 'app/services/user.service';
+import { UserService } from 'app/services/user/user.service';
 import { User } from 'app/shared/models/user.model';
 import { ToasterService } from 'app/shared/toaster/toaster.service';
-import { PatientService } from '../patient.service';
+import { PatientService } from '../../services/patient/patient.service';
 import {MatInputModule} from '@angular/material/input';
 
 @Component({
   selector: 'app-patient-profile-page',
   templateUrl: './patient-profile-page.component.html',
   styleUrls: ['./patient-profile-page.component.css'],
-  providers: [PatientService, ToasterService]
+  providers: [PatientService, ToasterService, UserService]
 })
 export class PatientProfilePageComponent implements OnInit{
   constructor( private userService: UserService, private patientService: PatientService, private toasterService: ToasterService) { }
@@ -25,7 +25,7 @@ export class PatientProfilePageComponent implements OnInit{
   }
 
   getUserById(id: string) {
-    const result = this.patientService.getPatientByPatientId(id).subscribe(patient=>{
+    const result = this.patientService.getPatientById(id).subscribe(patient=>{
       this.dataSource=[patient]
     });
   }

@@ -1,18 +1,19 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { AppointmentService } from 'app/services/appointment/appointment.service';
 import { Appointment } from 'app/shared/models/appointment.model';
 import { ToasterService } from 'app/shared/toaster/toaster.service';
-import { PatientService } from '../patient.service';
+import { PatientService } from '../../services/patient/patient.service';
 
 @Component({
   selector: 'app-patient-dashboard-page',
   templateUrl: './patient-dashboard-page.component.html',
   styleUrls: ['./patient-dashboard-page.component.css'],
-  providers: [PatientService, ToasterService]
+  providers: [PatientService, ToasterService, AppointmentService]
 })
 export class PatientDashboardPageComponent implements OnInit {
 
-  constructor(private patientService: PatientService, private toasterService: ToasterService, private route: ActivatedRoute) { }
+  constructor(private patientService: PatientService, private toasterService: ToasterService, private route: ActivatedRoute, private appointmetService: AppointmentService) { }
 
   public data: any;
 
@@ -25,7 +26,7 @@ export class PatientDashboardPageComponent implements OnInit {
   }
 
   async createNewAppointment(appointment: Appointment) {
-    const result = await this.patientService.createAppointment(appointment)
+    const result = await this.appointmetService.createAppointment(appointment)
       .toPromise().catch(error => error);
 
     if (!result.ok) {
