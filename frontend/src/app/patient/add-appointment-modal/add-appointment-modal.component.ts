@@ -1,7 +1,7 @@
 import { Component, EventEmitter, HostListener, Inject, OnInit, Output } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { UserService } from 'app/services/user.service';
+import { UserService } from 'app/services/user/user.service';
 import { Appointment } from 'app/shared/models/appointment.model';
 import { User } from 'app/shared/models/user.model';
 

@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 import { Appointment } from 'app/shared/models/appointment.model';
 import { ToasterService } from 'app/shared/toaster/toaster.service';
-import { PatientService } from '../patient.service';
+import { PatientService } from '../../services/patient/patient.service';
 
 @Component({
   selector: 'app-patient-page',

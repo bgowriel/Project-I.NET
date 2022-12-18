@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { AuthenticationService } from 'app/services/authentication.service';
-import { TokenStorageService } from 'app/services/token-storage.service';
-import { UserService } from 'app/services/user.service';
+import { AuthenticationService } from 'app/services/auth/authentication.service';
+import { TokenStorageService } from 'app/services/auth/token-storage.service';
+
+import { UserService } from 'app/services/user/user.service';
 import { LoginModel } from 'app/shared/models/login-model';
 import jwtDecode from 'jwt-decode';
 

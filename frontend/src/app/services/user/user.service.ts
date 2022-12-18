@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { LoginModel } from 'app/shared/models/login-model';
 import { User } from 'app/shared/models/user.model';
 import jwtDecode from 'jwt-decode';
-import { TokenStorageService } from './token-storage.service';
+import { TokenStorageService } from '../auth/token-storage.service';
 
 @Injectable({
   providedIn: 'root'

@@ -21,7 +21,7 @@ import { MatDialogModule } from '@angular/material/dialog';
 
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClient, HttpClientModule } from '@angular/common/http';
 
 import { AddAppointmentModalComponent } from './patient/add-appointment-modal/add-appointment-modal.component';
 import { MatNativeDateModule } from '@angular/material/core';
@@ -39,13 +39,14 @@ import { MatMenuModule } from '@angular/material/menu';
 import { PageNotFoundComponent } from './shared/page-not-found/page-not-found.component';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
-import { AuthInterceptorProviders } from './services/auth-interceptor.service';
+
 import { DoctorAppointmentsPageComponent } from './doctor/doctor-appointments-page/doctor-appointments-page.component';
 import { DoctorDashboardPageComponent } from './doctor/doctor-dashboard-page/doctor-dashboard-page.component';
 import { DoctorProfilePageComponent } from './doctor/doctor-profile-page/doctor-profile-page.component';
 import { DoctorBillingPageComponent } from './doctor/doctor-billing-page/doctor-billing-page.component';
 import { DoctorPatientsPageComponent } from './doctor/doctor-patients-page/doctor-patients-page.component';
 import { DoctorJoinOfficePageComponent } from './doctor/doctor-join-office-page/doctor-join-office-page.component';
+import { AuthInterceptorProviders } from './services/auth/auth-interceptor.service';
 
 @NgModule({
   declarations: [
@@ -96,7 +97,7 @@ import { DoctorJoinOfficePageComponent } from './doctor/doctor-join-office-page/
     MatTooltipModule,
     MatProgressSpinnerModule
   ],
-  providers: [AuthInterceptorProviders],
+  providers: [AuthInterceptorProviders, HttpClient, HttpClientModule],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

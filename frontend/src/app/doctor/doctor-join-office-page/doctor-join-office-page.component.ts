@@ -1,20 +1,21 @@
 import { Component } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { UserService } from 'app/services/user.service';
+import { OfficeService } from 'app/services/office/office.service';
+import { UserService } from 'app/services/user/user.service';
 import { Office } from 'app/shared/models/office.model';
 import { User } from 'app/shared/models/user.model';
 import { ToasterService } from 'app/shared/toaster/toaster.service';
-import { DoctorService } from '../doctor.service';
+import { DoctorService } from '../../services/doctor/doctor.service';
 
 @Component({
   selector: 'app-doctor-join-office-page',
   templateUrl: './doctor-join-office-page.component.html',
   styleUrls: ['./doctor-join-office-page.component.css'],
-  providers: [DoctorService, ToasterService]
+  providers: [DoctorService, ToasterService, OfficeService]
 })
 export class DoctorJoinOfficePageComponent {
 
-  constructor(private doctorService: DoctorService, private toasterService: ToasterService, private userService: UserService) { }
+  constructor(private doctorService: DoctorService, private toasterService: ToasterService, private userService: UserService, private officeService: OfficeService) { }
 
   public offices: Office[] = [];
   public form: any;
@@ -31,7 +32,7 @@ export class DoctorJoinOfficePageComponent {
   }
 
   async getAllOffices() {
-    const result = await this.doctorService.getAllOffices().toPromise().catch(error => error);
+    const result = await this.officeService.getAllOffices().toPromise().catch(error => error);
 
     if (result) {
       this.offices = [...result];
@@ -43,7 +44,7 @@ export class DoctorJoinOfficePageComponent {
   async onJoinOfficeClick() {
     const officeId = this.form.value.offices;
     console.log(officeId, this.user.id);
-    const result = await this.doctorService.assignDoctorToOffice(this.user.id, officeId).toPromise().catch(error => error);
+    const result = await this.officeService.assignDoctorToOffice(this.user.id, officeId).toPromise().catch(error => error);
 
     if (result) {
       this.toasterService.onSuccess("Successfully joined office");

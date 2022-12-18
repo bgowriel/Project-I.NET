@@ -10,7 +10,7 @@ import { PatientAppointmentsPageComponent } from './patient/patient-appointments
 import { PatientDashboardPageComponent } from './patient/patient-dashboard-page/patient-dashboard-page.component';
 import { PatientProfilePageComponent } from './patient/patient-profile-page/patient-profile-page.component';
 import { RegisterComponent } from './register/register.component';
-import { AuthGuardService } from './services/auth-guard.service';
+import { AuthGuardService } from './services/auth/auth-guard.service';
 import { HomeComponent } from './shared/home/home.component';
 import { PageNotFoundComponent } from './shared/page-not-found/page-not-found.component';
 
