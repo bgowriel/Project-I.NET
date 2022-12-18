@@ -1,0 +1,60 @@
+:host {
+  display: flex;
+  width: 100%;
+  margin: 0 5rem;
+}
+
+.add-office {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.title {
+  text-transform: uppercase;
+  font-weight: 400;
+  font-size: 1.3rem;
+  align-self: center;
+  margin: 3rem;
+}
+
+.register-office-form {
+  min-width: 40rem;
+  width: 100%;
+  max-width: 70%;
+  display: flex;
+  flex-direction: column;
+  margin: 0 auto;
+  padding: 1rem;
+  background-color: white;
+}
+
+.form-item {
+  margin-bottom: 0.75rem;
+}
+
+::ng-deep.mat-mdc-form-field-error-wrapper {
+  padding: 0 !important;
+}
+
+.error-tip {
+  margin: 0.2rem 0;
+}
+
+textarea {
+  resize: none;
+}
+.disabled {
+  pointer-events: none;
+  opacity: 0.2;
+}
+
+.actions {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.actions * {
+  font-size: 1rem;
+}

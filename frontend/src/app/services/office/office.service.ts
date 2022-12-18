@@ -31,4 +31,7 @@ export class OfficeService {
     return this.http.get<Doctor>(baseUrl + 'api/offices/' + id);
   }
 
+  public registerOffice(office: Office): Observable<any> {
+    return this.http.post(baseUrl + 'api/offices', office);
+  }
 }
