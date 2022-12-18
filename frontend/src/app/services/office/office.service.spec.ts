@@ -17,6 +17,27 @@ describe("OfficeService", () => {
         const service: OfficeService = TestBed.get(OfficeService);
         expect(service.getAllOffices).toBeTruthy();
     });
+
+    it("should update office", () => {
+        const service: OfficeService = TestBed.get(OfficeService);
+        expect(service.updateOffice).toBeTruthy();
+    }); 
+
+    it("should delete office", () => {
+        const service: OfficeService = TestBed.get(OfficeService);
+        expect(service.deleteOffice).toBeTruthy();
+    });
+
+    it("should create office", () => {
+        const service: OfficeService = TestBed.get(OfficeService);
+        expect(service.registerOffice).toBeTruthy();
+    });
+
+    it("should assign doctor to office", () => {
+        const service: OfficeService = TestBed.get(OfficeService);
+        expect(service.assignDoctorToOffice).toBeTruthy();
+    });
+
 });
 
 
