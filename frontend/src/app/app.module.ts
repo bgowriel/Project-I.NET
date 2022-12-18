@@ -47,6 +47,7 @@ import { DoctorPatientsPageComponent } from './doctor/doctor-patients-page/docto
 import { DoctorJoinOfficePageComponent } from './doctor/doctor-join-office-page/doctor-join-office-page.component';
 import { AuthInterceptorProviders } from './services/auth/auth-interceptor.service';
 import { AddOfficePageComponent } from './patient/add-office-page/add-office-page.component';
+import { AdminPageComponent } from './admin/admin-page/admin-page.component';
 
 @NgModule({
   declarations: [
@@ -72,6 +73,7 @@ import { AddOfficePageComponent } from './patient/add-office-page/add-office-pag
     DoctorPatientsPageComponent,
     DoctorJoinOfficePageComponent,
     AddOfficePageComponent,
+    AdminPageComponent,
   ],
   imports: [
     BrowserModule,

@@ -24,6 +24,7 @@ namespace DoctorAppointment.Application.CommandHandlers
 				City = request.City,
 				Email = request.Email,
 				Phone = request.Phone,
+				Status = request.Status
 			};
 
 			_unitOfWork.OfficeRepository.Update(toUpdate);
