@@ -1,6 +1,6 @@
 ﻿using System.Runtime.Serialization;
 
-namespace DoctorAppointment.Api.Exceptions
+namespace DoctorAppointment.Application.Exceptions
 {
     [Serializable]
     public class NotFoundException : Exception

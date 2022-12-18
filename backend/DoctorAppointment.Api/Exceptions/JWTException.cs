@@ -1,8 +1,15 @@
-﻿namespace DoctorAppointment.Api.Exceptions
+﻿using System.Runtime.Serialization;
+
+namespace DoctorAppointment.Api.Exceptions
 {
-    public class JWTException : Exception
+    [Serializable]
+    public class JwtException : Exception
     {
-        public JWTException(string message) : base(message)
+        public JwtException(string message) : base(message)
+        {
+        }
+
+        protected JwtException(SerializationInfo info, StreamingContext context) : base(info, context)
         {
         }
     }

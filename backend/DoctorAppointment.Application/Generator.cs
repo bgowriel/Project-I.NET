@@ -1,12 +1,13 @@
-﻿using DoctorAppointment.Application.Exceptions;
-using DoctorAppointment.Application.Interfaces;
+﻿using DoctorAppointment.Application.Interfaces;
 using DoctorAppointment.Domain.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using System.Diagnostics.CodeAnalysis;
 using System.Security.Cryptography;
 
 namespace DoctorAppointment.Application
 {
+    [ExcludeFromCodeCoverage]
     public class Generator
     {
         private readonly IUnitOfWork _unitOfWork;
@@ -66,6 +67,12 @@ namespace DoctorAppointment.Application
         public async Task GenerateDoctors(int howMany)
         {
             var offices = await _unitOfWork.OfficeRepository.GetAll();
+
+            if (offices is null or { Count: 0 })
+            {
+                return;
+            }
+            
             var officesIds = offices.Select(o => o.Id).ToList();
             
             for (int i = 0; i < howMany; i++)
@@ -83,7 +90,7 @@ namespace DoctorAppointment.Application
 
                 if (_userManager.Users.Any(u => u.Email == doctor.Email))
                 {
-                    throw new ArgumentException("User with this email already exists");
+                    continue;
                 }
 
                 var password = doctor.FirstName + doctor.LastName + ".2022";
@@ -161,7 +168,7 @@ namespace DoctorAppointment.Application
             await _unitOfWork.Save();
         }
 
-        private User GetFakePatientData()
+        private static User GetFakePatientData()
         {
             var patient = new User
             {

@@ -14,28 +14,21 @@ namespace DoctorAppointment.DataAccess.Repositories
 			_databaseContext = databaseContext;
 		}
 	
-		public async Task<Office> GetById(Guid id)
+		public async Task<Office?> GetById(Guid id)
 		{
 			var office = await _databaseContext.Offices.SingleOrDefaultAsync(o => o.Id == id);
-            if (office == null)
-            {
-                throw new NullReferenceException("No office found");
-            }
             return office;
         }
-		public async Task<List<Office>> GetAll()
+		public async Task<List<Office>?> GetAll()
 		{
 			return await _databaseContext.Offices.Take(100).ToListAsync();
 		}
 
-		public async Task<List<User>> GetAllDoctors(Guid id)
+		public async Task<List<User>?> GetAllDoctors(Guid id)
 		{
             var doctors = await _databaseContext.Offices.Where(o => o.Id == id)
                 .Include(o => o.Doctors).Select(o => o.Doctors).SingleAsync();
-            if (doctors == null)
-            {
-                throw new NullReferenceException("No doctors found");
-            }
+
             return doctors;
 
         }

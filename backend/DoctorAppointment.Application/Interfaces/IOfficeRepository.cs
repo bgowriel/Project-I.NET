@@ -4,11 +4,11 @@ namespace DoctorAppointment.Application.Interfaces
 {
 	public interface IOfficeRepository
 	{
-		Task<Office> GetById(Guid id);
+		Task<Office?> GetById(Guid id);
 
-		Task<List<Office>> GetAll();
+		Task<List<Office>?> GetAll();
 
-		Task<List<User>> GetAllDoctors(Guid id);
+		Task<List<User>?> GetAllDoctors(Guid id);
 
 		Task Insert(Office entity);
 

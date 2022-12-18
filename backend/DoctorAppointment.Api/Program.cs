@@ -71,7 +71,7 @@ builder.Services.AddAuthentication(options =>
 {
     if (builder.Configuration["JWT:Secret"] == null)
     {
-        throw new JWTException("JWT:Secret not found");
+        throw new JwtException("JWT:Secret not found");
     }
     
     options.TokenValidationParameters = new TokenValidationParameters()
@@ -80,7 +80,7 @@ builder.Services.AddAuthentication(options =>
         ValidateAudience = true,
         ValidAudience = builder.Configuration["JWT:ValidAudience"],
         ValidIssuer = builder.Configuration["JWT:ValidIssuer"],
-        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["JWT:Secret"]))
+        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["JWT:Secret"]??"EmptySecret"))
     };
 });
 
@@ -90,13 +90,13 @@ builder.Services.AddAuthorization(options =>
     options.AddPolicy("ApproveAppointments", policy => policy.RequireRole("Doctor"));
 });
 
-
-if (typeof(AssemblyMarker) == null)
+var assemblies = Assembly.GetAssembly(typeof(AssemblyMarker));
+if (assemblies == null)
 {
     throw new AssemblyException("MediatR assembly not found");
 }
 
-builder.Services.AddMediatR(Assembly.GetAssembly(typeof(AssemblyMarker)));
+builder.Services.AddMediatR(assemblies);
 builder.Services.AddAutoMapper(typeof(DoctorAppointmentPresentation));
 
 // add SeedDBService to the container
@@ -107,7 +107,6 @@ var app = builder.Build();
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
-    app.UseDeveloperExceptionPage();
     app.UseSwagger();
     app.UseSwaggerUI();
 }
