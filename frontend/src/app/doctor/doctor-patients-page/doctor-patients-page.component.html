@@ -1,1 +1,54 @@
-<p>doctor-patients-page works!</p>
+<!-- <section class="loading" *ngIf="isLoading">
+    <mat-spinner></mat-spinner>
+  </section> -->
+  <main class="main-wrapper">
+    <header class="header">
+      <h1 class="title">Doctor Patients</h1>
+      <div class="logo">LOGO</div>
+    </header>
+    <div *ngIf="dataSource.length > 0" class="table-wrapper">
+      <table
+        class="table"
+        mat-table
+        [dataSource]="dataSource"
+        class="mat-elevation-z8 demo-table"
+      >
+        <ng-container matColumnDef="firstName">
+          <th mat-header-cell *matHeaderCellDef>First Name</th>
+          <td mat-cell *matCellDef="let element">
+            {{ element.patient.firstName }}
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="lastName">
+          <th mat-header-cell *matHeaderCellDef>Last Name</th>
+          <td mat-cell *matCellDef="let element">
+            {{ element.patient.lastName }}
+          </td>
+        </ng-container>
+  
+        <ng-container matColumnDef="email">
+          <th mat-header-cell *matHeaderCellDef>Email</th>
+          <td mat-cell *matCellDef="let element">
+            {{ element.patient.email }}
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="phoneNumber">
+            <th mat-header-cell *matHeaderCellDef>Phone</th>
+            <td mat-cell *matCellDef="let element">
+              {{ element.patient.phoneNumber }}
+            </td>
+          </ng-container>
+  
+  
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+      </table>
+    </div>
+    <div *ngIf="dataSource.length == 0">
+      <hr />
+      You don't have any patients yet.
+    </div>
+  </main>
+  
