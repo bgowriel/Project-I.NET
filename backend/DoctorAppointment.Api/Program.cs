@@ -1,4 +1,3 @@
-using DoctorAppointment.Api;
 using DoctorAppointment.Api.Exceptions;
 using DoctorAppointment.Api.Middleware;
 using DoctorAppointment.Api.Services;
@@ -7,6 +6,7 @@ using DoctorAppointment.Application.Interfaces;
 using DoctorAppointment.DataAccess;
 using DoctorAppointment.DataAccess.Repositories;
 using DoctorAppointment.Domain.Models;
+using FluentValidation;
 using MediatR;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
@@ -30,17 +30,21 @@ builder.Services.AddControllers()
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+builder.Services.AddApplicationServices();
+
 builder.Services.AddHttpContextAccessor();
 
-builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
-builder.Services.AddScoped<IAppointmentRepository, AppointmentRepository>();
-builder.Services.AddScoped<IBillRepository, BillRepository>();
-builder.Services.AddScoped<IMedicalVisitRepository, MedicalVisitRepository>();
-builder.Services.AddScoped<IOfficeRepository,OfficeRepository>();
-builder.Services.AddScoped<IAvailableDateRepository, AvailableDateRepository>();
+builder.Services.AddDataAccessServices(builder.Configuration);
+
+//builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
+//builder.Services.AddScoped<IAppointmentRepository, AppointmentRepository>();
+//builder.Services.AddScoped<IBillRepository, BillRepository>();
+//builder.Services.AddScoped<IMedicalVisitRepository, MedicalVisitRepository>();
+//builder.Services.AddScoped<IOfficeRepository,OfficeRepository>();
+//builder.Services.AddScoped<IAvailableDateRepository, AvailableDateRepository>();
 
 
-builder.Services.AddDbContext<DatabaseContext>();
+//builder.Services.AddDbContext<DatabaseContext>();
 
 builder.Services.AddIdentity<User, IdentityRole>()
     .AddEntityFrameworkStores<DatabaseContext>();
@@ -90,14 +94,14 @@ builder.Services.AddAuthorization(options =>
     options.AddPolicy("ApproveAppointments", policy => policy.RequireRole("Doctor"));
 });
 
-var assemblies = Assembly.GetAssembly(typeof(AssemblyMarker));
-if (assemblies == null)
-{
-    throw new AssemblyException("MediatR assembly not found");
-}
+//var assemblies = Assembly.GetAssembly(typeof(AssemblyMarker));
+//if (assemblies == null)
+//{
+//    throw new AssemblyException("MediatR assembly not found");
+//}
 
-builder.Services.AddMediatR(assemblies);
-builder.Services.AddAutoMapper(typeof(DoctorAppointmentPresentation));
+//builder.Services.AddMediatR(assemblies);
+//builder.Services.AddAutoMapper(typeof(DoctorAppointmentPresentation));
 
 // add SeedDBService to the container
 builder.Services.AddScoped<SeedDBService>();
