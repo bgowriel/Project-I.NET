@@ -31,4 +31,15 @@ export class OfficeService {
     return this.http.get<Doctor>(baseUrl + 'api/offices/' + id);
   }
 
+  public registerOffice(office: Office): Observable<any> {
+    return this.http.post(baseUrl + 'api/offices', office);
+  }
+
+  public updateOffice(id: string, office: Office): Observable<any> {
+    return this.http.put<any>(baseUrl + 'api/offices/' + id, office);
+  }
+
+  public deleteOffice(id: string): Observable<any> {
+    return this.http.delete<any>(baseUrl + 'api/offices/' + id);
+  }
 }

@@ -32,9 +32,10 @@ export class DoctorJoinOfficePageComponent {
   }
 
   async getAllOffices() {
-    const result = await this.officeService.getAllOffices().toPromise().catch(error => error);
+    let result = await this.officeService.getAllOffices().toPromise().catch(error => error);
 
     if (result) {
+      result = result.filter((office: Office) => office.status == "Approved");
       this.offices = [...result];
     } else {
       this.toasterService.onError("Something went wrong");

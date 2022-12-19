@@ -1,0 +1,96 @@
+<section class="add-office">
+  <h1 mat-dialog-title class="title">Register your office</h1>
+
+  <form [formGroup]="form" class="register-office-form">
+    <mat-form-field appearance="fill" class="form-item">
+      <mat-label>Name</mat-label>
+      <input
+        required
+        matInput
+        formControlName="name"
+        [(ngModel)]="office.name"
+      />
+      <mat-error *ngIf="validateInput('name')" class="error-tip">{{
+        errors.name
+      }}</mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill" class="form-item">
+      <mat-label>Description</mat-label>
+      <textarea
+        matInput
+        name="description"
+        id="description"
+        rows="5"
+        resize="none"
+        formControlName="description"
+        [(ngModel)]="office.description"
+      ></textarea>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill" class="form-item">
+      <mat-label>Address</mat-label>
+      <input
+        required
+        matInput
+        formControlName="address"
+        [(ngModel)]="office.address"
+      />
+      <mat-error *ngIf="validateInput('address')" class="error-tip">{{
+        errors.address
+      }}</mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill" class="form-item">
+      <mat-label>City</mat-label>
+      <input
+        required
+        matInput
+        formControlName="city"
+        [(ngModel)]="office.city"
+      />
+      <mat-error *ngIf="validateInput('city')" class="error-tip">{{
+        errors.city
+      }}</mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill" class="form-item">
+      <mat-label>Email</mat-label>
+      <input
+        required
+        matInput
+        formControlName="email"
+        [(ngModel)]="office.email"
+      />
+      <mat-error *ngIf="validateInput('email')" class="error-tip">{{
+        errors.email
+      }}</mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill" class="form-item">
+      <mat-label>Phone</mat-label>
+      <input
+        required
+        matInput
+        formControlName="phone"
+        [(ngModel)]="office.phone"
+      />
+      <mat-error *ngIf="validateInput('phone')" class="error-tip">{{
+        errors.phone
+      }}</mat-error>
+    </mat-form-field>
+
+    <!-- actions -->
+
+    <div class="actions">
+      <button
+        mat-raised-button
+        [mat-dialog-close]="office"
+        [class.disabled]="form.invalid"
+        (click)="onRegisterBtnClick()"
+      >
+        Register
+      </button>
+    </div>
+  </form>
+</section>

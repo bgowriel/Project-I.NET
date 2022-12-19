@@ -20,7 +20,7 @@ import { OfficeService } from 'app/services/office/office.service';
   providers: [PatientService, ToasterService, DoctorService, OfficeService, AppointmentService]
 })
 export class PatientAppointmentsPageComponent implements OnInit {
-  constructor(public dialog: MatDialog, private officeService: OfficeService , private doctorService: DoctorService, private patientService: PatientService, private toasterService: ToasterService, private userService: UserService, private appointmentService: AppointmentService) { }
+  constructor(public dialog: MatDialog, private officeService: OfficeService, private doctorService: DoctorService, private patientService: PatientService, private toasterService: ToasterService, private userService: UserService, private appointmentService: AppointmentService) { }
 
   public appointments: Appointment[] = [];
   public offices: Office[] = [];
@@ -117,11 +117,12 @@ export class PatientAppointmentsPageComponent implements OnInit {
   }
 
   async getAllOffices(): Promise<void> {
-    const result = await this.officeService.getAllOffices()
+    let result = await this.officeService.getAllOffices()
       .toPromise().catch(error => error);
 
     if (result) {
       // this.toasterService.onSuccess("Offices fetched successfully !");
+      result = result.filter((office: Office) => office.status == "Approved");
       this.offices = [...result];
     }
     else if (!result.ok) {
