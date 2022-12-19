@@ -22,13 +22,13 @@
     >
       <ng-container matColumnDef="office">
         <th mat-header-cell *matHeaderCellDef>Office</th>
-        <td mat-cell *matCellDef="let element">{{ element.office.name }}</td>
+        <td mat-cell *matCellDef="let element">{{ element?.office?.name }}</td>
       </ng-container>
 
       <ng-container matColumnDef="doctor">
         <th mat-header-cell *matHeaderCellDef>Doctor</th>
         <td mat-cell *matCellDef="let element">
-          {{ element.doctor.firstName + " " + element.doctor.lastName }}
+          {{ element?.doctor?.firstName + " " + element?.doctor?.lastName }}
         </td>
       </ng-container>
 
