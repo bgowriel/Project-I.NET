@@ -55,11 +55,22 @@ export class DoctorPatientsPageComponent implements OnInit{
 
       try {
         this.dataSourceCopy = await this.mapAppointmentsData(result);
+        console.log("Fetching patients (dataSourceCopy): " + this.dataSourceCopy);
+
         this.dataSourceCopy.forEach(async (appointment: any)=>{
-          if(appointment.status=="Approved"){
-            this.dataSource.push(appointment);
+          if (appointment.status == "Approved") {
+            let patientExists = false;
+            this.dataSource.forEach((patient: any) => {
+              if (patient.patientId == appointment.patientId) {
+                patientExists = true;
+              }
+            })
+            if (!patientExists) this.dataSource.push(appointment);
           }
         })
+        console.log("Fetching patients: " + this.dataSource);
+        // render table
+        // this.table.renderRows();
       } catch (error) {
         this.toasterService.onError("Something went wrong !");
         this.isLoading = false
