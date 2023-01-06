@@ -11,10 +11,7 @@ namespace DoctorAppointment.Api.Validators
             RuleFor(x => x.DoctorId).NotEmpty();
             RuleFor(x => x.Date).NotEmpty();
             RuleFor(x => x.Status).NotEmpty().MaximumLength(50);
-            
-            throw new Exception("Test AppointmentPutPostDtoValidator");
         }
-
     }
 
 }

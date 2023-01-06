@@ -24,7 +24,7 @@ namespace DoctorAppointment.Application
             services.AddAutoMapper(Assembly.GetExecutingAssembly());
             //services.AddMediatR(Assembly.GetExecutingAssembly());
             services.AddFluentValidationAutoValidation();
-            services.AddValidatorsFromAssembly(Assembly.GetAssembly(typeof(DoctorAppointmentPresentation)));
+            services.AddValidatorsFromAssembly(Assembly.GetExecutingAssembly());
             return services;
         }
     }
