@@ -71,6 +71,21 @@
         </div>
       </div>
 
+      <div class="form-group">
+        <label for="confirm-password">Confirm password</label>
+        <input type="password" class="form-control" id="confirm-password"
+               [(ngModel)]="user.confirmPassword" name="confirm-password"
+               #confirmPassword="ngModel">
+        <div [hidden]="confirmPassword.valid || confirmPassword.pristine"
+             class="alert alert-danger">
+          Confirm password is required
+        </div>
+        <div [hidden]="user.password === user.confirmPassword"
+             class="alert alert-danger">
+          Passwords do not match
+        </div>
+      </div>
+
       <button type="submit" class="btn btn-success" [disabled]="!registerForm.form.valid">Register</button>
     </form>
 </div>
