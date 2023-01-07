@@ -5,6 +5,7 @@ import { User } from "./user.model";
 export class Appointment {
   public id: string;
   public date: Date;
+  public hour: number;
   public description: string = "";
   public status: string = "";
   public doctorId: string;

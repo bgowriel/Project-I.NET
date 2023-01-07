@@ -9,6 +9,8 @@ namespace DoctorAppointment.Domain.Models
         [Required]
         public DateTime Date { get; set; }
 
+        public int Hour { get; set; }
+
         public string? Description { get; set; }
 
         [Required]

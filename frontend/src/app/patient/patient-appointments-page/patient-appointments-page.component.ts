@@ -28,7 +28,7 @@ export class PatientAppointmentsPageComponent implements OnInit {
 
   private dialogRef: any;
 
-  displayedColumns: string[] = ['office', 'doctor', 'date', 'description', 'status', 'actions'];
+  displayedColumns: string[] = ['office', 'doctor', 'date','hour','description', 'status', 'actions'];
   dataSource: any = [];
   isLoading: boolean = false;
 

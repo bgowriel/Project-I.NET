@@ -20,6 +20,7 @@ namespace DoctorAppointment.Application.CommandHandlers
             {
                 Id = Guid.NewGuid(),
                 Date = request.Date,
+                Hour = request.Hour,
                 Description = request.Description,
                 Status = request.Status,
                 DoctorId = request.DoctorId,
