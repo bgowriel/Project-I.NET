@@ -7,10 +7,10 @@ import { User } from 'app/shared/models/user.model';
 import { Observable } from 'rxjs';
 
 const baseUrl = 'https://localhost:7221/';
-const appointmentsApi: string = 'api/appointments';
-const officesApi: string = 'api/offices'
-const updateUserApi: string = 'api/users/update-user';
-const userApi: string = 'api/users/';
+const appointmentsApi: string = 'api/v1/appointments';
+const officesApi: string = 'api/v1/offices'
+const updateUserApi: string = 'api/v1/users/update-user';
+const userApi: string = 'api/v1/users/';
 
 
 @Injectable({
@@ -21,7 +21,7 @@ export class DoctorService {
   constructor(private http: HttpClient) { }
 
   public getDoctorById(id: string): Observable<Doctor> {
-    return this.http.get<Doctor>(baseUrl + 'api/users/' + id);
+    return this.http.get<Doctor>(baseUrl + 'api/v1/users/' + id);
   }
 
   public getDoctorsByOfficeId(id: string): Observable<Doctor[]> {

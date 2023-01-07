@@ -16,8 +16,11 @@ using System.Text;
 
 namespace DoctorAppointment.Api.Controllers
 {
-	[Route("api/users")]
+	[Route("api/v{version:apiVersion}/users")]
     [ApiController]
+    [ApiVersion("1.0")]
+    [ApiVersion("1.5", Deprecated = true)]
+    [ApiVersion("2.0")]
     public class UsersController : ControllerBase
     {
         private readonly IConfiguration _configuration;

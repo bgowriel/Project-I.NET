@@ -30,7 +30,8 @@ const routes: Routes = [
   { path: 'doctor/join-office', data: {role: 'Doctor'}, canActivate: [AuthGuardService], component: DoctorJoinOfficePageComponent },
   { path: 'admin/dashboard', data: {role: 'Admin'}, canActivate: [AuthGuardService], component: AdminPageComponent},
   { path: 'home', component: HomeComponent },
-  { path: '', redirectTo: 'login', pathMatch: 'full' },
+  // { path: '', redirectTo: 'login', pathMatch: 'full' },
+  { path: '', redirectTo: 'home', pathMatch: 'full' },
   { path: '**', component: PageNotFoundComponent, pathMatch: 'full' },
 ];
 

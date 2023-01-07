@@ -12,8 +12,11 @@ namespace DoctorAppointment.Api.Controllers
 
 	[ApiController]
 	//[Authorize]
-	[Route("api/offices")]
-	public class OfficeController : ControllerBase
+	[Route("api/v{version:apiVersion}/offices")]
+    [ApiVersion("1.0")]
+    [ApiVersion("1.5", Deprecated = true)]
+    [ApiVersion("2.0")]
+    public class OfficeController : ControllerBase
 	{
 		private readonly IMediator _mediator;
 		private readonly IMapper _mapper;

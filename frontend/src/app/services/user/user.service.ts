@@ -19,4 +19,8 @@ export class UserService {
       role: data.role,
     } as User;
   }
+
+  logout() {
+    this.tokenService.signOut();
+  }
 }

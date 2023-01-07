@@ -11,7 +11,10 @@ namespace DoctorAppointment.Api.Controllers
 {
     [ApiController]
     //[Authorize]
-    [Route("api/[controller]")]
+    [Route("api/v{version:apiVersion}/[controller]")]
+    [ApiVersion("1.0")]
+    [ApiVersion("1.5", Deprecated = true)]
+    [ApiVersion("2.0")]
     public class MedicalVisitController : ControllerBase
     {
         private readonly IMediator mediator;

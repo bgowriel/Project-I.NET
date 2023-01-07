@@ -7,10 +7,10 @@ import { catchError, map, Observable } from 'rxjs';
 import { Appointment } from '../../shared/models/appointment.model';
 
 const baseUrl = 'https://localhost:7221/';
-const appointmentsApi: string = 'api/appointments';
-const updateUserApi: string = 'api/users/update-user';
-const userApi: string = 'api/users/';
-const officesApi: string = 'api/offices'
+const appointmentsApi: string = 'api/v1/appointments';
+const updateUserApi: string = 'api/v1/users/update-user';
+const userApi: string = 'api/v1/users/';
+const officesApi: string = 'api/v1/offices'
 
 @Injectable({
   providedIn: 'root'
