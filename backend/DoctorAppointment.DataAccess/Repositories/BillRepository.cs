@@ -37,11 +37,6 @@ namespace DoctorAppointment.DataAccess.Repositories
                                               .ToListAsync();
         }
 
-        public async Task<Bill?> GetByMedicalVisitId(Guid medicalVisitId)
-        {
-            return await _databaseContext.Bills.SingleOrDefaultAsync(b => b.MedicalVisitId == medicalVisitId);
-        }
-
         public async Task Insert(Bill bill)
         {
             await _databaseContext.Bills.AddAsync(bill);

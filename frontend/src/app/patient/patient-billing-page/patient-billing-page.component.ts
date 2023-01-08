@@ -8,6 +8,7 @@ import { Office } from 'app/shared/models/office.model';
 import { Bill } from 'app/shared/models/bill.model';
 import { User } from 'app/shared/models/user.model';
 import { ToasterService } from 'app/shared/toaster/toaster.service';
+import { AddAppointmentModalComponent } from '../add-appointment-modal/add-appointment-modal.component';
 import { PatientService } from '../../services/patient/patient.service';
 import { AppointmentService } from 'app/services/appointment/appointment.service';
 import { DoctorService } from 'app/services/doctor/doctor.service';
@@ -15,22 +16,23 @@ import { OfficeService } from 'app/services/office/office.service';
 import { BillService } from 'app/services/bill/bill.service';
 
 @Component({
-  selector: 'app-doctor-billing-page',
-  templateUrl: './doctor-billing-page.component.html',
-  styleUrls: ['./doctor-billing-page.component.css'],
+  selector: 'app-patient-billing-page',
+  templateUrl: './patient-billing-page.component.html',
+  styleUrls: ['./patient-billing-page.component.css'],
   providers: [
     PatientService,
     ToasterService,
     DoctorService,
+    OfficeService,
     AppointmentService,
     BillService,
   ],
 })
-export class DoctorBillingPageComponent implements OnInit {
+export class PatientBillingPageComponent implements OnInit {
   constructor(
     public dialog: MatDialog,
     private toasterService: ToasterService,
-    private patientService: PatientService,
+    private officeService: OfficeService,
     private doctorService: DoctorService,
     private userService: UserService,
     private billService: BillService
@@ -39,6 +41,7 @@ export class DoctorBillingPageComponent implements OnInit {
   public bills: Bill[] = [];
 
   displayedColumns: string[] = [
+    'office',
     'doctor',
     'date',
     'description',
@@ -63,15 +66,16 @@ export class DoctorBillingPageComponent implements OnInit {
 
   async mapBillsData(bills: any): Promise<void> {
     bills.forEach(async (bill: any) => {
-      const patient = await this.patientService
-        .getPatientById(bill.patientId)
+      const doctor = await this.doctorService
+        .getDoctorById(bill.doctorId)
         .toPromise()
         .catch((error) => error);
-      
-        console.log(patient);
-
-        bill.patient = patient;
-
+      bill.doctor = doctor;
+      const office = await this.officeService
+      .getOfficeById(doctor.officeId)
+      .toPromise()
+      .catch((error) => error);
+      bill.office = office;
     });
 
     return bills;
@@ -79,7 +83,7 @@ export class DoctorBillingPageComponent implements OnInit {
 
   async getBillsById(userId: string): Promise<void> {
     const result = await this.billService
-      .getBillsByDoctorId(userId)
+      .getBillsByPatientId(userId)
       .toPromise()
       .catch((error) => error);
 

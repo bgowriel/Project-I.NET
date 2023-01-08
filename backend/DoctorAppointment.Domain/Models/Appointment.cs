@@ -9,6 +9,8 @@ namespace DoctorAppointment.Domain.Models
         [Required]
         public DateTime Date { get; set; }
 
+        public int Hour { get; set; }
+
         public string? Description { get; set; }
 
         [Required]
@@ -24,5 +26,10 @@ namespace DoctorAppointment.Domain.Models
         public User? Patient { get; set; } 
 
         public Guid? OfficeId { get; set; }
-    }
+		
+		public Guid? BillId { get; set; }
+
+		public Bill? Bill { get; set; }
+		
+	}
 }

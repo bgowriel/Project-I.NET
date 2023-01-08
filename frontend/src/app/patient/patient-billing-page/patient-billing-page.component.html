@@ -8,11 +8,15 @@
     </header>
     <div *ngIf="dataSource.length > 0" class="table-wrapper">
         <table class="table" mat-table [dataSource]="dataSource" class="mat-elevation-z8 demo-table">
+            <ng-container matColumnDef="office">
+                <th mat-header-cell *matHeaderCellDef>Office</th>
+                <td mat-cell *matCellDef="let element">{{ element?.office?.name }}</td>
+            </ng-container>
 
             <ng-container matColumnDef="doctor">
-                <th mat-header-cell *matHeaderCellDef>Patient</th>
+                <th mat-header-cell *matHeaderCellDef>Doctor</th>
                 <td mat-cell *matCellDef="let element">
-                    {{ element?.patient?.firstName + " " + element?.patient?.lastName }}
+                    {{ element?.doctor?.firstName + " " + element?.doctor?.lastName }}
                 </td>
             </ng-container>
 
