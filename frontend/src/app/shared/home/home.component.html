@@ -1,12 +1,14 @@
 <section class="home_view">
     <div class="menu">
         <!-- <button class="nice_menu" onclick="location.href = 'http://localhost:4200/login' " >Login</button> -->
+        <button mat-button class="nice_menu2" onclick="location.href = 'http://localhost:4200/home' "><font color="black">Home</font></button>
+        <!-- <button mat-button class="nice_menu2" onclick="location.href = 'http://localhost:4200/about-us' "><font color="black">About Us</font></button>
+        <button mat-button class="nice_menu2" onclick="location.href = 'http://localhost:4200/contact' "><font color="black">Contact</font></button> -->
         <button mat-button [matMenuTriggerFor]="menu" class="nice_menu">Join Us!</button>
         
-        
         <mat-menu #menu="matMenu">
-        <button mat-menu-item onclick="location.href = 'http://localhost:4200/login' ">Login</button>
-        <button mat-menu-item onclick="location.href = 'http://localhost:4200/register' ">Register</button>
+            <button mat-menu-item onclick="location.href = 'http://localhost:4200/login' ">Login</button>
+            <button mat-menu-item onclick="location.href = 'http://localhost:4200/register' ">Register</button>
         </mat-menu> 
        
     
@@ -14,10 +16,27 @@
     <div class="body">
         <div class="body_banner"></div>
         <div class="body_about_us_3_col">
-            <div class="body_about_us_col blue">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Esse quaerat necessitatibus blanditiis laboriosam quas, nulla rerum natus ea corporis, ad fugit voluptatum, atque temporibus quis tempora nisi harum. Eaque, inventore.</div>
-            <div class="body_about_us_col white">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Possimus doloribus ut hic nulla eos debitis quos nam, omnis recusandae perferendis! Soluta amet ex fugiat assumenda sed exercitationem laudantium officia natus!</div>
-            <div class="body_about_us_col blue">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Cupiditate molestias dicta adipisci illo repellendus unde harum natus nesciunt similique aliquid! Quam, a saepe magnam neque iusto assumenda repellat aliquam quos.</div>
+            <div class="body_about_us_col blue first">WHO WE ARE?<br><br>
+                Adults and kids, we welcome patients of all ages! Our team is passionate about building lifetime relationships through positive experiences, featuring:
+                <ul>
+                    <li>Transparent Pricing</li>
+                    <li>Unparalleled Warranty</li>
+                    <li>FREE Whitening (for life!)</li>
+                </ul>
+            </div>
+            <div class="body_about_us_col white">FREE WHITENING<ul>
+                    <li>Whitening for life </li>
+                    <li>Visit Village Dental for a new patient cleaning & exam</li>
+                    <li>Take home a complimentary custom whitening kit</li>
+                </ul>
+            </div> 
+            <div class="body_about_us_col blue">TRANSPARENT PRICING<br><br>
+                No Surprises<br><br>
+                Our team believes in accessible dental care. We offer straightforward pricing, clear estimates, and an unprecedented dental warranty. Keep up with your routine 6-month checkups and if something needs fixing, we’ll handle it at no cost to you.</div>
         </div>
+    </div>
+    <div class="footer">
+        © Copyright 2023 | Created by Uaic Info students
     </div>
     
 </section> 

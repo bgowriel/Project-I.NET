@@ -35,7 +35,6 @@ import { MatMenuModule } from '@angular/material/menu';
 import { PageNotFoundComponent } from './shared/page-not-found/page-not-found.component';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
-
 import { DoctorAppointmentsPageComponent } from './doctor/doctor-appointments-page/doctor-appointments-page.component';
 import { DoctorDashboardPageComponent } from './doctor/doctor-dashboard-page/doctor-dashboard-page.component';
 import { DoctorProfilePageComponent } from './doctor/doctor-profile-page/doctor-profile-page.component';
@@ -80,6 +79,7 @@ import { PatientMedicalHistoryPageComponent } from './patient/patient-medical-hi
     MatListModule,
     MatIconModule,
     MatTableModule,
+    MatMenuModule,
     MatFormFieldModule,
     FormsModule,
     MatSelectModule,
