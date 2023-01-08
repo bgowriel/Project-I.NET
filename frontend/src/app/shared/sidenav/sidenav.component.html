@@ -43,6 +43,7 @@
       <mat-list-item *ngIf="user.role === 'Patient'"
         role="listitem"
         class="nav-list-item last"
+        [routerLink]="'/patient/medical-history'"
         routerLinkActive="selected"
         >medical history</mat-list-item
       >
