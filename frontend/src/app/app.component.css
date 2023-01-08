@@ -2,6 +2,11 @@
   height: 100%;
   width: 100%;
   display: flex;
+}
+#main_view_delogat{
+  height: 100%;
+  width: 100%;
+  display: flex;
   background-image: url("../assets/banner_dental_care.png");
   background-size: cover;
   background-repeat: no-repeat;

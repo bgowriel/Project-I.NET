@@ -1,4 +1,14 @@
-<section id="main-view">
+<section id="main-view" *ngIf="this.authService.isAuthenticated">
+  <app-sidenav *ngIf="this.authService.isAuthenticated"></app-sidenav>
+  <main id="nealiniat" *ngIf="this.authService.isAuthenticated">
+      <router-outlet></router-outlet>
+  </main>
+  <main id="aliniere_login_register" *ngIf="!this.authService.isAuthenticated">
+    <router-outlet></router-outlet>
+</main>
+</section>
+
+<section id="main_view_delogat" *ngIf="!this.authService.isAuthenticated">
   <app-sidenav *ngIf="this.authService.isAuthenticated"></app-sidenav>
   <main id="nealiniat" *ngIf="this.authService.isAuthenticated">
       <router-outlet></router-outlet>
