@@ -46,6 +46,7 @@ import { AuthInterceptorProviders } from './services/auth/auth-interceptor.servi
 import { AddOfficePageComponent } from './patient/add-office-page/add-office-page.component';
 import { AdminPageComponent } from './admin/admin-page/admin-page.component';
 import { PatientBillingPageComponent } from './patient/patient-billing-page/patient-billing-page.component';
+import { PatientMedicalHistoryPageComponent } from './patient/patient-medical-history-page/patient-medical-history-page.component';
 
 @NgModule({
   declarations: [
@@ -70,6 +71,7 @@ import { PatientBillingPageComponent } from './patient/patient-billing-page/pati
     AddOfficePageComponent,
     AdminPageComponent,
     PatientBillingPageComponent,
+    PatientMedicalHistoryPageComponent,
   ],
   imports: [
     BrowserModule,
