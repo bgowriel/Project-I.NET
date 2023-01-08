@@ -3,6 +3,15 @@
   width: 100%;
   display: flex;
 }
+#main_view_delogat{
+  height: 100%;
+  width: 100%;
+  display: flex;
+  background-image: url("../assets/banner_dental_care.png");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: left;
+}
 
 #nealiniat {
   display: flex;
@@ -11,6 +20,7 @@
   width: 100%;
 }
 #aliniere_login_register{
+  backdrop-filter: blur(10px);
   display: flex;
   justify-content: center;
   align-items: center;

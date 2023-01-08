@@ -11,16 +11,27 @@
     padding-bottom: 10px;
     z-index: 999;
     width: 100%;
+    position:fixed;
+    top:0;
+    left:0;
+    display: flex;
+    justify-content: right;
     background-color: white;
     box-shadow: 0 3px 5px -1px #0003, 0 6px 10px #00000024, 0 1px 18px #0000001f;
 }
 .nice_menu{
-    margin-left: 10px;
+    margin-right: 40px;
     background-color: #0092d4;
     color:white;
 }
+.nice_menu2{
+    margin-right: 10px;
+}
 .mat-mdc-button:not(:disabled){
+    border-radius: 8px;
     color: white !important;
+    padding: 20px;
+    font-size: 18px;
 }
 .body{
     width: 100%;
@@ -28,6 +39,7 @@
     flex-direction: column;
     justify-content: flex-start;
     align-items: center;
+    margin-top: 550px;
 }
 .body_banner{
     height: 100vh;
@@ -36,19 +48,19 @@
     background-size: cover;
     background-repeat: no-repeat;
     background-position: left;
+    box-shadow: 0 3px 5px -1px #0000001c, 0 6px 10px #0000001f, 0 1px 18px #00000000;
 }
 .body_about_us_3_col{
     width: 100%;
-    height: 200px;
+    height: 400px;
     display: flex;
     justify-content:space-evenly;
 }
 .body_about_us_col{
-    width: 33%;
-    min-height: 300px;
+    /* width: 33%; */
+    flex:0.33;
     display: flex;
     flex-direction: column;
-    align-items: center;
     justify-content: center;
     padding-top:4em;
     padding-bottom: 4em;
@@ -56,15 +68,33 @@
     padding-right: 2em;
     font-size:20px
 }
+.first{
+    margin-left :10px !important;;
+}
 .blue{
     background-color:#0097dc;
     color: white;
+    margin: 10px 10px 10px 00px;
+    box-shadow: 0 3px 5px -1px #0000001c, 0 6px 10px #0000001f, 0 1px 18px #00000000;
+    border-radius: 8px;
 }
 .white{
+    margin: 10px 10px 10px 00px;
+    box-shadow: 0 3px 5px -1px #0000001c, 0 6px 10px #0000001f, 0 1px 18px #00000000;
+    border-radius: 8px;
     background-color: white;
     color:rgb(77, 67, 67);
 }
 button{
     background: white;
     border: none;
+}
+.footer{
+    min-height: 50px;
+    color:black;
+    padding-bottom: 10px;
+    padding-top:5px;
+}
+ul{
+    margin-inline-end: 100px;
 }
