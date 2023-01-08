@@ -32,8 +32,7 @@ namespace DoctorAppointment.UnitTests
 				Date = DateTime.Now,
 				Amount = 100,
 				DoctorId = "Test",
-				PatientId = "Test",
-				MedicalVisitId = new Guid()
+				PatientId = "Test"
 			};
 
 			_billGetDto = new BillGetDto
@@ -42,8 +41,7 @@ namespace DoctorAppointment.UnitTests
 				Date = DateTime.Now,
 				Amount = 100,
 				DoctorId = "Test",
-				PatientId = "Test",
-				MedicalVisitId = new Guid()
+				PatientId = "Test"
 			};
 
 			_bill = new Bill
@@ -52,8 +50,7 @@ namespace DoctorAppointment.UnitTests
 				Date = DateTime.Now,
 				Amount = 100,
 				DoctorId = "Test",
-				PatientId = "Test",
-				MedicalVisitId = new Guid()
+				PatientId = "Test"
 			};
 
 			_mockMapper = MappingData();

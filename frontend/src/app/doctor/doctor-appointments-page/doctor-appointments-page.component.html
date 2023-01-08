@@ -7,12 +7,7 @@
     <div class="logo">LOGO</div>
   </header>
   <div *ngIf="dataSource.length > 0" class="table-wrapper">
-    <table
-      class="table"
-      mat-table
-      [dataSource]="dataSource"
-      class="mat-elevation-z8 demo-table"
-    >
+    <table class="table" mat-table [dataSource]="dataSource" class="mat-elevation-z8 demo-table">
       <ng-container matColumnDef="patient">
         <th mat-header-cell *matHeaderCellDef>Patient</th>
         <td mat-cell *matCellDef="let element">
@@ -34,13 +29,20 @@
         </td>
       </ng-container>
 
+      <ng-container matColumnDef="hour">
+        <th mat-header-cell *matHeaderCellDef>Hour</th>
+        <td mat-cell *matCellDef="let element">
+          {{ element.hour + ":00" }}
+        </td>
+      </ng-container>
+
       <ng-container matColumnDef="description">
         <th mat-header-cell *matHeaderCellDef>Description</th>
         <td mat-cell *matCellDef="let element">
           {{
-            element.description.length > 6
-              ? (element.description | slice : 0 : 15) + "..."
-              : element.description
+          element.description.length > 6
+          ? (element.description | slice : 0 : 15) + "..."
+          : element.description
           }}
         </td>
       </ng-container>
@@ -55,22 +57,12 @@
       <ng-container matColumnDef="actions">
         <th mat-header-cell *matHeaderCellDef>Actions</th>
         <td mat-cell *matCellDef="let element">
-          <button
-            mat-icon-button
-            #tooltip="matTooltip"
-            matTooltip="Cancel"
-            matTooltipPosition="after"
-            (click)="onCancelBtnClick(element.id, element)"
-          >
+          <button mat-icon-button #tooltip="matTooltip" matTooltip="Cancel" matTooltipPosition="after"
+            (click)="onCancelBtnClick(element.id, element)">
             <mat-icon>cancel</mat-icon>
           </button>
-          <button
-            mat-icon-button
-            #tooltip="matTooltip"
-            matTooltip="Approve"
-            matTooltipPosition="after"
-            (click)="onApproveBtnClick(element.id, element)"
-          >
+          <button mat-icon-button #tooltip="matTooltip" matTooltip="Approve" matTooltipPosition="after"
+            (click)="onApproveBtnClick(element.id, element)">
             <mat-icon>checkmark</mat-icon>
           </button>
         </td>

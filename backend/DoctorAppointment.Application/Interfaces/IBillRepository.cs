@@ -12,8 +12,6 @@ namespace DoctorAppointment.Application.Interfaces
 
         Task<List<Bill>?> GetByDoctorId(string doctorId);
 
-        Task<Bill?> GetByMedicalVisitId(Guid medicalVisitId);
-
         Task Insert(Bill bill);
 
         void Update(Bill bill);

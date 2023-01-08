@@ -18,13 +18,13 @@ namespace DoctorAppointment.Application.CommandHandlers
         {
             var toUpdate = new Bill
             {
-                Id = request.Id,
-                Date = request.Date,
-                Amount = request.Amount,
-                PatientId = request.PatientId,
-                DoctorId = request.DoctorId,
-                MedicalVisitId = request.MedicalVisitId
-            };
+				Id = request.Id,   
+				Date = request.Date,
+				Description = request.Description,
+				Amount = request.Amount,
+				PatientId = request.PatientId,
+				DoctorId = request.DoctorId
+			};
 
             _unitOfWork.BillRepository.Update(toUpdate);
             await _unitOfWork.Save();

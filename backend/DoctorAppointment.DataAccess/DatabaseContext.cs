@@ -65,13 +65,6 @@ namespace DoctorAppointment.DataAccess
                 .OnDelete(DeleteBehavior.ClientCascade);
 
             builder.Entity<Bill>()
-                .HasOne(b => b.MedicalVisit)
-                .WithOne()
-                .HasForeignKey<Bill>(b => b.MedicalVisitId)
-                .IsRequired()
-                .OnDelete(DeleteBehavior.ClientCascade);
-
-            builder.Entity<Bill>()
                 .HasOne(b => b.Patient)
                 .WithMany(p => p.Bills)
                 .HasForeignKey(b => b.PatientId)
