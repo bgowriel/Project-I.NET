@@ -72,7 +72,10 @@ export class PatientMedicalHistoryPageComponent implements OnInit{
       appointment.office = office;
     })
     appointments.forEach(async (appointment: any) => {
-      if (appointment.status == "Approved"){
+      const appointmentDate = new Date(appointment.date);
+      const currentDate = new Date();
+      if (appointment.status == "Approved" && appointmentDate<currentDate){
+        console.log(new Date(appointment.date))
         validAppointments.push(appointment)
       }
     })
