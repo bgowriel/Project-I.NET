@@ -30,6 +30,10 @@ export class BillService {
     return this.http.get<Bill[]>(baseUrl + billsApi + '/patient/' + id);
   }
 
+  public getBillsByDoctorId(id: string): Observable<Bill[]> {
+    return this.http.get<Bill[]>(baseUrl + billsApi + '/doctor/' + id);
+  }
+
   public createBill(bill: Bill): Observable<any> {
     return this.http.post(baseUrl + billsApi, bill);
   }

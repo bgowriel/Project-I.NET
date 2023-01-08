@@ -15,6 +15,8 @@ import { RegisterComponent } from './register/register.component';
 import { AuthGuardService } from './services/auth/auth-guard.service';
 import { HomeComponent } from './shared/home/home.component';
 import { PageNotFoundComponent } from './shared/page-not-found/page-not-found.component';
+import { PatientBillingPageComponent } from './patient/patient-billing-page/patient-billing-page.component';
+import { DoctorBillingPageComponent } from './doctor/doctor-billing-page/doctor-billing-page.component';
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
@@ -22,10 +24,12 @@ const routes: Routes = [
   { path: 'patient/dashboard', data: {role: 'Patient'}, canActivate: [AuthGuardService], component: PatientDashboardPageComponent },
   { path: 'patient/profile', data: {role: 'Patient'}, canActivate: [AuthGuardService], component: PatientProfilePageComponent },
   { path: 'patient/appointments', data: {role: 'Patient'}, canActivate: [AuthGuardService], component: PatientAppointmentsPageComponent },
+  { path: 'patient/billing', data: {role: 'Patient'}, canActivate: [AuthGuardService], component: PatientBillingPageComponent },
   { path: 'patient/register-office', data: {role: 'Patient'}, canActivate: [AuthGuardService], component: AddOfficePageComponent },
   { path: 'doctor/dashboard', data: {role: 'Doctor'}, canActivate: [AuthGuardService], component: DoctorDashboardPageComponent },
   { path: 'doctor/profile', data: {role: 'Doctor'}, canActivate: [AuthGuardService], component: DoctorProfilePageComponent },
   { path: 'doctor/appointments', data: {role: 'Doctor'}, canActivate: [AuthGuardService], component: DoctorAppointmentsPageComponent },
+  { path: 'doctor/billing', data: {role: 'Doctor'}, canActivate: [AuthGuardService], component: DoctorBillingPageComponent},
   { path: 'doctor/patients', data: {role: 'Doctor'}, canActivate: [AuthGuardService], component: DoctorPatientsPageComponent },
   { path: 'doctor/join-office', data: {role: 'Doctor'}, canActivate: [AuthGuardService], component: DoctorJoinOfficePageComponent },
   { path: 'admin/dashboard', data: {role: 'Admin'}, canActivate: [AuthGuardService], component: AdminPageComponent},

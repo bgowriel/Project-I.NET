@@ -34,10 +34,19 @@
         >appointments</mat-list-item
       >
       <mat-list-item
-        *ngIf="user.role !== 'Admin'"
+        *ngIf="user.role == 'Patient'"
         role="listitem"
         class="nav-list-item"
         routerLinkActive="selected"
+        routerLink="/patient/billing"
+        >billing</mat-list-item
+      >
+      <mat-list-item
+        *ngIf="user.role == 'Doctor'"
+        role="listitem"
+        class="nav-list-item"
+        routerLinkActive="selected"
+        routerLink="/doctor/billing"
         >billing</mat-list-item
       >
       <mat-list-item *ngIf="user.role === 'Patient'"

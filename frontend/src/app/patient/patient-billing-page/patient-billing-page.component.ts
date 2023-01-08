@@ -32,6 +32,8 @@ export class PatientBillingPageComponent implements OnInit {
   constructor(
     public dialog: MatDialog,
     private toasterService: ToasterService,
+    private officeService: OfficeService,
+    private doctorService: DoctorService,
     private userService: UserService,
     private billService: BillService
   ) {}
@@ -42,7 +44,6 @@ export class PatientBillingPageComponent implements OnInit {
     'office',
     'doctor',
     'date',
-    'hour',
     'description',
     'price',
   ];
@@ -62,15 +63,35 @@ export class PatientBillingPageComponent implements OnInit {
 
     this.isLoading = false;
   }
+
+  async mapBillsData(bills: any): Promise<void> {
+    bills.forEach(async (bill: any) => {
+      const doctor = await this.doctorService
+        .getDoctorById(bill.doctorId)
+        .toPromise()
+        .catch((error) => error);
+      bill.doctor = doctor;
+      const office = await this.officeService
+      .getOfficeById(doctor.officeId)
+      .toPromise()
+      .catch((error) => error);
+      bill.office = office;
+    });
+
+    return bills;
+  }
+
   async getBillsById(userId: string): Promise<void> {
     const result = await this.billService
-      .getBillById(userId)
+      .getBillsByPatientId(userId)
       .toPromise()
       .catch((error) => error);
 
+      console.log(result);
+
     if (result) {
       try {
-        this.dataSource = this.bills;
+        this.dataSource = await this.mapBillsData(result);
       } catch (error) {
         this.toasterService.onError('Something went wrong !');
         this.isLoading = false;
