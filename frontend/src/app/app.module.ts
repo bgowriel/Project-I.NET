@@ -10,9 +10,9 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatListModule } from '@angular/material/list';
 import { MatIconModule } from '@angular/material/icon';
 import { MatTableModule } from '@angular/material/table';
-import { MatFormFieldModule } from '@angular/material/form-field'
-import { MatSelectModule } from '@angular/material/select'
-import { MatInputModule } from '@angular/material/input'
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatSelectModule } from '@angular/material/select';
+import { MatInputModule } from '@angular/material/input';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatDialogModule } from '@angular/material/dialog';
 
@@ -45,6 +45,7 @@ import { DoctorJoinOfficePageComponent } from './doctor/doctor-join-office-page/
 import { AuthInterceptorProviders } from './services/auth/auth-interceptor.service';
 import { AddOfficePageComponent } from './patient/add-office-page/add-office-page.component';
 import { AdminPageComponent } from './admin/admin-page/admin-page.component';
+import { PatientBillingPageComponent } from './patient/patient-billing-page/patient-billing-page.component';
 
 @NgModule({
   declarations: [
@@ -68,6 +69,7 @@ import { AdminPageComponent } from './admin/admin-page/admin-page.component';
     DoctorJoinOfficePageComponent,
     AddOfficePageComponent,
     AdminPageComponent,
+    PatientBillingPageComponent,
   ],
   imports: [
     BrowserModule,
@@ -91,9 +93,9 @@ import { AdminPageComponent } from './admin/admin-page/admin-page.component';
     MatCardModule,
     MatMenuModule,
     MatTooltipModule,
-    MatProgressSpinnerModule
+    MatProgressSpinnerModule,
   ],
   providers: [AuthInterceptorProviders, HttpClient, HttpClientModule],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

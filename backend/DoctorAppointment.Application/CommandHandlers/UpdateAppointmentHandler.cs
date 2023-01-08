@@ -26,7 +26,8 @@ namespace DoctorAppointment.Application.CommandHandlers
                 DoctorId = request.DoctorId,
                 PatientId = request.PatientId,
                 OfficeId = request.OfficeId,
-            };
+				BillId = request.BillId
+			};
             
             _unitOfWork.AppointmentRepository.Update(toUpdate);
             await _unitOfWork.Save();

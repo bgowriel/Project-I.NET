@@ -17,5 +17,7 @@
         public string? PatientId { get; set; }
 		
         public Guid OfficeId { get; set; }
-    }
+
+		public Guid? BillId { get; set; }
+	}
 }

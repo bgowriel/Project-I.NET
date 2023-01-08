@@ -26,5 +26,10 @@ namespace DoctorAppointment.Domain.Models
         public User? Patient { get; set; } 
 
         public Guid? OfficeId { get; set; }
-    }
+		
+		public Guid? BillId { get; set; }
+
+		public Bill? Bill { get; set; }
+		
+	}
 }

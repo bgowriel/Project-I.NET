@@ -3,17 +3,9 @@
   <form mat-dialog-content class="add-appointment-form" [formGroup]="form">
     <mat-form-field appearance="fill" class="form-item">
       <mat-label>Cabinets</mat-label>
-      <mat-select
-        required
-        formControlName="cabinets"
-        [(ngModel)]="appointment.officeId"
-        (ngModelChange)="officeSelected(appointment.officeId)"
-      >
-        <mat-option
-          *ngFor="let cabinet of data.cabinets"
-          [value]="cabinet.id"
-          >{{ cabinet.name }}</mat-option
-        >
+      <mat-select required formControlName="cabinets" [(ngModel)]="appointment.officeId"
+        (ngModelChange)="officeSelected(appointment.officeId)">
+        <mat-option *ngFor="let cabinet of data.cabinets" [value]="cabinet.id">{{ cabinet.name }}</mat-option>
       </mat-select>
       <mat-error *ngIf="form.get('cabinets')?.errors" class="error-tip">
         Please select a cabinet
@@ -22,14 +14,10 @@
 
     <mat-form-field appearance="fill" class="form-item">
       <mat-label>Doctors</mat-label>
-      <mat-select
-        required
-        formControlName="doctors"
-        [(ngModel)]="appointment.doctorId"
-      >
+      <mat-select required formControlName="doctors" [(ngModel)]="appointment.doctorId">
         <mat-option *ngFor="let doctor of data.doctors" [value]="doctor.id">{{
           doctor.firstName + " " + doctor.lastName
-        }}</mat-option>
+          }}</mat-option>
       </mat-select>
       <mat-error *ngIf="form.get('doctors')?.errors" class="error-tip">
         Please select a doctor
@@ -38,35 +26,22 @@
 
     <mat-form-field appearance="fill" class="form-item">
       <mat-label>Date</mat-label>
-      <input
-        required
-        matInput
-        [matDatepicker]="picker"
-        formControlName="date"
-        [matDatepickerFilter]="myFilter"
-        [(ngModel)]="appointment.date"
-      />
-      <mat-datepicker-toggle
-        matIconSuffix
-        [for]="picker"
-      ></mat-datepicker-toggle>
+      <input required matInput [matDatepicker]="picker" formControlName="date" [matDatepickerFilter]="myFilter"
+        [(ngModel)]="appointment.date" />
+      <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
       <mat-datepicker #picker></mat-datepicker>
       <mat-error *ngIf="form.get('date')?.errors" class="error-tip">
         Please select a date
       </mat-error>
     </mat-form-field>
 
-   
+
     <mat-form-field appearance="fill" class="form-item">
       <mat-label>Hour</mat-label>
-      <mat-select
-        required
-        formControlName="hour"
-        [(ngModel)]="appointment.hour"
-      >
+      <mat-select required formControlName="hour" [(ngModel)]="appointment.hour">
         <mat-option *ngFor="let hour of hours" [value]="hour.hour">{{
           hour.hour + ":00"
-        }}</mat-option>
+          }}</mat-option>
       </mat-select>
       <mat-error *ngIf="form.get('hour')?.errors" class="error-tip">
         Please select a hour
@@ -75,21 +50,20 @@
 
     <mat-form-field appearance="fill" class="form-item">
       <mat-label>Description</mat-label>
-      <textarea
-        rows="10"
-        matInput
-        [(ngModel)]="appointment.description"
-        [ngModelOptions]="{ standalone: true }"
-      ></textarea>
+      <textarea rows="10" matInput [(ngModel)]="appointment.description"
+        [ngModelOptions]="{ standalone: true }"></textarea>
     </mat-form-field>
 
+    <div class="info-text">
+      <p>
+        <span class="info-text__title">Consultation fee: </span>
+        <span class="info-text__value">100RON</span>
+      </p>
+    </div>
     <div mat-dialog-actions class="dialog-actions">
       <button mat-raised-button mat-dialog-close>Cancel</button>
-      <button
-        mat-raised-button
-        [mat-dialog-close]="appointment"
-        [class.disabled]="form.invalid"
-      >
+      <button mat-raised-button [mat-dialog-close]="appointment" [class.disabled]="form.invalid"
+        (click)="onSendRequestClick()">
         Send request
       </button>
     </div>
