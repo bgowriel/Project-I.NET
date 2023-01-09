@@ -4,14 +4,18 @@ using DoctorAppointment.Api.Validators;
 using DoctorAppointment.Application.Commands;
 using DoctorAppointment.Application.Queries;
 using MediatR;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System.Diagnostics.CodeAnalysis;
 
 namespace DoctorAppointment.Api.Controllers
 {
+    [ExcludeFromCodeCoverage]
     [ApiController]
     //[Authorize]
-    [Route("api/[controller]")]
+    [Route("api/v{version:apiVersion}/[controller]")]
+    [ApiVersion("1.0")]
+    [ApiVersion("1.5", Deprecated = true)]
+    [ApiVersion("2.0")]
     public class AvailableDateController : ControllerBase
     {
         private readonly IMediator mediator;
@@ -26,13 +30,6 @@ namespace DoctorAppointment.Api.Controllers
         [HttpPost]
         public async Task<IActionResult> AddAvailableDate([FromBody] AvailableDatePutPostDto request)
         {
-            var validator = new AvailableDatePutPostValidator();
-            var validationResult = validator.Validate(request);
-            if (!validationResult.IsValid)
-            {
-                return BadRequest(validationResult.Errors);
-            }
-
             var command = mapper.Map<InsertAvailableDate>(request);
             var result = await mediator.Send(command);
 			return CreatedAtAction(nameof(GetAvailableDateById), new { id = result.Id }, result);

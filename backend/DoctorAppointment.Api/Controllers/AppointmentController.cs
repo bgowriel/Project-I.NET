@@ -4,14 +4,15 @@ using DoctorAppointment.Api.Dto;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using DoctorAppointment.Application.Commands;
-using DoctorAppointment.Api.Validators;
-using Microsoft.AspNetCore.Authorization;
 
 namespace DoctorAppointment.Api.Controllers
 {
     [ApiController]
     //[Authorize]
-    [Route("api/appointments")]
+    [Route("api/v{version:apiVersion}/appointments")]
+    [ApiVersion("1.0")]
+    [ApiVersion("1.5", Deprecated = true)]
+    [ApiVersion("2.0")]
     public class AppointmentController : ControllerBase
     {
         private readonly IMediator _mediator;
@@ -66,6 +67,7 @@ namespace DoctorAppointment.Api.Controllers
             return Ok(mappedResult);
         }
 
+      
 		[HttpGet]
 		[Route("doctor/{doctorId}/date/{date}")]
 		public async Task<IActionResult> GetAppointmentsByDoctorIdAndDate(string doctorId, DateTime date)

@@ -35,9 +35,8 @@ namespace DoctorAppointment.Application
                 await _roleManager.CreateAsync(new IdentityRole("Doctor"));
             }
             
-            // call methods to generate data
             await GenerateOffices(10);
-            await GenerateDoctors(10);
+            await GenerateDoctors(20);
             await GeneratePatients(10);
             await GeneratePatients(10);
             await AddRolesToUsers();
@@ -46,7 +45,6 @@ namespace DoctorAppointment.Application
             await _unitOfWork.Save();
         }
 
-        // add users with Role == "Doctor" to role "Doctor" and users with Role == "Patient" to role "Patient"
         private async Task AddRolesToUsers()
         {
             var users = await _userManager.Users.Take(1000).ToListAsync();
@@ -63,7 +61,6 @@ namespace DoctorAppointment.Application
             }
         }
 
-        // generate mock doctors
         public async Task GenerateDoctors(int howMany)
         {
             var offices = await _unitOfWork.OfficeRepository.GetAll();
@@ -101,7 +98,6 @@ namespace DoctorAppointment.Application
             await _unitOfWork.Save();
         }
 
-        // generate mock patients
         public async Task GeneratePatients(int howMany)
         {
             for (int i = 0; i < howMany; i++)
@@ -121,7 +117,6 @@ namespace DoctorAppointment.Application
             await _unitOfWork.Save();
         }
 
-        // generate mock offices
         public async Task GenerateOffices(int howMany)
         {
             for (int i = 0; i < howMany; i++)
@@ -142,7 +137,6 @@ namespace DoctorAppointment.Application
             await _unitOfWork.Save();
         }
 
-        // generate mock appointments
         public async Task GenerateAppointments(int howMany)
         {
             var doctors = await _userManager.GetUsersInRoleAsync("Doctor");
@@ -151,11 +145,13 @@ namespace DoctorAppointment.Application
             for (int i = 0; i < howMany; i++)
             {
                 var doctor = doctors[RandomNumberGenerator.GetInt32(doctors.Count)];
-                var date = DateTime.Today.AddDays(RandomNumberGenerator.GetInt32(1, 50)).AddHours(RandomNumberGenerator.GetInt32(8, 17)).AddMinutes(0).AddSeconds(0);
+                var date = DateTime.Today.AddDays(RandomNumberGenerator.GetInt32(1, 50)).AddHours(RandomNumberGenerator.GetInt32(8, 16)).AddMinutes(0).AddSeconds(0);
 
                 var appointment = new Appointment
                 {
+                    Id = Guid.NewGuid(),
                     Date = date,
+                    Hour = date.Hour,
                     Description = Faker.Lorem.Sentence(),
                     Status = RandomNumberGenerator.GetInt32(2) == 0 ? "Pending" : "Approved",
                     DoctorId = doctor.Id,
@@ -163,7 +159,20 @@ namespace DoctorAppointment.Application
                     OfficeId = doctor.OfficeId
                 };
 
+                var bill = new Bill
+                {
+                    Id = Guid.NewGuid(),
+                    Date = date,
+                    Description = Faker.Lorem.Sentence(),
+                    Amount = RandomNumberGenerator.GetInt32(100, 1000),
+                    PatientId = appointment.PatientId,
+                    DoctorId = appointment.DoctorId,
+                };
+
+                appointment.BillId = bill.Id;
+
                 await _unitOfWork.AppointmentRepository.Insert(appointment);
+                await _unitOfWork.BillRepository.Insert(bill);
             }
             await _unitOfWork.Save();
         }

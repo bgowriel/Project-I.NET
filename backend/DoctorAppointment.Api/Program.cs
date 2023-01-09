@@ -2,17 +2,13 @@ using DoctorAppointment.Api.Exceptions;
 using DoctorAppointment.Api.Middleware;
 using DoctorAppointment.Api.Services;
 using DoctorAppointment.Application;
-using DoctorAppointment.Application.Interfaces;
 using DoctorAppointment.DataAccess;
-using DoctorAppointment.DataAccess.Repositories;
 using DoctorAppointment.Domain.Models;
-using FluentValidation;
-using MediatR;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Versioning;
 using Microsoft.IdentityModel.Tokens;
-using System.Reflection;
 using System.Text;
 using System.Text.Json.Serialization;
 
@@ -21,12 +17,20 @@ var MyRules = "IMakeTheRules";
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
-
 builder.Services.AddControllers()
     .AddJsonOptions(options => options.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles);
-    
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+
+builder.Services.AddApiVersioning(o =>
+{
+    o.AssumeDefaultVersionWhenUnspecified = true;
+    o.DefaultApiVersion = new ApiVersion(1, 0);
+    o.ReportApiVersions = true;
+    o.ApiVersionReader = ApiVersionReader.Combine(
+        new QueryStringApiVersionReader("api-version"),
+        new HeaderApiVersionReader("X-version"),
+        new MediaTypeApiVersionReader("ver"));
+});
+
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
@@ -36,16 +40,6 @@ builder.Services.AddHttpContextAccessor();
 
 builder.Services.AddDataAccessServices(builder.Configuration);
 
-//builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
-//builder.Services.AddScoped<IAppointmentRepository, AppointmentRepository>();
-//builder.Services.AddScoped<IBillRepository, BillRepository>();
-//builder.Services.AddScoped<IMedicalVisitRepository, MedicalVisitRepository>();
-//builder.Services.AddScoped<IOfficeRepository,OfficeRepository>();
-//builder.Services.AddScoped<IAvailableDateRepository, AvailableDateRepository>();
-
-
-//builder.Services.AddDbContext<DatabaseContext>();
-
 builder.Services.AddIdentity<User, IdentityRole>()
     .AddEntityFrameworkStores<DatabaseContext>();
 
@@ -54,7 +48,6 @@ builder.Services.AddCors(options =>
     options.AddPolicy(name: MyRules,
                       policy =>
                       {
-                          //allow only http://localhost:4200
                           policy.WithOrigins("http://localhost:4200")
                                 .AllowAnyHeader()
                                 .AllowAnyMethod();
@@ -94,19 +87,14 @@ builder.Services.AddAuthorization(options =>
     options.AddPolicy("ApproveAppointments", policy => policy.RequireRole("Doctor"));
 });
 
-//var assemblies = Assembly.GetAssembly(typeof(AssemblyMarker));
-//if (assemblies == null)
-//{
-//    throw new AssemblyException("MediatR assembly not found");
-//}
-
-//builder.Services.AddMediatR(assemblies);
-//builder.Services.AddAutoMapper(typeof(DoctorAppointmentPresentation));
-
 // add SeedDBService to the container
 builder.Services.AddScoped<SeedDBService>();
 
+builder.Services.AddHealthChecks();
+
 var app = builder.Build();
+
+app.UseHealthChecks("/health");
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())

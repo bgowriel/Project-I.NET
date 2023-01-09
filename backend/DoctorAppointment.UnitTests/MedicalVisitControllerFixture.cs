@@ -7,15 +7,10 @@ using DoctorAppointment.Domain.Models;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Moq;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace DoctorAppointment.UnitTests
 {
-	[TestFixture]
+    [TestFixture]
 	public class MedicalVisitControllerFixture
 	{
 		private readonly Mock<IMediator> _mockMediator = new Mock<IMediator>();

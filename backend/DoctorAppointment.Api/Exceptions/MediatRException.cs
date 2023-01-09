@@ -5,7 +5,7 @@ namespace DoctorAppointment.Api.Exceptions
     [Serializable]
     public class MediatRException : Exception
     {
-        public MediatRException(string message) : base(message)
+        public MediatRException(string message) : base("MediatRException " + message)
         {
         }
 

@@ -4,7 +4,7 @@ import { User } from 'app/shared/models/user.model';
 import { Observable } from 'rxjs';
 import { TokenStorageService } from './token-storage.service';
 
-const AUTH_API = 'https://localhost:7221/api/users/';
+const AUTH_API = 'https://localhost:7221/api/v1/users/';
 
 @Injectable({
   providedIn: 'root'

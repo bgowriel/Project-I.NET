@@ -10,7 +10,7 @@ import { catchError, map, Observable } from 'rxjs';
 import { Bill } from '../../shared/models/bill.model';
 
 const baseUrl = 'https://localhost:7221/';
-const billsApi: string = 'api/bills';
+const billsApi: string = 'api/v1/bills';
 
 @Injectable({
   providedIn: 'root',

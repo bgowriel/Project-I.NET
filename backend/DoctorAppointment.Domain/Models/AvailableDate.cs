@@ -1,5 +1,8 @@
-﻿namespace DoctorAppointment.Domain.Models
+﻿using System.Diagnostics.CodeAnalysis;
+
+namespace DoctorAppointment.Domain.Models
 {
+    [ExcludeFromCodeCoverage]
     public class AvailableDate
     {
         public Guid Id { get; set; }

@@ -7,10 +7,10 @@ import { User } from 'app/shared/models/user.model';
 import { Observable } from 'rxjs';
 
 const baseUrl = 'https://localhost:7221/';
-const appointmentsApi: string = 'api/appointments';
-const officesApi: string = 'api/offices'
-const updateUserApi: string = 'api/users/update-user';
-const userApi: string = 'api/users/';
+const appointmentsApi: string = 'api/v1/appointments';
+const officesApi: string = 'api/v1/offices'
+const updateUserApi: string = 'api/v1/users/update-user';
+const userApi: string = 'api/v1/users/';
 
 @Injectable({
   providedIn: 'root'
@@ -24,22 +24,22 @@ export class OfficeService {
   }
 
   public assignDoctorToOffice(doctorId: string, officeId: string): Observable<any> {
-    return this.http.put<any>(baseUrl + "api/users/assign-doctor-to-office/" + doctorId + "/" + officeId, { doctorId, officeId });
+    return this.http.put<any>(baseUrl + "api/v1/users/assign-doctor-to-office/" + doctorId + "/" + officeId, { doctorId, officeId });
   }
 
   public getOfficeById(id: string): Observable<Doctor> {
-    return this.http.get<Doctor>(baseUrl + 'api/offices/' + id);
+    return this.http.get<Doctor>(baseUrl + 'api/v1/offices/' + id);
   }
 
   public registerOffice(office: Office): Observable<any> {
-    return this.http.post(baseUrl + 'api/offices', office);
+    return this.http.post(baseUrl + 'api/v1/offices', office);
   }
 
   public updateOffice(id: string, office: Office): Observable<any> {
-    return this.http.put<any>(baseUrl + 'api/offices/' + id, office);
+    return this.http.put<any>(baseUrl + 'api/v1/offices/' + id, office);
   }
 
   public deleteOffice(id: string): Observable<any> {
-    return this.http.delete<any>(baseUrl + 'api/offices/' + id);
+    return this.http.delete<any>(baseUrl + 'api/v1/offices/' + id);
   }
 }

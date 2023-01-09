@@ -1,5 +1,4 @@
-﻿using DoctorAppointment.Domain.Models;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace DoctorAppointment.Api.Dto
 {
@@ -13,6 +12,7 @@ namespace DoctorAppointment.Api.Dto
 		[Required]
 		[Range(0, int.MaxValue)]
 		public double Amount { get; set; }
+		
 		public string? PatientId { get; set; }
 
 		public string? DoctorId { get; set; }

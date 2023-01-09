@@ -11,7 +11,7 @@ import { catchError, map, Observable } from 'rxjs';
 import { Appointment } from '../../shared/models/appointment.model';
 
 const baseUrl = 'https://localhost:7221/';
-const appointmentsApi: string = 'api/appointments';
+const appointmentsApi: string = 'api/v1/appointments';
 
 @Injectable({
   providedIn: 'root',
@@ -39,15 +39,12 @@ export class AppointmentService {
     return this.http.post(baseUrl + appointmentsApi, appointment);
   }
 
-  public updateAppointment(
-    id: string,
-    appointment: Appointment
-  ): Observable<any> {
-    return this.http.put<any>(baseUrl + 'api/appointments/' + id, appointment);
+  public updateAppointment(id: string, appointment: Appointment): Observable<any> {
+    return this.http.put<any>(baseUrl + 'api/v1/appointments/' + id, appointment);
   }
 
   public deleteAppointment(id: string): Observable<any> {
-    return this.http.delete<any>(baseUrl + 'api/appointments/' + id);
+    return this.http.delete<any>(baseUrl + 'api/v1/appointments/' + id);
   }
 
   public getAppointmentsByDoctorIdAndDate(

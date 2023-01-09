@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { Router } from '@angular/router';
 import { AuthenticationService } from './authentication.service';
 
 const TOKEN_KEY = 'auth-token';
@@ -11,10 +12,11 @@ export class TokenStorageService {
   private email: string = '';
   public isAdmin: boolean = false;
 
-  constructor() { }
+  constructor(private router: Router) {}
 
   signOut() {
     window.sessionStorage.clear();
+    this.router.navigate(['/']);
   }
 
   public saveToken(token: string) {
