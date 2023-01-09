@@ -49,3 +49,7 @@ form {
   border-bottom: 0.1rem solid grey;
   margin-bottom: 5rem;
 }
+.logo img{
+  width:50px;
+  height: auto;
+}

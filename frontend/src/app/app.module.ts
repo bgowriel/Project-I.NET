@@ -46,7 +46,6 @@ import { AddOfficePageComponent } from './patient/add-office-page/add-office-pag
 import { AdminPageComponent } from './admin/admin-page/admin-page.component';
 import { PatientBillingPageComponent } from './patient/patient-billing-page/patient-billing-page.component';
 import { PatientMedicalHistoryPageComponent } from './patient/patient-medical-history-page/patient-medical-history-page.component';
-
 @NgModule({
   declarations: [
     AppComponent,
