@@ -1,4 +1,8 @@
-import { HttpClient, HttpErrorResponse, HttpResponse } from '@angular/common/http';
+import {
+  HttpClient,
+  HttpErrorResponse,
+  HttpResponse,
+} from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Doctor } from 'app/shared/models/doctor.model';
 import { Office } from 'app/shared/models/office.model';
@@ -10,29 +14,35 @@ const baseUrl = 'https://localhost:7221/';
 const appointmentsApi: string = 'api/appointments';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class AppointmentService {
-
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
 
   public getAppointments(): Observable<Appointment[]> {
     return this.http.get<Appointment[]>(baseUrl + appointmentsApi);
   }
 
   public getAppointmentsByPatientId(id: string): Observable<Appointment[]> {
-    return this.http.get<Appointment[]>(baseUrl + appointmentsApi + '/patient/' + id);
+    return this.http.get<Appointment[]>(
+      baseUrl + appointmentsApi + '/patient/' + id
+    );
   }
 
   public getAppointmentsByDoctorId(id: string): Observable<Appointment[]> {
-    return this.http.get<Appointment[]>(baseUrl + appointmentsApi + '/doctor/' + id);
+    return this.http.get<Appointment[]>(
+      baseUrl + appointmentsApi + '/doctor/' + id
+    );
   }
 
   public createAppointment(appointment: Appointment): Observable<any> {
     return this.http.post(baseUrl + appointmentsApi, appointment);
   }
 
-  public updateAppointment(id: string, appointment: Appointment): Observable<any> {
+  public updateAppointment(
+    id: string,
+    appointment: Appointment
+  ): Observable<any> {
     return this.http.put<any>(baseUrl + 'api/appointments/' + id, appointment);
   }
 
@@ -40,4 +50,13 @@ export class AppointmentService {
     return this.http.delete<any>(baseUrl + 'api/appointments/' + id);
   }
 
+  public getAppointmentsByDoctorIdAndDate(
+    id: string,
+    date: Date
+  ): Observable<Appointment[]> {
+    let jsonDate = date.toJSON();
+    return this.http.get<Appointment[]>(
+      baseUrl + appointmentsApi + '/doctor/' + id + '/date/' + jsonDate
+    );
+  }
 }
