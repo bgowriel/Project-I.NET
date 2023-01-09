@@ -126,7 +126,7 @@ namespace DoctorAppointment.UnitTests
             _appointmentGetDto.PatientId = "1";
 
             _mockMediator.Setup(m => m.Send(It.IsAny<UpdateAppointment>(), It.IsAny<CancellationToken>()))
-                .ReturnsAsync((Appointment)null);
+                .ReturnsAsync(_appointment);
 
             var controller = new AppointmentController(_mockMediator.Object, _mockMapper.Object);
 
@@ -175,7 +175,7 @@ namespace DoctorAppointment.UnitTests
         {
             // Arrange
             _mockMediator.Setup(m => m.Send(It.IsAny<GetAppointmentById>(), It.IsAny<CancellationToken>()))
-                .ReturnsAsync((Appointment)null);
+                .ReturnsAsync(_appointment);
 
             var controller = new AppointmentController(_mockMediator.Object, _mockMapper.Object);
 
@@ -280,7 +280,7 @@ namespace DoctorAppointment.UnitTests
         {
             // Arrange
             _mockMediator.Setup(m => m.Send(It.IsAny<DeleteAppointment>(), It.IsAny<CancellationToken>()))
-                .ReturnsAsync((Appointment)null);
+                .ReturnsAsync(_appointment);
 
             var controller = new AppointmentController(_mockMediator.Object, _mockMapper.Object);
 

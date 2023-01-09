@@ -107,7 +107,7 @@ namespace DoctorAppointment.UnitTests
         {
             // Arrange
             _mockMediator.Setup(m => m.Send(It.IsAny<GetAvailableDateById>(), It.IsAny<CancellationToken>()))
-                .ReturnsAsync((AvailableDate)null);
+                .ReturnsAsync(new AvailableDate());
 
             var controller = new AvailableDateController(_mockMediator.Object, _mockMapper.Object);
 

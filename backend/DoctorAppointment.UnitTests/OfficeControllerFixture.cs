@@ -119,9 +119,9 @@ namespace DoctorAppointment.UnitTests
 		[Test]
         public async Task GetOfficeByIdReturnNotFound()
         {
-            // Arrange
-            _mockMediator.Setup(m => m.Send(It.IsAny<GetOfficeById>(), It.IsAny<CancellationToken>()))
-                .ReturnsAsync((Office)null);
+			// Arrange
+			_mockMediator.Setup(m => m.Send(It.IsAny<GetOfficeById>(), It.IsAny<CancellationToken>()))
+				.ReturnsAsync(new Office());
 
             var controller = new OfficeController(_mockMediator.Object, _mockMapper.Object);
 

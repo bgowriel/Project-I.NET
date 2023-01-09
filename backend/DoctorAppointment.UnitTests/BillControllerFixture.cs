@@ -114,7 +114,7 @@ namespace DoctorAppointment.UnitTests
         {
             // Arrange
             _mockMediator.Setup(m => m.Send(It.IsAny<GetBillById>(), It.IsAny<CancellationToken>()))
-                .ReturnsAsync((Bill)null);
+                .ReturnsAsync(new Bill());
 
             // Act
             var billController = new BillController(_mockMediator.Object, _mockMapper.Object);
@@ -136,6 +136,11 @@ namespace DoctorAppointment.UnitTests
             // Act
             var billController = new BillController(_mockMediator.Object, _mockMapper.Object);
 
+			if (_bill.PatientId == null)
+            {
+                throw new ArgumentNullException(nameof(_bill.PatientId));
+            }
+
             var result = await billController.GetBillsByPatientId(_bill.PatientId);
 
             // Assert
@@ -153,6 +158,10 @@ namespace DoctorAppointment.UnitTests
             // Act
             var billController = new BillController(_mockMediator.Object, _mockMapper.Object);
 
+			if (_bill.DoctorId == null)
+			{
+                throw new ArgumentNullException(nameof(_bill.DoctorId));
+            }
             var result = await billController.GetBillsByDoctorId(_bill.DoctorId);
 
             // Assert
