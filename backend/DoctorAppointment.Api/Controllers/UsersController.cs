@@ -8,6 +8,7 @@ using MediatR;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
+using System.Drawing.Printing;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
@@ -179,7 +180,7 @@ namespace DoctorAppointment.Api.Controllers
             return Ok(userGetDto);
         }
 
-        [HttpPost]
+		[HttpPost]
         //[Authorize]
         [Route("assign-role")]
         public async Task<IActionResult> AssignRole([FromBody] string userName, string roleName)
