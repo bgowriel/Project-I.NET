@@ -1,10 +1,7 @@
-﻿using DoctorAppointment.Api;
-using DoctorAppointment.Api.Exceptions;
-using DoctorAppointment.Application.Interfaces;
+﻿using DoctorAppointment.Api.Exceptions;
 using FluentValidation;
 using FluentValidation.AspNetCore;
 using MediatR;
-using Microsoft.Extensions.DependencyInjection;
 using System.Reflection;
 
 namespace DoctorAppointment.Application
@@ -20,9 +17,7 @@ namespace DoctorAppointment.Application
             }
 
             services.AddMediatR(assemblies);
-            //services.AddAutoMapper(typeof(DoctorAppointmentPresentation));
             services.AddAutoMapper(Assembly.GetExecutingAssembly());
-            //services.AddMediatR(Assembly.GetExecutingAssembly());
             services.AddFluentValidationAutoValidation();
             services.AddValidatorsFromAssembly(Assembly.GetExecutingAssembly());
             return services;

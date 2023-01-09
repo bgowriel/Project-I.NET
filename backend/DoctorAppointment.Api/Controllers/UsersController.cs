@@ -5,10 +5,8 @@ using DoctorAppointment.Application.Commands;
 using DoctorAppointment.Application.Queries;
 using DoctorAppointment.Domain.Models;
 using MediatR;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
@@ -16,7 +14,7 @@ using System.Text;
 
 namespace DoctorAppointment.Api.Controllers
 {
-	[Route("api/v{version:apiVersion}/users")]
+    [Route("api/v{version:apiVersion}/users")]
     [ApiController]
     [ApiVersion("1.0")]
     [ApiVersion("1.5", Deprecated = true)]
@@ -71,7 +69,6 @@ namespace DoctorAppointment.Api.Controllers
         {
             await InitializeRoles();
 
-            //if role different from Admin, Patient or Doctor return BadRequest
             if (model.Role != "Admin" && model.Role != "Patient" && model.Role != "Doctor")
             {
                 return BadRequest(new { message = "Role must be Admin, Patient or Doctor" });
@@ -86,14 +83,6 @@ namespace DoctorAppointment.Api.Controllers
             if (userExists != null)
             {
                 return BadRequest(new { message = "User already exists!" });
-            }
-
-            //validate user
-            var validator = new RegisterModelValidator();
-            var validationResult = validator.Validate(model);
-            if (!validationResult.IsValid)
-            {
-                return BadRequest(validationResult.Errors);
             }
 
             var command = _mapper.Map<InsertUser>(model);
@@ -112,14 +101,6 @@ namespace DoctorAppointment.Api.Controllers
         [Route("login")]
         public async Task<IActionResult> Login([FromBody] LoginModel model)
         {
-            //validate user
-            var validator = new LoginModelValidator();
-            var validationResult = validator.Validate(model);
-            if (!validationResult.IsValid)
-            {
-                return BadRequest(validationResult.Errors);
-            }
-
             if (model.Email == null || model.Password == null)
             {
                 return BadRequest(new { message = "Email and Password are required" });

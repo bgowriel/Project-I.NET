@@ -4,8 +4,6 @@ using DoctorAppointment.Api.Dto;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using DoctorAppointment.Application.Commands;
-using DoctorAppointment.Api.Validators;
-using Microsoft.AspNetCore.Authorization;
 
 namespace DoctorAppointment.Api.Controllers
 {
@@ -69,7 +67,6 @@ namespace DoctorAppointment.Api.Controllers
             return Ok(mappedResult);
         }
 
-        // get appointments by patient id
         [HttpGet]
         [Route("patient/{id}")]
         public async Task<IActionResult> GetAppointmentsByPatientId(string id)

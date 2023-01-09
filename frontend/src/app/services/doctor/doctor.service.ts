@@ -25,7 +25,7 @@ export class DoctorService {
   }
 
   public getDoctorsByOfficeId(id: string): Observable<Doctor[]> {
-    return this.http.get<Doctor[]>(baseUrl + 'doctors/' + id);
+    return this.http.get<Doctor[]>(baseUrl + 'api/v1/offices/doctors/' + id);
   }
 
   public updateDoctor(user: User): Observable<any>{

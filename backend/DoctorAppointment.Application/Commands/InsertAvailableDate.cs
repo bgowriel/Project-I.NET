@@ -5,11 +5,11 @@ namespace DoctorAppointment.Application.Commands
 {
     public class InsertAvailableDate :IRequest<AvailableDate>
     {
-            public Guid Id { get; set; }
+        public Guid Id { get; set; }
 
-            public DateTime Date { get; set; }
+        public DateTime Date { get; set; }
 
-            public bool Free { get; set; }
+        public bool Free { get; set; }
 
     }
 }

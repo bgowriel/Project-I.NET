@@ -4,13 +4,12 @@ using DoctorAppointment.Api.Validators;
 using DoctorAppointment.Application.Commands;
 using DoctorAppointment.Application.Queries;
 using MediatR;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace DoctorAppointment.Api.Controllers
 {
 
-	[ApiController]
+    [ApiController]
 	//[Authorize]
 	[Route("api/v{version:apiVersion}/offices")]
     [ApiVersion("1.0")]
@@ -29,14 +28,6 @@ namespace DoctorAppointment.Api.Controllers
 		[HttpPost]
 		public async Task<IActionResult> AddOffice([FromBody] OfficePutPostDto office)
 		{
-           
-            var validator = new OfficePutPostDtoValidator();
-            var validationResult = validator.Validate(office);
-            if (!validationResult.IsValid)
-            {
-                return BadRequest(validationResult.Errors);
-            }
-
             var command = _mapper.Map<InsertOffice>(office);
 			var created = await _mediator.Send(command);
 			var createdDto = _mapper.Map<OfficeGetDto>(created);
@@ -67,7 +58,7 @@ namespace DoctorAppointment.Api.Controllers
 		}
 
 		[HttpGet]
-		[Route("/doctors/{id}")]
+		[Route("doctors/{id}")]
 		public async Task<IActionResult> GetDoctors(Guid id)
 		{
 			var doctors = await _mediator.Send(new GetAllDoctors() { OfficeId = id});
@@ -76,49 +67,49 @@ namespace DoctorAppointment.Api.Controllers
 		}
 	
 
-	[HttpPut]
-	[Route("{id}")]
-	public async Task<IActionResult> UpdateOffice(Guid id, [FromBody] OfficePutPostDto request)
-	{
-		var command = new UpdateOffice()
+		[HttpPut]
+		[Route("{id}")]
+		public async Task<IActionResult> UpdateOffice(Guid id, [FromBody] OfficePutPostDto request)
 		{
-			Id = id,
-			Name = request.Name,
-			Description = request.Description,
-			Address = request.Address,
-			City = request.City,
-			Email = request.Email,
-			Phone = request.Phone,
-			Status = request.Status,
-		};
+			var command = new UpdateOffice()
+			{
+				Id = id,
+				Name = request.Name,
+				Description = request.Description,
+				Address = request.Address,
+				City = request.City,
+				Email = request.Email,
+				Phone = request.Phone,
+				Status = request.Status,
+			};
 
-		var updated = await _mediator.Send(command);
+			var updated = await _mediator.Send(command);
 
-		if (updated == null)
-		{
-			return NotFound();
+			if (updated == null)
+			{
+				return NotFound();
+			}
+
+			var updatedDto = _mapper.Map<OfficeGetDto>(updated);
+
+			return Ok(updatedDto);
 		}
 
-		var updatedDto = _mapper.Map<OfficeGetDto>(updated);
-
-		return Ok(updatedDto);
-	}
-
-	[HttpDelete]
-	[Route("{id}")]
-	public async Task<IActionResult> DeleteOffice(Guid id)
-	{
-		var command = new DeleteOffice() { Id = id };
-		var deleted = await _mediator.Send(command);
-
-		if (deleted == null)
+		[HttpDelete]
+		[Route("{id}")]
+		public async Task<IActionResult> DeleteOffice(Guid id)
 		{
-			return NotFound();
+			var command = new DeleteOffice() { Id = id };
+			var deleted = await _mediator.Send(command);
+
+			if (deleted == null)
+			{
+				return NotFound();
+			}
+
+			var deletedDto = _mapper.Map<OfficeGetDto>(deleted);
+
+			return Ok(deletedDto);
 		}
-
-		var deletedDto = _mapper.Map<OfficeGetDto>(deleted);
-
-		return Ok(deletedDto);
 	}
-}
 }

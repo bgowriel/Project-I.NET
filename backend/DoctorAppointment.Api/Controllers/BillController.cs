@@ -4,14 +4,13 @@ using DoctorAppointment.Api.Validators;
 using DoctorAppointment.Application.Commands;
 using DoctorAppointment.Application.Queries;
 using MediatR;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace DoctorAppointment.Api.Controllers
 {
     [ApiController]
     //[Authorize]
-    [Route("api/v{version:apiVersion}/[controller]")]
+    [Route("api/v{version:apiVersion}/bills")]
     [ApiVersion("1.0")]
     [ApiVersion("1.5", Deprecated = true)]
     [ApiVersion("2.0")]
@@ -29,13 +28,6 @@ namespace DoctorAppointment.Api.Controllers
         [HttpPost]
         public async Task<IActionResult> AddBill([FromBody] BillPutPostDto billPutPostDto)
         {
-            var validator = new BillPutPostDtoValidator();
-            var validationResult = validator.Validate(billPutPostDto);
-            if (!validationResult.IsValid)
-            {
-                return BadRequest(validationResult.Errors);
-            }
-
             var command = mapper.Map<InsertBill>(billPutPostDto);
             var created = await mediator.Send(command);
             var createdDto = mapper.Map<BillGetDto>(created);

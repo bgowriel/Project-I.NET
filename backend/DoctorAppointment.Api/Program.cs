@@ -2,18 +2,13 @@ using DoctorAppointment.Api.Exceptions;
 using DoctorAppointment.Api.Middleware;
 using DoctorAppointment.Api.Services;
 using DoctorAppointment.Application;
-using DoctorAppointment.Application.Interfaces;
 using DoctorAppointment.DataAccess;
-using DoctorAppointment.DataAccess.Repositories;
 using DoctorAppointment.Domain.Models;
-using FluentValidation;
-using MediatR;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Versioning;
 using Microsoft.IdentityModel.Tokens;
-using System.Reflection;
 using System.Text;
 using System.Text.Json.Serialization;
 
@@ -53,7 +48,6 @@ builder.Services.AddCors(options =>
     options.AddPolicy(name: MyRules,
                       policy =>
                       {
-                          //allow only http://localhost:4200
                           policy.WithOrigins("http://localhost:4200")
                                 .AllowAnyHeader()
                                 .AllowAnyMethod();

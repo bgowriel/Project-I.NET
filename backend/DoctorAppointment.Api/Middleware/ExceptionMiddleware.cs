@@ -1,5 +1,4 @@
 ﻿using DoctorAppointment.Api.Exceptions;
-using Newtonsoft.Json;
 using System.Net;
 
 namespace DoctorAppointment.Api.Middleware
@@ -31,7 +30,7 @@ namespace DoctorAppointment.Api.Middleware
 
         private static async Task HandleGlobalExceptionAsync(HttpContext context, Exception exception)
         {
-            var code = HttpStatusCode.InternalServerError; // 500 if unexpected
+            var code = HttpStatusCode.InternalServerError;
 
             if (exception is NotFoundException) code = HttpStatusCode.NotFound;
             else if (exception is UnauthorizedException) code = HttpStatusCode.Unauthorized;

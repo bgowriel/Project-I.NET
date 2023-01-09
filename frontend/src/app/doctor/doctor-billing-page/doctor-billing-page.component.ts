@@ -85,7 +85,7 @@ export class DoctorBillingPageComponent implements OnInit {
 
       console.log(result);
 
-    if (result) {
+    if (result.length >= 0) {
       try {
         this.dataSource = await this.mapBillsData(result);
       } catch (error) {

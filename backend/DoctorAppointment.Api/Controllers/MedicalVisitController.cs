@@ -4,11 +4,12 @@ using DoctorAppointment.Api.Validators;
 using DoctorAppointment.Application.Commands;
 using DoctorAppointment.Application.Queries;
 using MediatR;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System.Diagnostics.CodeAnalysis;
 
 namespace DoctorAppointment.Api.Controllers
 {
+    [ExcludeFromCodeCoverage]
     [ApiController]
     //[Authorize]
     [Route("api/v{version:apiVersion}/[controller]")]
@@ -29,13 +30,6 @@ namespace DoctorAppointment.Api.Controllers
         [HttpPost]
         public async Task<IActionResult> AddMedicalVisit([FromBody] MedicalVisitPutPostDto medicalVisitPutPostDto)
         {
-            var validator = new MedicalVisitPutPostDtoValidator();
-            var validationResult = validator.Validate(medicalVisitPutPostDto);
-            if (!validationResult.IsValid)
-            {
-                return BadRequest(validationResult.Errors);
-            }
-
             var command = mapper.Map<InsertMedicalVisit>(medicalVisitPutPostDto);
             var created = await mediator.Send(command);
             var createdDto = mapper.Map<MedicalVisitGetDto>(created);
