@@ -111,9 +111,9 @@ namespace DoctorAppointment.UnitTests
 		[Test]
         public async Task GetMedicalVisitByIdReturnNotFound()
         {
-            // Arrange
-            _mockMediator.Setup(m => m.Send(It.IsAny<GetMedicalVisitById>(), It.IsAny<CancellationToken>()))
-                .ReturnsAsync((MedicalVisit)null);
+			// Arrange
+			_mockMediator.Setup(m => m.Send(It.IsAny<GetMedicalVisitById>(), It.IsAny<CancellationToken>()))
+				.ReturnsAsync(new MedicalVisit());
 
             var controller = new MedicalVisitController(_mockMediator.Object, _mockMapper.Object);
 
