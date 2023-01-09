@@ -9,7 +9,7 @@ using System.Diagnostics.CodeAnalysis;
 
 namespace DoctorAppointment.Api.Controllers
 {
-    [ExcludeFromCodeCoverage]
+    //[ExcludeFromCodeCoverage]
     [ApiController]
     //[Authorize]
     [Route("api/v{version:apiVersion}/[controller]")]

@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
 using Microsoft.AspNetCore.Mvc;
 using DoctorAppointment.Application.Queries;
+using System.IdentityModel.Tokens.Jwt;
 
 namespace DoctorAppointment.UnitTests
 {
@@ -22,8 +23,9 @@ namespace DoctorAppointment.UnitTests
         private Mock<UserManager<User>> _mockUserManager = new Mock<UserManager<User>>(Mock.Of<IUserStore<User>>(), null, null, null, null, null, null, null, null);
         private User _user;
         private UserGetDto _userGetDto;
-        //RegisterModel is the UserPutPostDto
         private RegisterModel _registerModel;
+        private LoginModel _loginModel;
+        private JwtSecurityToken _jwtSecurityToken;
 
         [SetUp]
         public void Setup()
@@ -58,6 +60,14 @@ namespace DoctorAppointment.UnitTests
                 PhoneNumber = "01298319024721"
             };
 
+            _loginModel = new LoginModel
+            {
+                Email = "carl.testito@example.com",
+                Password = "CarlTestito.2022"
+            };
+
+            _jwtSecurityToken = new JwtSecurityToken();
+
             _mockMapper = MappingData();
         }
 
@@ -77,7 +87,7 @@ namespace DoctorAppointment.UnitTests
         }
 
         [Test]
-        public async Task PostUser_WhenCalled_ReturnsOkResult()
+        public async Task _PostUser_WhenCalled_ReturnsOkResult()
         {
             // Arrange
             _mockMediator.Setup(m => m.Send(It.IsAny<InsertUser>(), It.IsAny<CancellationToken>())).ReturnsAsync(_user);
@@ -91,8 +101,26 @@ namespace DoctorAppointment.UnitTests
             Assert.That(result, Is.InstanceOf<CreatedAtActionResult>());
         }
 
+        // test login with _user
         [Test]
-        public async Task PostUser_WhenCalled_ReturnsCorrectItem()
+        public async Task LoginUserReturnsBadRequest()
+        {
+            // Arrange
+            _mockUserManager.Setup(m => m.FindByNameAsync("carl.testito@example.com")).ReturnsAsync(_user);
+            _mockUserManager.Setup(m => m.CheckPasswordAsync(_user, "CarlTestito.2022")).ReturnsAsync(true);
+            _mockUserManager.Setup(m => m.GetRolesAsync(_user)).ReturnsAsync(new List<string> { "Patient" });
+
+            var controller = new UsersController(_mockConfiguration.Object, _mockUserManager.Object, _mockRoleManager.Object, _mockMediator.Object, _mockMapper.Object);
+
+            // Act
+            var result = await controller.Login(_loginModel);
+
+            // Assert
+            Assert.That(result, Is.InstanceOf<BadRequestObjectResult>());
+        }
+
+        [Test]
+        public async Task _PostUser_WhenCalled_ReturnsCorrectItem()
         {
             // Arrange
             _mockMediator.Setup(m => m.Send(It.IsAny<InsertUser>(), It.IsAny<CancellationToken>())).ReturnsAsync(_user);
@@ -185,6 +213,52 @@ namespace DoctorAppointment.UnitTests
 
             // Assert
             Assert.That(result, Is.InstanceOf<NotFoundResult>());
+        }
+
+        //test login
+        [Test]
+        public async Task Login_WhenCalled_ReturnsUnauthorized()
+        {
+            // Arrange
+            _mockMediator.Setup(m => m.Send(It.IsAny<LoginModel>(), It.IsAny<CancellationToken>())).ReturnsAsync(new User());
+
+            var controller = new UsersController(_mockConfiguration.Object, _mockUserManager.Object, _mockRoleManager.Object, _mockMediator.Object, _mockMapper.Object);
+
+            // Act
+            var result = await controller.Login(_loginModel);
+
+            // Assert
+            Assert.That(result, Is.InstanceOf<UnauthorizedResult>());
+        }
+
+        [Test]
+        public async Task GetUsers_WhenCalled_ReturnsOkResult()
+        {
+            // Arrange
+            _mockMediator.Setup(m => m.Send(It.IsAny<GetAllUsers>(), It.IsAny<CancellationToken>())).ReturnsAsync(new List<User>());
+
+            var controller = new UsersController(_mockConfiguration.Object, _mockUserManager.Object, _mockRoleManager.Object, _mockMediator.Object, _mockMapper.Object);
+
+            // Act
+            var result = await controller.GetUsers();
+
+            // Assert
+            Assert.That(result, Is.InstanceOf<OkObjectResult>());
+        }
+
+        [Test]
+        public async Task AssignRole_WhenCalled_ReturnsBadRequest()
+        {
+            // Arrange
+            _mockUserManager.Setup(m => m.FindByNameAsync(It.IsAny<string>())).ReturnsAsync(_user);
+
+            var controller = new UsersController(_mockConfiguration.Object, _mockUserManager.Object, _mockRoleManager.Object, _mockMediator.Object, _mockMapper.Object);
+
+            // Act
+            var result = await controller.AssignRole("carl.testito@example.com", "Doctor");
+
+            // Assert
+            Assert.That(result, Is.InstanceOf<BadRequestObjectResult>());
         }
     }
 }

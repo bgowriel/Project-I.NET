@@ -109,7 +109,35 @@ namespace DoctorAppointment.UnitTests
 			Assert.That(result, Is.InstanceOf<OkObjectResult>());
 		}
 
-		[Test]  
+        [Test]
+        public async Task UpdateAppointmentReturnsNotFound()
+        {
+            // Arrange
+            AppointmentPutPostDto appointmentToUpdate = new AppointmentPutPostDto
+            {
+                Date = DateTime.Now,
+                Description = "Test",
+                Status = "Approved",
+                DoctorId = "1",
+                PatientId = "1"
+            };
+            _appointmentGetDto.Status = "Approved";
+            _appointmentGetDto.DoctorId = "1";
+            _appointmentGetDto.PatientId = "1";
+
+            _mockMediator.Setup(m => m.Send(It.IsAny<UpdateAppointment>(), It.IsAny<CancellationToken>()))
+                .ReturnsAsync((Appointment)null);
+
+            var controller = new AppointmentController(_mockMediator.Object, _mockMapper.Object);
+
+            // Act
+            var result = await controller.UpdateAppointment(_appointment.Id, appointmentToUpdate);
+
+            // Assert
+            Assert.That(result, Is.InstanceOf<NotFoundResult>());
+        }
+
+        [Test]  
 		public async Task GetAllAppointmentsReturnAllExistingAppointments()
         {
 			// Arrange
@@ -141,6 +169,22 @@ namespace DoctorAppointment.UnitTests
 			// Assert
 			Assert.That(result, Is.InstanceOf<OkObjectResult>());
 		}
+
+        [Test]
+        public async Task GetAppointmentByIdReturnsNotFound()
+        {
+            // Arrange
+            _mockMediator.Setup(m => m.Send(It.IsAny<GetAppointmentById>(), It.IsAny<CancellationToken>()))
+                .ReturnsAsync((Appointment)null);
+
+            var controller = new AppointmentController(_mockMediator.Object, _mockMapper.Object);
+
+            // Act
+            var result = await controller.GetAppointmentById(_appointment.Id);
+
+            // Assert
+            Assert.That(result, Is.InstanceOf<NotFoundResult>());
+        }
 
         [Test]
 		public async Task GetAppointmentsByDateReturnsAllAppointmentsByGivenDate()
@@ -230,5 +274,21 @@ namespace DoctorAppointment.UnitTests
 			// Assert
 			Assert.That(result, Is.InstanceOf<OkObjectResult>());
 		}
-	}
+
+        [Test]
+        public async Task DeleteAppointmentReturnsNotFound()
+        {
+            // Arrange
+            _mockMediator.Setup(m => m.Send(It.IsAny<DeleteAppointment>(), It.IsAny<CancellationToken>()))
+                .ReturnsAsync((Appointment)null);
+
+            var controller = new AppointmentController(_mockMediator.Object, _mockMapper.Object);
+
+            // Act
+            var result = await controller.DeleteAppointment(_appointment.Id);
+
+            // Assert
+            Assert.That(result, Is.InstanceOf<NotFoundResult>());
+        }
+    }
 }

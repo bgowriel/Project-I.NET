@@ -107,6 +107,22 @@ namespace DoctorAppointment.UnitTests
 			// Assert
 			Assert.That(result, Is.InstanceOf<OkObjectResult>());
 		}
-	}
+
+		[Test]
+        public async Task GetMedicalVisitByIdReturnNotFound()
+        {
+            // Arrange
+            _mockMediator.Setup(m => m.Send(It.IsAny<GetMedicalVisitById>(), It.IsAny<CancellationToken>()))
+                .ReturnsAsync((MedicalVisit)null);
+
+            var controller = new MedicalVisitController(_mockMediator.Object, _mockMapper.Object);
+
+            // Act
+            var result = await controller.GetMedicalVisitById(_medicalVisit.Id);
+
+            // Assert
+            Assert.That(result, Is.InstanceOf<NotFoundResult>());
+        }
+    }
 	
 }

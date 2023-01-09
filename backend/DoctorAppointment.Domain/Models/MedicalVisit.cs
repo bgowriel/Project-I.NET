@@ -3,7 +3,7 @@ using System.Diagnostics.CodeAnalysis;
 
 namespace DoctorAppointment.Domain.Models
 {
-    [ExcludeFromCodeCoverage]    
+    //[ExcludeFromCodeCoverage]    
     public class MedicalVisit
     {
         public Guid Id { get; set; }

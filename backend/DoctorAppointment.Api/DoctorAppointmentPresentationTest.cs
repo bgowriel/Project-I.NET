@@ -4,8 +4,11 @@ using DoctorAppointment.Application.Interfaces;
 using DoctorAppointment.DataAccess;
 using DoctorAppointment.DataAccess.Repositories;
 using DoctorAppointment.Domain.Models;
+using FluentValidation.AspNetCore;
 using MediatR;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Versioning;
 using System.Reflection;
 
 namespace DoctorAppointment.Api
@@ -15,6 +18,17 @@ namespace DoctorAppointment.Api
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
+            services.AddApiVersioning(o =>
+            {
+                o.AssumeDefaultVersionWhenUnspecified = true;
+                o.DefaultApiVersion = new ApiVersion(1, 0);
+                o.ReportApiVersions = true;
+                o.ApiVersionReader = ApiVersionReader.Combine(
+                    new QueryStringApiVersionReader("api-version"),
+                    new HeaderApiVersionReader("X-version"),
+                    new MediaTypeApiVersionReader("ver"));
+            });
+
             var mediatR = Assembly.GetAssembly(typeof(AssemblyMarker));
             
             if (mediatR == null)
@@ -23,7 +37,8 @@ namespace DoctorAppointment.Api
             }
             services.AddMediatR(mediatR);
             services.AddAutoMapper(typeof(DoctorAppointmentPresentation));
-            
+            services.AddFluentValidationAutoValidation();
+
             services.AddScoped<IUnitOfWork, UnitOfWork>();
             services.AddScoped<IAppointmentRepository, AppointmentRepository>();
             services.AddScoped<IBillRepository, BillRepository>();
@@ -39,6 +54,8 @@ namespace DoctorAppointment.Api
             app.UseHttpsRedirection();
 
             app.UseRouting();
+
+            app.UseAuthentication();
 
             app.UseAuthorization();
 

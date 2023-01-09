@@ -2,7 +2,7 @@
 
 namespace DoctorAppointment.Domain.Models
 {
-    [ExcludeFromCodeCoverage]
+    //[ExcludeFromCodeCoverage]
     public class AvailableDate
     {
         public Guid Id { get; set; }

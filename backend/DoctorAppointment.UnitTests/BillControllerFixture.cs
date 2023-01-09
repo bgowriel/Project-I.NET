@@ -108,5 +108,55 @@ namespace DoctorAppointment.UnitTests
 			// Assert
 			Assert.That(result, Is.InstanceOf<OkObjectResult>());
 		}
-	}
+
+        [Test]
+        public async Task GetBillByIdReturnsNotFoundIfBillIsNotFound()
+        {
+            // Arrange
+            _mockMediator.Setup(m => m.Send(It.IsAny<GetBillById>(), It.IsAny<CancellationToken>()))
+                .ReturnsAsync((Bill)null);
+
+            // Act
+            var billController = new BillController(_mockMediator.Object, _mockMapper.Object);
+
+            var result = await billController.GetBillById(_bill.Id);
+
+            // Assert
+            Assert.That(result, Is.InstanceOf<NotFoundResult>());
+        }
+
+        [Test]
+        public async Task GetBillsByPatientIdReturnsOk()
+        {
+            // Arrange
+            var bills = new List<Bill> { _bill };
+            _mockMediator.Setup(m => m.Send(It.IsAny<GetBillsByPatientId>(), It.IsAny<CancellationToken>()))
+                .ReturnsAsync(bills);
+
+            // Act
+            var billController = new BillController(_mockMediator.Object, _mockMapper.Object);
+
+            var result = await billController.GetBillsByPatientId(_bill.PatientId);
+
+            // Assert
+            Assert.That(result, Is.InstanceOf<OkObjectResult>());
+        }
+
+        [Test]
+        public async Task GetBillsByDoctorIdReturnsOk()
+        {
+            // Arrange
+            var bills = new List<Bill> { _bill };
+            _mockMediator.Setup(m => m.Send(It.IsAny<GetBillsByDoctorId>(), It.IsAny<CancellationToken>()))
+                .ReturnsAsync(bills);
+
+            // Act
+            var billController = new BillController(_mockMediator.Object, _mockMapper.Object);
+
+            var result = await billController.GetBillsByDoctorId(_bill.DoctorId);
+
+            // Assert
+            Assert.That(result, Is.InstanceOf<OkObjectResult>());
+        }
+    }
 }

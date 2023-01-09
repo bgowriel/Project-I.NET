@@ -42,7 +42,7 @@ namespace DoctorAppointment.IntegrationTests
             };
 
             // act
-            var response = await client.PostAsJsonAsync("/api/users/register", user);
+            var response = await client.PostAsJsonAsync("/api/v1/users/register", user);
             response.EnsureSuccessStatusCode();
 
             // assert
@@ -60,7 +60,7 @@ namespace DoctorAppointment.IntegrationTests
 			}
 			var client = _factory.CreateClient();
 			// act
-			var response = await client.GetAsync("/api/users");
+			var response = await client.GetAsync("/api/v1/users");
             response.EnsureSuccessStatusCode();
             var users = await response.Content.ReadFromJsonAsync<List<User>>();
 			
@@ -84,7 +84,7 @@ namespace DoctorAppointment.IntegrationTests
             // arrange
             var client = _factory.CreateClient();
 
-            var response = await client.GetAsync("/api/users");
+            var response = await client.GetAsync("/api/v1/users");
             response.EnsureSuccessStatusCode();
             var users = await response.Content.ReadFromJsonAsync<List<User>>();
 			if (users == null)
@@ -93,7 +93,7 @@ namespace DoctorAppointment.IntegrationTests
 			}
 
 			// act
-			var userResponse = await client.GetAsync($"/api/users/{users[0].Id}");
+			var userResponse = await client.GetAsync($"/api/v1/users/{users[0].Id}");
             userResponse.EnsureSuccessStatusCode();
             var user = await userResponse.Content.ReadFromJsonAsync<User>();
 
@@ -120,7 +120,7 @@ namespace DoctorAppointment.IntegrationTests
 			var client = _factory.CreateClient();
 			
 		
-            var response = await client.GetAsync("/api/users");
+            var response = await client.GetAsync("/api/v1/users");
             response.EnsureSuccessStatusCode();
             var users = await response.Content.ReadFromJsonAsync<List<User>>();
 
@@ -132,7 +132,7 @@ namespace DoctorAppointment.IntegrationTests
 			users[0].Email = "john.noname@example.com";
 
             // act
-            var userResponse = await client.PutAsJsonAsync($"/api/users/update-user", users[0]);
+            var userResponse = await client.PutAsJsonAsync($"/api/v1/users/update-user", users[0]);
             userResponse.EnsureSuccessStatusCode();
 
             // assert
@@ -162,7 +162,7 @@ namespace DoctorAppointment.IntegrationTests
                 Password = "123456.Abcde",
             };
 
-            var response = await client.PostAsJsonAsync("/api/users/register", user);
+            var response = await client.PostAsJsonAsync("/api/v1/users/register", user);
             response.EnsureSuccessStatusCode();
             // get the new user id
             var newUser = await response.Content.ReadFromJsonAsync<User>();
@@ -171,7 +171,7 @@ namespace DoctorAppointment.IntegrationTests
 				throw new ArgumentNullException(nameof(newUser));
 			}
 			// act
-			var userResponse = await client.DeleteAsync($"/api/users/{newUser.Id}");
+			var userResponse = await client.DeleteAsync($"/api/v1/users/{newUser.Id}");
             userResponse.EnsureSuccessStatusCode();
 
             // assert

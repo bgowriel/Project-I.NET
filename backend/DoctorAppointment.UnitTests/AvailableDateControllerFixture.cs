@@ -101,6 +101,23 @@ namespace DoctorAppointment.UnitTests
 			// Assert
 			Assert.That(result, Is.InstanceOf<OkObjectResult>());
 		}
-	}
-	
+
+        [Test]
+        public async Task GetAvailableDateByIdReturnsNotFound()
+        {
+            // Arrange
+            _mockMediator.Setup(m => m.Send(It.IsAny<GetAvailableDateById>(), It.IsAny<CancellationToken>()))
+                .ReturnsAsync((AvailableDate)null);
+
+            var controller = new AvailableDateController(_mockMediator.Object, _mockMapper.Object);
+
+            // Act
+            var result = await controller.GetAvailableDateById(_availableDate.Id);
+
+            // Assert
+            Assert.That(result, Is.InstanceOf<NotFoundResult>());
+        }
+
+
+    }
 }

@@ -84,7 +84,7 @@ namespace DoctorAppointment.UnitTests
 
 		}
 
-		[Test]
+        [Test]
 		public async Task GetAllOfficesReturnsAllOffices()
 		{
 			// Arrange
@@ -117,6 +117,22 @@ namespace DoctorAppointment.UnitTests
 		}
 
 		[Test]
+        public async Task GetOfficeByIdReturnNotFound()
+        {
+            // Arrange
+            _mockMediator.Setup(m => m.Send(It.IsAny<GetOfficeById>(), It.IsAny<CancellationToken>()))
+                .ReturnsAsync((Office)null);
+
+            var controller = new OfficeController(_mockMediator.Object, _mockMapper.Object);
+
+            // Act
+            var result = await controller.GetOfficeById(_office.Id);
+
+            // Assert
+            Assert.That(result, Is.InstanceOf<NotFoundResult>());
+        }
+
+        [Test]
 		public async Task GetDoctorsByOfficeIdReturnsDoctorsByOfficeId()
 		{
 			// Arrange
