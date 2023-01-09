@@ -13,6 +13,8 @@ import { BillService } from 'app/services/bill/bill.service';
 import { Appointment } from 'app/shared/models/appointment.model';
 import { User } from 'app/shared/models/user.model';
 import { Bill } from 'app/shared/models/bill.model';
+import { DoctorService } from 'app/services/doctor/doctor.service';
+import { AppointmentService } from 'app/services/appointment/appointment.service';
 @Component({
   selector: 'app-add-appointment-modal',
   templateUrl: './add-appointment-modal.component.html',
@@ -24,11 +26,13 @@ export class AddAppointmentModalComponent implements OnInit {
   public bill: Bill = new Bill();
 
   @Output() onOfficeSelected: EventEmitter<any> = new EventEmitter();
+  @Output() onDateSelected: EventEmitter<any> = new EventEmitter();
 
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: any,
     private userService: UserService,
-    private billService: BillService
+    private billService: BillService,
+    private appointmentService: AppointmentService
   ) {}
 
   user: User;
@@ -80,35 +84,7 @@ export class AddAppointmentModalComponent implements OnInit {
     },
   ];
 
-  public hours = [
-    {
-      hour: 8,
-    },
-    {
-      hour: 9,
-    },
-    {
-      hour: 10,
-    },
-    {
-      hour: 11,
-    },
-    {
-      hour: 12,
-    },
-    {
-      hour: 13,
-    },
-    {
-      hour: 14,
-    },
-    {
-      hour: 15,
-    },
-    {
-      hour: 16,
-    },
-  ];
+  public hours = [8, 9, 10, 11, 12, 13, 14, 15, 16];
 
   officeSelected(id: string) {
     if (id) {
@@ -116,8 +92,30 @@ export class AddAppointmentModalComponent implements OnInit {
     }
   }
 
+  dateSelected(date: Date) {
+    if (date) {
+      let nextDate: Date = new Date(date);
+      nextDate.setDate(nextDate.getDate() + 1);
+
+      this.appointmentService
+        .getAppointmentsByDoctorIdAndDate(this.appointment.doctorId, nextDate)
+        .subscribe((res) => {
+          res.forEach((appointment) => {
+            if (
+              appointment.status === 'Approved' &&
+              this.hours.indexOf(appointment.hour) >= 0
+            ) {
+              this.hours.splice(this.hours.indexOf(appointment.hour), 1);
+            }
+          });
+        });
+    }
+  }
+
   async onSendRequestClick() {
-    console.log('CLICKED!');
+    let nextDate: Date = this.appointment.date;
+    nextDate.setDate(nextDate.getDate() + 1);
+    this.appointment.date = nextDate;
     this.bill.amount = 100;
     this.bill.date = new Date();
     this.bill.patientId = this.user.id.toString();
