@@ -39,4 +39,7 @@
   .card:hover{
      filter: brightness(97%)
   }
-  
+  .logo img{
+    width:50px;
+    height: auto;
+  }

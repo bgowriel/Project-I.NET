@@ -9,7 +9,6 @@ namespace DoctorAppointment.Api.Validators
         {
             RuleFor(x => x.Amount).NotEmpty();
             RuleFor(x => x.PatientId).NotEmpty();
-            RuleFor(x => x.DoctorId).NotEmpty();
             RuleFor(x => x.Date).NotEmpty();
         }
     }

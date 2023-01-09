@@ -96,6 +96,7 @@ namespace DoctorAppointment.Api.Controllers
             {
                 Id = id,
                 Date = appointmentPutPostDto.Date,
+                Hour = appointmentPutPostDto.Hour,
                 Description = appointmentPutPostDto.Description,
                 Status = appointmentPutPostDto.Status,
                 DoctorId = appointmentPutPostDto.DoctorId,

@@ -9,7 +9,10 @@ form {
     background-color: #ffffff; /*#ecc64bdd;*/
     padding: 5rem 5rem 5rem 5rem;
     align-items: center;
+    border-radius:20px;
+    box-shadow: 0 3px 5px -1px #0000001c, 0 6px 10px #0000001f, 0 1px 18px #00000000;
 }
+
 
 .button-section {
     display: flex;
@@ -27,14 +30,14 @@ button {
     font-size: 1rem;
     text-transform: uppercase;
     font-weight: 600;
-    color: #04093a;
+    color: white!important;
     margin-top: 2rem;
     margin-left: 1rem;
     margin-right: 1rem;
     padding-top: 1rem;
     padding-bottom: 1rem;
     width: 10rem;
-    background-color: #ecc64b99;
+    background-color: #0097dc;
 }
 
 mat-icon.isHidden {

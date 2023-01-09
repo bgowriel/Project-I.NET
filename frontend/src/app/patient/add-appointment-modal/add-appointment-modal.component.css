@@ -34,3 +34,9 @@
   pointer-events: none;
   opacity: 0.2;
 }
+
+.info-text {
+  margin-top: 1rem;
+  font-size: 1.25rem;
+  color: #666;
+}

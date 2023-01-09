@@ -20,12 +20,14 @@ namespace DoctorAppointment.Application.CommandHandlers
             {
                 Id = Guid.NewGuid(),
                 Date = request.Date,
+                Hour = request.Hour,
                 Description = request.Description,
                 Status = request.Status,
                 DoctorId = request.DoctorId,
                 PatientId = request.PatientId,
-                OfficeId = request.OfficeId
-            };
+                OfficeId = request.OfficeId,
+				BillId = request.BillId
+			};
 
             await _unitOfWork.AppointmentRepository.Insert(appointment);
             await _unitOfWork.Save();

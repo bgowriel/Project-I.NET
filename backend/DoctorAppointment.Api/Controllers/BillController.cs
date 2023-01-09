@@ -67,5 +67,23 @@ namespace DoctorAppointment.Api.Controllers
             return Ok(mappedResult);
         }
 
+        [HttpGet]
+        [Route("patient/{id}")]
+        public async Task<IActionResult> GetBillsByPatientId(string id)
+        {
+            var bills = await mediator.Send(new GetBillsByPatientId() { PatientId = id });
+            var mappedResult = mapper.Map<List<BillGetDto>>(bills);
+            return Ok(mappedResult);
+        }
+
+        [HttpGet]
+        [Route("doctor/{id}")]
+        public async Task<IActionResult> GetBillsByDoctorId(string id)
+        {
+            var bills = await mediator.Send(new GetBillsByDoctorId() { DoctorId = id });
+            var mappedResult = mapper.Map<List<BillGetDto>>(bills);
+            return Ok(mappedResult);
+        }
+
     }
 }
