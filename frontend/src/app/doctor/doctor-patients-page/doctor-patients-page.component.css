@@ -49,4 +49,7 @@
     align-items: center;
     z-index: 999;
   }
-  
+  .logo img{
+    width:50px;
+    height: auto;
+  }

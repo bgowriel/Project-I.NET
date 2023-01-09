@@ -15,7 +15,7 @@
     top:0;
     left:0;
     display: flex;
-    justify-content: right;
+    justify-content:space-between;
     background-color: white;
     box-shadow: 0 3px 5px -1px #0003, 0 6px 10px #00000024, 0 1px 18px #0000001f;
 }
@@ -97,4 +97,17 @@ button{
 }
 ul{
     margin-inline-end: 100px;
+}
+.logo{
+    padding-left:40px;
+    display:flex;
+    align-items: center;
+}
+.logo img{
+    width:60px;
+    height: auto;
+  }
+.right_menu{
+    display:flex;
+    align-items: center;
 }
