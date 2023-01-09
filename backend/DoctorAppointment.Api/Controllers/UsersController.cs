@@ -5,6 +5,7 @@ using DoctorAppointment.Application.Commands;
 using DoctorAppointment.Application.Queries;
 using DoctorAppointment.Domain.Models;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
@@ -156,7 +157,7 @@ namespace DoctorAppointment.Api.Controllers
         }
 
         [HttpGet]
-        //[Authorize]
+        [Authorize]
         public async Task<IActionResult> GetUsers()
         {
             var query = new GetAllUsers();
@@ -166,7 +167,7 @@ namespace DoctorAppointment.Api.Controllers
         }
 
         [HttpGet]
-        //[Authorize]
+        [Authorize]
         [Route("{id}")]
         public async Task<IActionResult> GetUser(string id)
         {
@@ -181,7 +182,7 @@ namespace DoctorAppointment.Api.Controllers
         }
 
 		[HttpPost]
-        //[Authorize]
+        [Authorize]
         [Route("assign-role")]
         public async Task<IActionResult> AssignRole([FromBody] string userName, string roleName)
         {
@@ -207,7 +208,7 @@ namespace DoctorAppointment.Api.Controllers
         }
 
 		[HttpPut]
-        //[Authorize]
+        [Authorize]
 		[Route("assign-doctor-to-office/{doctorId}/{officeId}")]
 		public async Task<IActionResult> AssignDoctorToOffice([FromRoute] string doctorId, [FromRoute] Guid officeId)
 		{
@@ -233,7 +234,7 @@ namespace DoctorAppointment.Api.Controllers
 		}
 
         [HttpDelete]
-        //[Authorize]
+        [Authorize]
         [Route("{id}")]
         public async Task<IActionResult> DeleteUser(string id)
         {
@@ -253,7 +254,7 @@ namespace DoctorAppointment.Api.Controllers
         }
 
         [HttpPut]
-        //[Authorize]
+        [Authorize]
         [Route("update-user")]
         public async Task<IActionResult> UpdateUser([FromBody] User user)
         {

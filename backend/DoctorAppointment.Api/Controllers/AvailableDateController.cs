@@ -4,14 +4,14 @@ using DoctorAppointment.Api.Validators;
 using DoctorAppointment.Application.Commands;
 using DoctorAppointment.Application.Queries;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics.CodeAnalysis;
 
 namespace DoctorAppointment.Api.Controllers
 {
-    //[ExcludeFromCodeCoverage]
     [ApiController]
-    //[Authorize]
+    [Authorize]
     [Route("api/v{version:apiVersion}/[controller]")]
     [ApiVersion("1.0")]
     [ApiVersion("1.5", Deprecated = true)]

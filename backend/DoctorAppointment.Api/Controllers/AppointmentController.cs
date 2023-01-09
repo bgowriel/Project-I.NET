@@ -4,11 +4,12 @@ using DoctorAppointment.Api.Dto;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using DoctorAppointment.Application.Commands;
+using Microsoft.AspNetCore.Authorization;
 
 namespace DoctorAppointment.Api.Controllers
 {
     [ApiController]
-    //[Authorize]
+    [Authorize]
     [Route("api/v{version:apiVersion}/appointments")]
     [ApiVersion("1.0")]
     [ApiVersion("1.5", Deprecated = true)]
